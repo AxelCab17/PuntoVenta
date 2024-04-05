@@ -2,9 +2,9 @@
 
 namespace PuntoVentaWeb.Controllers
 {
-    public class NuevaVentaController : Controller
+    public class CarritoController : Controller
     {
-        public IActionResult NuevaVenta()
+        public IActionResult Carrito()
         {
             return View();
         }
