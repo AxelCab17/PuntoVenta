@@ -17,7 +17,7 @@
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.css" rel="stylesheet">
 </head>
-<body class="bg-gradient-info">
+<body class="login-bg">
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -26,7 +26,9 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <img src="https://scontent.fsyq1-1.fna.fbcdn.net/v/t39.30808-6/309997856_129708563171442_8235390354107964171_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=4dlMLPJ4t8YAb6su0Z-&_nc_ht=scontent.fsyq1-1.fna&cb_e2o_trans=q&oh=00_AfCBlMt_pGunN2HbHR8n8bd5fxAXpkeiMuOY7Px-EyW89A&oe=66176A98" style="max-width: 100%; max-height: 100%;" alt="Descripción de la imagen" class="bg-login-image">
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -54,13 +56,17 @@
                                                 </div>
                                             </div>
                                         }
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-tienda btn-user btn-block " asp-controller="Home" asp-action="Index">
                                             Ingresar
                                         </button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="@Url.Action("Password", "Login")">¿Olvidó su contraseña?</a>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <a class="small" href="@Url.Action("Register", "Login")">¿No estas registrado, registrate aqui?</a>
                                     </div>
                                 </div>
                             </div>

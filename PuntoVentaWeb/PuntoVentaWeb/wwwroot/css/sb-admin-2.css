@@ -69,6 +69,8 @@ body {
   background-color: #fff;
 }
 
+
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }
@@ -11375,6 +11377,16 @@ body.sidebar-toggled footer.sticky-footer {
 
 .index-card:hover {
     box-shadow: none;
+}
+
+.login-bg {
+    background: linear-gradient(-45deg, #00A973 0%, #02735E 100% );
+}
+
+
+.btn-tienda {
+    color: white;
+    background-color: #02735E;
 }
 
 
