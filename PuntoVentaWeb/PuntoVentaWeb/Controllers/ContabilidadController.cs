@@ -2,12 +2,11 @@
 
 namespace PuntoVentaWeb.Controllers
 {
-    public class UsuariosController : Controller
+    public class ContabilidadController : Controller
     {
-        public ActionResult Usuarios()
+        public IActionResult Contabilidad()
         {
             return View();
         }
-
     }
 }
