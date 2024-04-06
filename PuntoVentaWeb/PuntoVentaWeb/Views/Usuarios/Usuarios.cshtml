@@ -209,10 +209,11 @@
                                                 <td>ADMIN</td>
                                                 <td><span class="badge badge-info">Activo</span></td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm">
+                                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalEditarUsuario">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm">
+                                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminarUsuario">
+
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -226,10 +227,10 @@
                                                 <td>Empleado</td>
                                                 <td><span class="badge badge-danger">No Activo</span></td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm">
+                                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalEditarUsuario">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm">
+                                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminarUsuario">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -241,7 +242,7 @@
                         </div>
                     </div>
 
-                    <!--  Modal-->
+                    <!--  Modal Aregar Usuarios-->
                     <div class="modal fade" id="modalData" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
@@ -306,6 +307,107 @@
                             </div>
                         </div>
                     </div>
+                    <!--  Modal Editar Usuarios-->
+                    <div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6>Editar Usuario</h6>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <!-- Id oculto -->
+                                        <input type="hidden" value="id_usuario_aqui" id="txtIdEditarUsuario">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <!-- Nombre y Correo -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtNombreEditar">Nombre</label>
+                                                        <input type="text" class="form-control form-control-sm" id="txtNombreEditar" name="Nombre">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtCorreoEditar">Correo</label>
+                                                        <input type="email" class="form-control form-control-sm" id="txtCorreoEditar" name="Correo">
+                                                    </div>
+                                                </div>
+                                                <!-- Teléfono y Rol -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtTelefonoEditar">Teléfono</label>
+                                                        <input type="tel" class="form-control form-control-sm" id="txtTelefonoEditar" name="Telefono">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="selectRolEditar">Rol</label>
+                                                        <select class="form-control form-control-sm" id="selectRolEditar">
+                                                            <option value="administrador">Administrador</option>
+                                                            <option value="usuario">Usuario</option>
+                                                           
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- Estado y Foto -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="selectEstadoEditar">Estado</label>
+                                                        <select class="form-control form-control-sm" id="selectEstadoEditar">
+                                                            <option value="activo">Activo</option>
+                                                            <option value="inactivo">Inactivo</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="fileFotoEditar">Foto</label>
+                                                        <input type="file" class="form-control-file" id="fileFotoEditar">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <!-- Visualización de la foto actual del usuario -->
+                                                <img id="imgUsuario" style="max-width:200px;" src="https://media.licdn.com/dms/image/D4D03AQEelNq_oa2gKg/profile-displayphoto-shrink_800_800/0/1669796244950?e=1717632000&v=beta&t=RTBub-saivccjYnUx4khkRjDMwf_Y-1SHvGyP6iiQRw" class="rounded mx-auto d-block" alt="Foto usuario">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary btn-sm" type="button" id="btnGuardarCambiosUsuario">Guardar Cambios</button>
+                                    <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Eliminar Usuario --!>
+                    <div class="modal fade" id="modalEliminarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalEliminarUsuarioLabel" aria-hidden="true" data-backdrop="static">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6>Eliminar Usuario</h6>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <input type="hidden" value="id_usuario_aqui" id="txtIdEliminarUsuario">
+                                        <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+                                        <p class="text-danger">Esta acción no se puede deshacer.</p>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                   
+
+
 
                 </div>
                 <!-- /.container-fluid -->
