@@ -10,8 +10,8 @@ let myPieChart = new Chart(controlProducto, {
     labels: ["Producto A", "Producto B", "Producto C", "Producto D"],
     datasets: [{
       data: [55, 30, 15, 10],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc',"#FF785B"],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf',"#FF5733"],
+      backgroundColor: ['#f2b705', '#f29f05', '#f28705',"#525252"],
+      hoverBackgroundColor: ['#00a973', '#02735e', '#025949',"#353535"],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

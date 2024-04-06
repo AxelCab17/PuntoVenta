@@ -8,7 +8,7 @@ let controlVenta = document.getElementById("charVentas");
 let myBarChart = new Chart(controlVenta, {
   type: 'bar',
   data: {
-    labels: ["06/07/2022", "07/07/2022", "08/07/2022", "09/07/2022","10/07/2022","11/07/2022", "12/07/2022"],
+      labels: ["06/01/2024", "07/01/2024", "08/01/2024", "09/02/2024", "10/02/2024", "11/03/2024", "12/03/2024"],
     datasets: [{
       label: "Cantidad",
         backgroundColor: "#f28705",
