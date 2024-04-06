@@ -11,9 +11,9 @@ let myBarChart = new Chart(controlVenta, {
     labels: ["06/07/2022", "07/07/2022", "08/07/2022", "09/07/2022","10/07/2022","11/07/2022", "12/07/2022"],
     datasets: [{
       label: "Cantidad",
-      backgroundColor: "#4e73df",
-      hoverBackgroundColor: "#2e59d9",
-      borderColor: "#4e73df",
+        backgroundColor: "#f28705",
+        hoverBackgroundColor: "#F2B705",
+        borderColor: "#f28705",
       data: [12,10,22,11,15,10,22],
     }],
   },
