@@ -34,21 +34,20 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-desktop"></i>
+                    <i><img src="~/img/logo.png" style="max-width: 60%; max-height: 60%;" /></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">MI TIENDA</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -64,8 +63,10 @@
                 </a>
                 <div id="collapseAdministracion" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="usuarios.html">Usuarios</a>
-                        <a class="collapse-item" href="negocio.html">Negocio</a>
+                        <a class="collapse-item" href="@Url.Action("Proveedores", "Proveedores")">Proveedores</a>
+                        <a class="collapse-item" href="@Url.Action("Usuarios", "Usuarios")">Usuarios</a>
+                        <a class="collapse-item" href="@Url.Action("Login", "Login")">Login</a>
+
                     </div>
                 </div>
             </li>
@@ -79,14 +80,14 @@
                 </a>
                 <div id="collapseInventario" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="categorias.html">Categorias</a>
-                        <a class="collapse-item" href="productos.html">Productos</a>
+                        <a class="collapse-item" href="@Url.Action("Producto", "Productos")">Productos</a>
+
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Venta Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVenta"
                    aria-expanded="true" aria-controls="collapseVenta">
                     <i class="fas fa-fw fa-tags"></i>
@@ -94,8 +95,8 @@
                 </a>
                 <div id="collapseVenta" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="nueva_venta.html">Nueva Venta</a>
-                        <a class="collapse-item" href="historial_venta.html">Historial Venta</a>
+                        <a class="collapse-item" href="@Url.Action("Carrito", "Carrito")">Carrito</a>
+                        <a class="collapse-item" href="@Url.Action("HistorialVenta", "HistorialVenta")">Historial Venta</a>
                     </div>
                 </div>
             </li>
@@ -109,13 +110,14 @@
                 </a>
                 <div id="collapseReportes" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="reporte_venta.html">Reporte de Ventas</a>
+                        <a class="collapse-item" href="@Url.Action("Reportes", "Reportes")">Reporte Venta</a>
                     </div>
                 </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -172,7 +174,7 @@
                 <div class="container-fluid">
 
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3 bg-second-primary">
+                        <div class="card-header py-3 ">
                             <h6 class="m-0 font-weight-bold text-white">Historial de Venta</h6>
                         </div>
                         <div class="card-body">
@@ -218,12 +220,12 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>27/04/2022</td>
+                                                <td>04/05/2024</td>
                                                 <td>00001</td>
-                                                <td>Boleta</td>
+                                                <td>Factura</td>
                                                 <td>101010</td>
-                                                <td>jose</td>
-                                                <td>2000</td>
+                                                <td>David</td>
+                                                <td>₡20.000</td>
                                                 <td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalData"><i class="fas fa-eye"></i> Ver Detalle</button></td>
                                             </tr>
                                         </tbody>
@@ -338,23 +340,24 @@
         <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Page Wrapper -->
+   <!-- End of Page Wrapper -->
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.js"></script>
+    <script src="~/js/sb-admin-2.js"></script>
+
+
 
     <!-- ============================================================
     =SCRIPTS PARA ESTA PAGINA
     ===============================================================-->
-
-    <script src="vendor/jquery-ui/idioma/datepicker-es.js"></script>
-    <script src="vendor/jquery-ui/jquery-ui.js"></script>
+    <script src="~/vendor/select2/select2.min.js"></script>
+    <script src="~/vendor/select2/es.min.js"></script>
 
 </body>
 
