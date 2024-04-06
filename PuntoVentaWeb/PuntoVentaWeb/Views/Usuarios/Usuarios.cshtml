@@ -37,30 +37,28 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-desktop"></i>
+                    <i><img src="~/img/logo.png" style="max-width: 60%; max-height: 60%;" /></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">MI TIENDA</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-
             <!-- Nav Item - Admnistración Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdministracion"
                    aria-expanded="true" aria-controls="collapseAdministracion">
                     <i class="fas fa-fw fa-cog"></i>
@@ -68,8 +66,10 @@
                 </a>
                 <div id="collapseAdministracion" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="usuarios.html">Usuarios</a>
-                        <a class="collapse-item" href="negocio.html">Negocio</a>
+                        <a class="collapse-item" href="@Url.Action("Proveedores", "Proveedores")">Proveedores</a>
+                        <a class="collapse-item" href="@Url.Action("Usuarios", "Usuarios")">Usuarios</a>
+                        <a class="collapse-item" href="@Url.Action("Login", "Login")">Login</a>
+
                     </div>
                 </div>
             </li>
@@ -83,8 +83,8 @@
                 </a>
                 <div id="collapseInventario" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="categorias.html">Categorias</a>
-                        <a class="collapse-item" href="productos.html">Productos</a>
+                        <a class="collapse-item" href="@Url.Action("Producto", "Productos")">Productos</a>
+
                     </div>
                 </div>
             </li>
@@ -98,8 +98,8 @@
                 </a>
                 <div id="collapseVenta" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="nueva_venta.html">Nueva Venta</a>
-                        <a class="collapse-item" href="historial_venta.html">Historial Venta</a>
+                        <a class="collapse-item" href="@Url.Action("Carrito", "Carrito")">Carrito</a>
+                        <a class="collapse-item" href="@Url.Action("HistorialVenta", "HistorialVenta")">Historial Venta</a>
                     </div>
                 </div>
             </li>
@@ -113,13 +113,14 @@
                 </a>
                 <div id="collapseReportes" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="reporte_venta.html">Reporte de Ventas</a>
+                        <a class="collapse-item" href="@Url.Action("Reportes", "Reportes")">Reporte Venta</a>
                     </div>
                 </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -176,7 +177,7 @@
                 <div class="container-fluid">
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3 bg-second-primary">
+                        <div class="card-header py-3 ">
                             <h6 class="m-0 font-weight-bold text-white">Lista de Usuarios</h6>
                         </div>
                         <div class="card-body">
@@ -205,10 +206,10 @@
                                             <tr>
                                                 <td>1</td>
                                                 <td><img style="height:60px ;" src="https://images.unsplash.com/photo-1519648023493-d82b5f8d7b8a?w=300" class="rounded mx-auto d-block" /></td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
+                                                <td>Valeria Ramirez</td>
+                                                <td>valeramirez@gmail.com</td>
+                                                <td>86754632</td>
+                                                <td>Empleado</td>
                                                 <td><span class="badge badge-info">Activo</span></td>
                                                 <td>
                                                     <button class="btn btn-primary btn-sm">
@@ -222,10 +223,10 @@
                                             <tr>
                                                 <td>2</td>
                                                 <td><img style="height:60px ;" src="https://images.unsplash.com/photo-1519648023493-d82b5f8d7b8a?w=300" class="rounded mx-auto d-block" /></td>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
+                                                <td>David Solano</td>
+                                                <td>davidsolano@gmail.com</td>
+                                                <td>84532729</td>
+                                                <td>Empleado</td>
                                                 <td><span class="badge badge-danger">No Activo</span></td>
                                                 <td>
                                                     <button class="btn btn-primary btn-sm">
@@ -330,31 +331,33 @@
     </div>
     <!-- End of Page Wrapper -->
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.js"></script>
+    <script src="~/js/sb-admin-2.js"></script>
 
 
     <!-- ============================================================
     =SCRIPTS PARA ESTA PAGINA
     ===============================================================-->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <script src="vendor/datatables/extensiones/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendor/datatables/extensiones/js/dataTables.responsive.min.js"></script>
 
-    <script src="vendor/datatables/extensiones/js/dataTables.buttons.min.js"></script>
-    <script src="vendor/datatables/extensiones/js/jszip.min.js"></script>
-    <script src="vendor/datatables/extensiones/js/buttons.html5.min.js"></script>
-    <script src="vendor/datatables/extensiones/js/buttons.print.min.js"></script>
+    <script src="~/vendor/datatables/extensiones/js/dataTables.buttons.min.js"></script>
+    <script src="~/vendor/datatables/extensiones/js/jszip.min.js"></script>
+    <script src="~/vendor/datatables/extensiones/js/buttons.html5.min.js"></script>
+    <script src="~/vendor/datatables/extensiones/js/buttons.print.min.js"></script>
+
+
 
     <!-- SOLO ES DE EJEMPLO - IGNORAR -->
-    <script src="js/vistas/datatables-demo.js"></script>
+    <script src="~/js/vistas/datatables-demo.js"></script>
 
 </body>
 
