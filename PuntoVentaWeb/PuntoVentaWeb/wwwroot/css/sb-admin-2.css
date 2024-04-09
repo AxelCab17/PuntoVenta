@@ -11342,22 +11342,21 @@ body.sidebar-toggled footer.sticky-footer {
 .index-card {
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
     background: linear-gradient(-45deg, #00A973 0%, #02735E 100% );
-}
-
-.index-card:hover {
-      transform: scale(1.05);
-}
-
-.index-card:active {
-    transform: scale(0.95) rotateZ(1.7deg);
-}
-
-.index-card {
     color: white;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
     border-left-color: #f28705;
     border-left-width: 5px;
 }
+
+    .index-card:hover {
+        transform: scale(1.05);
+        box-shadow: none;
+    }
+
+.index-card:active {
+    transform: scale(0.95) rotateZ(1.7deg);
+}
+
 
     .index-card::before {
         content: "";
@@ -11375,9 +11374,6 @@ body.sidebar-toggled footer.sticky-footer {
     width: 100%;
 }
 
-.index-card:hover {
-    box-shadow: none;
-}
 
 .login-bg {
     background: linear-gradient(-45deg, #00A973 0%, #02735E 100% );
@@ -11390,4 +11386,59 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 
+
+.btn-all {
+    background: #00A973;
+    color: white;
+}
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: none;
+        color:white;
+    }
+
+    .btn-all::before {
+        background:  #F2B705;
+
+    }
+
+    .btn:hover::before {
+        width: 100%;
+    }
+.btn {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+
+.btn:active {
+    transform: scale(0.95) rotateZ(1.7deg);
+}
+    .btn::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 5px;
+        height: 100%;
+        
+        z-index: -1;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+
+
+.table-row {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+    .table-row:hover {
+        background: #e7f2cd;
+    }
+.table-row::before {
+    height: 100%;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+.table-row:hover::before {
+    width: 100%;
+}
 

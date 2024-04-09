@@ -180,7 +180,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#modalData"><i class="fas fa-user-plus"></i> Nuevo Usuario</button>
+                                    <button class="btn btn-all" data-toggle="modal" data-target="#modalData"><i class="fas fa-user-plus"></i> Nuevo Usuario</button>
                                 </div>
                             </div>
                             <hr />
@@ -200,7 +200,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr class="table-row">
                                                 <td>1</td>
                                                 <td><img style="height:60px ;" src="https://media.licdn.com/dms/image/D4E03AQGB7uyxtc_y9A/profile-displayphoto-shrink_800_800/0/1712626625641?e=1718236800&v=beta&t=UZR4ysjhZXM8lVnkIOb9Rk99pjtAhAYLw7XmXMJTRBQ" class="rounded mx-auto d-block" /></td>
                                                 <td>Axel Cabezas</td>
@@ -209,7 +209,7 @@
                                                 <td>ADMIN</td>
                                                 <td><span class="badge badge-info">Activo</span></td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalEditarUsuario">
+                                                    <button class="btn btn-all btn-sm" data-toggle="modal" data-target="#modalEditarUsuario">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
                                                     <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminarUsuario">
@@ -218,7 +218,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr class="table-row">
                                                 <td>2</td>
                                                 <td><img style="height:60px ;" src="https://media.licdn.com/dms/image/C4E03AQESjRLPnFy-vw/profile-displayphoto-shrink_800_800/0/1623293875349?e=2147483647&v=beta&t=x51zMM3pbXwCTUA6fu3c8SpCm-GGH6MxlwDT1h8PblY" class="rounded mx-auto d-block" /></td>
                                                 <td>David Solano</td>
@@ -227,7 +227,7 @@
                                                 <td>Empleado</td>
                                                 <td><span class="badge badge-danger">No Activo</span></td>
                                                 <td>
-                                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalEditarUsuario">
+                                                    <button class="btn btn-all btn-sm" data-toggle="modal" data-target="#modalEditarUsuario">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
                                                     <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminarUsuario">
@@ -301,7 +301,7 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary btn-sm" type="button" id="btnGuardar">Guardar</button>
+                                    <button class="btn btn-all btn-sm" type="button" id="btnGuardar">Guardar</button>
                                     <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
@@ -345,7 +345,7 @@
                                                         <select class="form-control form-control-sm" id="selectRolEditar">
                                                             <option value="administrador">Administrador</option>
                                                             <option value="usuario">Usuario</option>
-                                                           
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -366,13 +366,13 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <!-- Visualización de la foto actual del usuario -->
-                                                <img id="imgUsuario" style="max-width:200px;" src="https://media.licdn.com/dms/image/C4E03AQESjRLPnFy-vw/profile-displayphoto-shrink_800_800/0/1623293875349?e=2147483647&v=beta&t=x51zMM3pbXwCTUA6fu3c8SpCm-GGH6MxlwDT1h8PblY" class="rounded mx-auto d-block" alt="Foto usuario">
+                                                <img id="imgUsuario" style="max-width:200px;" src="https://media.licdn.com/dms/image/D4E03AQGB7uyxtc_y9A/profile-displayphoto-shrink_800_800/0/1712626625641?e=1718236800&v=beta&t=UZR4ysjhZXM8lVnkIOb9Rk99pjtAhAYLw7XmXMJTRBQ" class="rounded mx-auto d-block" alt="Foto usuario">
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary btn-sm" type="button" id="btnGuardarCambiosUsuario">Guardar Cambios</button>
+                                    <button class="btn btn-all btn-sm" type="button" id="btnGuardarCambiosUsuario">Guardar Cambios</button>
                                     <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
@@ -380,83 +380,83 @@
                     </div>
 
                     <!-- Modal Eliminar Usuario --!>
-                    <div class="modal fade" id="modalEliminarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalEliminarUsuarioLabel" aria-hidden="true" data-backdrop="static">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h6>Eliminar Usuario</h6>
-                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <input type="hidden" value="id_usuario_aqui" id="txtIdEliminarUsuario">
-                                        <p>¿Estás seguro de que deseas eliminar este usuario?</p>
-                                        <p class="text-danger">Esta acción no se puede deshacer.</p>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Eliminar</button>
+                        <div class="modal fade" id="modalEliminarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalEliminarUsuarioLabel" aria-hidden="true" data-backdrop="static">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6>Eliminar Usuario</h6>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <input type="hidden" value="id_usuario_aqui" id="txtIdEliminarUsuario">
+                                            <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+                                            <p class="text-danger">Esta acción no se puede deshacer.</p>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-all" data-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Eliminar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
+
+
+
+
                     </div>
-
-
-                   
-
-
+                    <!-- /.container-fluid -->
 
                 </div>
-                <!-- /.container-fluid -->
+                <!-- End of Main Content -->
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2021</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
 
             </div>
-            <!-- End of Main Content -->
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
+        <!-- Bootstrap core JavaScript-->
+        <script src="~/vendor/jquery/jquery.min.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    </div>
-    <!-- End of Page Wrapper -->
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="~/js/sb-admin-2.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="~/js/sb-admin-2.js"></script>
 
 
-    <!-- ============================================================
-    =SCRIPTS PARA ESTA PAGINA
-    ===============================================================-->
-    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- ============================================================
+        =SCRIPTS PARA ESTA PAGINA
+        ===============================================================-->
+        <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <script src="~/vendor/datatables/extensiones/js/dataTables.responsive.min.js"></script>
+        <script src="~/vendor/datatables/extensiones/js/dataTables.responsive.min.js"></script>
 
-    <script src="~/vendor/datatables/extensiones/js/dataTables.buttons.min.js"></script>
-    <script src="~/vendor/datatables/extensiones/js/jszip.min.js"></script>
-    <script src="~/vendor/datatables/extensiones/js/buttons.html5.min.js"></script>
-    <script src="~/vendor/datatables/extensiones/js/buttons.print.min.js"></script>
+        <script src="~/vendor/datatables/extensiones/js/dataTables.buttons.min.js"></script>
+        <script src="~/vendor/datatables/extensiones/js/jszip.min.js"></script>
+        <script src="~/vendor/datatables/extensiones/js/buttons.html5.min.js"></script>
+        <script src="~/vendor/datatables/extensiones/js/buttons.print.min.js"></script>
 
 
 
-    <!-- SOLO ES DE EJEMPLO - IGNORAR -->
-    <script src="~/js/vistas/datatables-demo.js"></script>
+        <!-- SOLO ES DE EJEMPLO - IGNORAR -->
+        <script src="~/js/vistas/datatables-demo.js"></script>
 
 </body>
 
