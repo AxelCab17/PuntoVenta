@@ -122,18 +122,14 @@
         </ul>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+        <div id="content">
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -210,7 +206,7 @@
                                                     <button class="btn btn-all btn-sm" data-toggle="modal" data-target="#modalEditarProveedor">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminarProveedor">
+                                                    <button class="btn btn-exit btn-sm" data-toggle="modal" data-target="#modalEliminarProveedor">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -229,7 +225,7 @@
                                                     <button class="btn btn-all btn-sm" data-toggle="modal" data-target="#modalEditarProveedor">
                                                         <i class="fas fa-pencil-alt"></i>
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminarProveedor">
+                                                    <button class="btn btn-exit btn-sm" data-toggle="modal" data-target="#modalEliminarProveedor">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </td>
@@ -378,7 +374,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-all btn-sm" type="button" id="btnGuardarCambiosProveedor">Guardar Cambios</button>
-                                    <button class="btn btn-danger btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                                    <button class="btn btn-exit btn-sm" type="button" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
                         </div>
@@ -399,7 +395,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-all" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-danger">Eliminar</button>
+                                    <button type="button" class="btn btn-exit">Eliminar</button>
                                 </div>
                             </div>
                         </div>
@@ -409,20 +405,20 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
-            
+                
             <!-- End of Main Content -->
+
+
+        </div>
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-white footer">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; SuperMás 2024</span>
                     </div>
                 </div>
             </footer>
             <!-- End of Footer -->
-
-        </div>
        
         <!-- End of Content Wrapper -->
     </div>
@@ -439,5 +435,6 @@
     <script src="~/js/sb-admin-2.js"></script>
 
 </body>
+
 
 </html>

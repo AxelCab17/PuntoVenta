@@ -11392,16 +11392,46 @@ body.sidebar-toggled footer.sticky-footer {
     color: white;
 }
 
-    .btn:hover {
-        transform: scale(1.05);
-        box-shadow: none;
-        color:white;
-    }
+
 
     .btn-all::before {
         background:  #F2B705;
 
     }
+
+.btn-exit {
+    background: #a20c1c;
+    color: white;
+}
+
+.btn-exit::before {
+    background: #da1025;
+}
+
+.btn-plus {
+    background: white;
+    color: grey;
+    outline-color: grey;
+}
+
+    .btn-plus::before {
+        background: #00A973;
+        outline-color: #02735E;
+    }
+
+.btn-minus {
+    background: white;
+    color: grey;
+    outline-color: grey;
+    border-left-color: white;
+}
+
+    .btn-minus::before {
+        background: #F2B705;
+        outline-color: #f28705;
+
+    }
+
 
     .btn:hover::before {
         width: 100%;
@@ -11409,6 +11439,12 @@ body.sidebar-toggled footer.sticky-footer {
 .btn {
     transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
 }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: none;
+        color: white;
+    }
 
 
 .btn:active {
@@ -11419,7 +11455,7 @@ body.sidebar-toggled footer.sticky-footer {
         position: absolute;
         left: 0;
         bottom: 0;
-        width: 5px;
+        width: 0px;
         height: 100%;
         
         z-index: -1;
