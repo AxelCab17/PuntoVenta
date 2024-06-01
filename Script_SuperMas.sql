@@ -12,9 +12,14 @@ CREATE TABLE Categoria (
 
 -- Tabla Proveedores
 CREATE TABLE Proveedores (
-    ID INT PRIMARY KEY IDENTITY,
-    Nombre VARCHAR(100) NOT NULL,
-    Fecha DATE NOT NULL
+    IdProveedor INT IDENTITY(1,1) PRIMARY KEY,
+    Imagen VARCHAR(255),
+    NumeroDocumento VARCHAR(50),
+    RazonSocial VARCHAR(255),
+    Correo VARCHAR(255),
+    Direccion VARCHAR(255),
+    Telefono VARCHAR(50),
+    Impuesto DECIMAL(5, 2)
 );
 
 -- Tabla Producto
@@ -22,38 +27,35 @@ CREATE TABLE Producto (
     ID INT PRIMARY KEY IDENTITY,
     Nombre VARCHAR(100) NOT NULL,
     CategoriaID INT,
-	Precio DECIMAL(10, 2) NOT NULL,
+    Precio DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (CategoriaID) REFERENCES Categoria(ID)
 );
 
 -- Tabla Inventario
 CREATE TABLE Inventario (
     ID INT PRIMARY KEY IDENTITY,
-    Nombre VARCHAR(100) NOT NULL,
     ProductoID INT,
     Cantidad INT NOT NULL,
     ProveedorID INT,
     FOREIGN KEY (ProductoID) REFERENCES Producto(ID),
-    FOREIGN KEY (ProveedorID) REFERENCES Proveedores(ID)
+    FOREIGN KEY (ProveedorID) REFERENCES Proveedores(IdProveedor)
 );
 
 -- Tabla Ventas
 CREATE TABLE Ventas (
     ID INT PRIMARY KEY IDENTITY,
-    Fecha DATE NOT NULL,
+    Fecha DATE NOT NULL
 );
 
 -- Tabla ProductoVenta
 CREATE TABLE ProductoVenta (
     ID INT PRIMARY KEY IDENTITY,
     ProductoID INT,
-	VentaID INT,
+    VentaID INT,
     Cantidad INT NOT NULL,
-	FOREIGN KEY (ProductoID) REFERENCES Producto(ID),
+    FOREIGN KEY (ProductoID) REFERENCES Producto(ID),
     FOREIGN KEY (VentaID) REFERENCES Ventas(ID)
 );
-
-
 
 -- Tabla Factura
 CREATE TABLE Factura (
@@ -88,7 +90,7 @@ CREATE TABLE Usuarios (
     RolID INT,
     EmpleadoID INT,
     Usuario VARCHAR(100) NOT NULL,
-    Contraseña VARCHAR(100) NOT NULL,
+    Contrasena VARCHAR(100) NOT NULL,
     FOREIGN KEY (RolID) REFERENCES Roles(ID),
     FOREIGN KEY (EmpleadoID) REFERENCES Empleados(ID)
 );
