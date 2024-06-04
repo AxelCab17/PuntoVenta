@@ -1,4 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using PuntoVentaWeb.Areas.Identity.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("PuntoVentaDBContextConnection") ?? throw new InvalidOperationException("Connection string 'PuntoVentaDBContextConnection' not found.");
+
+builder.Services.AddDbContext<PuntoVentaDBContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<PuntoVentaUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<PuntoVentaDBContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -23,5 +31,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
