@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,16 +49,16 @@
             <!-- Nav Item - Admnistración Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdministracion"
-                    aria-expanded="true" aria-controls="collapseAdministracion">
+                   aria-expanded="true" aria-controls="collapseAdministracion">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Admnistración</span>
                 </a>
                 <div id="collapseAdministracion" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("Proveedores", "Proveedores")">Proveedores</a>
+                        <a class="collapse-item" href="@Url.Action("RegistrarProveedor", "Proveedor")">Proveedores</a>
                         <a class="collapse-item" href="@Url.Action("Usuarios", "Usuarios")">Usuarios</a>
                         <a class="collapse-item" href="@Url.Action("Login", "Login")">Login</a>
-                        
+
                     </div>
                 </div>
             </li>
@@ -67,13 +66,13 @@
             <!-- Nav Item - Inventario Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventario"
-                    aria-expanded="true" aria-controls="collapseInventario">
+                   aria-expanded="true" aria-controls="collapseInventario">
                     <i class="fas fa-fw fa-clipboard-list"></i>
                     <span>Inventario</span>
                 </a>
                 <div id="collapseInventario" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("Producto", "Productos")">Productos</a >
+                        <a class="collapse-item" href="@Url.Action("Producto", "Productos")">Productos</a>
 
                     </div>
                 </div>
@@ -82,28 +81,28 @@
             <!-- Nav Item - Venta Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVenta"
-                    aria-expanded="true" aria-controls="collapseVenta">
+                   aria-expanded="true" aria-controls="collapseVenta">
                     <i class="fas fa-fw fa-tags"></i>
                     <span>Ventas</span>
                 </a>
                 <div id="collapseVenta" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("Carrito", "Carrito")">Carrito</a >
+                        <a class="collapse-item" href="@Url.Action("Carrito", "Carrito")">Carrito</a>
                         <a class="collapse-item" href="@Url.Action("HistorialVenta", "HistorialVenta")">Historial Venta</a>
                     </div>
                 </div>
             </li>
 
-             <!-- Nav Item - Reportes Collapse Menu -->
-             <li class="nav-item">
+            <!-- Nav Item - Reportes Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReportes"
-                    aria-expanded="true" aria-controls="collapseReportes">
+                   aria-expanded="true" aria-controls="collapseReportes">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Reportes</span>
                 </a>
                 <div id="collapseReportes" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("Reportes", "Reportes")">Reporte Venta</a >
+                        <a class="collapse-item" href="@Url.Action("Reportes", "Reportes")">Reporte Venta</a>
                         <a class="collapse-item" href="@Url.Action("Contabilidad", "Contabilidad")">Contabilidad</a>
                     </div>
                 </div>
@@ -118,7 +117,6 @@
             </div>
         </ul>
         <!-- End of Sidebar -->
-        
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -141,14 +139,14 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">ADMIN</span>
                                 <img class="img-profile rounded-circle"
-                                    src="https://media.licdn.com/dms/image/D4E03AQGB7uyxtc_y9A/profile-displayphoto-shrink_800_800/0/1712626625641?e=1718236800&v=beta&t=UZR4ysjhZXM8lVnkIOb9Rk99pjtAhAYLw7XmXMJTRBQ">
+                                     src="https://media.licdn.com/dms/image/D4E03AQGB7uyxtc_y9A/profile-displayphoto-shrink_800_800/0/1712626625641?e=1718236800&v=beta&t=UZR4ysjhZXM8lVnkIOb9Rk99pjtAhAYLw7XmXMJTRBQ">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
+                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="@Url.Action("Perfil", "Login")">Perfil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -162,14 +160,11 @@
 
                 </nav>
                 <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
-               
                 <!-- /.container-fluid -->
                 @RenderBody()
             </div>
             <!-- End of Main Content -->
-            
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -185,7 +180,6 @@
 
     </div>
     <!-- End of Page Wrapper -->
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -196,7 +190,7 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.js"></script>
 
-    
+
     <!-- ============================================================
     =SCRIPTS PARA ESTA PAGINA
     ===============================================================-->
@@ -206,6 +200,7 @@
     <script src="js/vistas/chart-bar-demo.js"></script>
     <script src="js/vistas/chart-pie-demo.js"></script>
 
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>
