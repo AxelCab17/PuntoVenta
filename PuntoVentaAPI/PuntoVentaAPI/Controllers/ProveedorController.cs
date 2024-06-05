@@ -66,24 +66,177 @@ namespace PuntoVentaAPI.Controllers
         [HttpGet]
         public IActionResult ConsultarProveedores()
         {
-            using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+            ProveedorRespuesta proveedorRespuesta = new ProveedorRespuesta();
+            try
             {
-                ProveedorRespuesta proveedorRespuesta = new ProveedorRespuesta();
-
-                var resultadoBD = db.Query<ProveedorEnt>("ConsultarProveedores", new { }, commandType: CommandType.StoredProcedure).ToList();
-
-                if (resultadoBD == null || resultadoBD.Count == 0)
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
-                    proveedorRespuesta.Codigo = "-1";
-                    proveedorRespuesta.Mensaje = "No hay servicios registrados.";
+                    var resultadoBD = db.Query<ProveedorEnt>("ConsultarProveedores", new { }, commandType: CommandType.StoredProcedure).ToList();
+
+                    if (resultadoBD == null || resultadoBD.Count == 0)
+                    {
+                        proveedorRespuesta.Codigo = "-1";
+                        proveedorRespuesta.Mensaje = "No hay proveedores registrados.";
+                    }
+                    else
+                    {
+                        proveedorRespuesta.Datos = resultadoBD;
+                        proveedorRespuesta.Codigo = "1";
+                        proveedorRespuesta.Mensaje = "Proveedores consultados con éxito.";
+                    }
+                    return Ok(proveedorRespuesta);
                 }
-                else
-                {
-                    proveedorRespuesta.Datos = resultadoBD;
-                }
-                return Ok(proveedorRespuesta);
+            }
+            catch (SqlException ex)
+            {
+               
+                return StatusCode(500, new { message = "Error al consultar proveedores en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+               
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al consultar proveedores.", error = ex.Message });
             }
         }
+
+
+        [AllowAnonymous]
+        [Route("ConsultarUnProveedor")]
+        [HttpGet]
+        public IActionResult ConsultarUnProveedor(long IdProveedor)
+        {
+            ProveedorRespuesta proveedorRespuesta = new ProveedorRespuesta();
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    var result = db.Query<ProveedorEnt>("ObtenerProveedorPorID",
+                        new { IdProveedor },
+                        commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+                    if (result == null)
+                    {
+                        proveedorRespuesta.Codigo = "-1";
+                        proveedorRespuesta.Mensaje = "No hay proveedores registrados.";
+                    }
+                    else
+                    {
+                        proveedorRespuesta.Dato = result;
+                        proveedorRespuesta.Codigo = "1";
+                        proveedorRespuesta.Mensaje = "Proveedor consultado con éxito.";
+                    }
+
+                    return Ok(proveedorRespuesta);
+                }
+            }
+            catch (SqlException ex)
+            {
+                
+                return StatusCode(500, new { message = "Error al consultar el proveedor en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+               
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al consultar el proveedor.", error = ex.Message });
+            }
+        }
+
+
+
+        [AllowAnonymous]
+        [Route("ActualizarProveedor")]
+        [HttpPut]
+        public IActionResult ActualizarProveedor(ProveedorEnt proveedor)
+        {
+            ProveedorRespuesta proveedorRespuesta = new ProveedorRespuesta();
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    var result = db.Execute("ActualizarProveedor",
+                        new
+                        {
+                            proveedor.IdProveedor,
+                            proveedor.Imagen,
+                            proveedor.NumeroDocumento,
+                            proveedor.RazonSocial,
+                            proveedor.Correo,
+                            proveedor.Direccion,
+                            proveedor.Telefono,
+                            proveedor.Impuesto
+                        },
+                        commandType: CommandType.StoredProcedure);
+
+                    if (result <= 0)
+                    {
+                        proveedorRespuesta.Codigo = "-1";
+                        proveedorRespuesta.Mensaje = "No se ha podido actualizar en la base de datos, intenta de nuevo";
+                        return BadRequest(proveedorRespuesta);
+                    }
+                    else
+                    {
+                        proveedorRespuesta.Codigo = "1";
+                        proveedorRespuesta.Mensaje = "Proveedor actualizado con éxito.";
+                        return Ok(proveedorRespuesta);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                
+                return StatusCode(500, new { message = "Error al actualizar el proveedor en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al actualizar el proveedor.", error = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("EliminarProveedor")]
+        [HttpDelete]
+        public IActionResult EliminarProveedor(long IdProveedor)
+        {
+            ProveedorRespuesta proveedorRespuesta = new ProveedorRespuesta();
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    var result = db.Execute("EliminarProveedor",
+                        new
+                        {
+                            IdProveedor
+                        },
+                        commandType: CommandType.StoredProcedure);
+
+                    if (result <= 0)
+                    {
+                        proveedorRespuesta.Codigo = "-1";
+                        proveedorRespuesta.Mensaje = "No se ha podido eliminar el proveedor en la base de datos, intenta de nuevo";
+                        return BadRequest(proveedorRespuesta);
+                    }
+                    else
+                    {
+                        proveedorRespuesta.Codigo = "1";
+                        proveedorRespuesta.Mensaje = "Proveedor eliminado con éxito.";
+                        return Ok(proveedorRespuesta);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+         
+                return StatusCode(500, new { message = "Error al eliminar el proveedor en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+              
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al eliminar el proveedor.", error = ex.Message });
+            }
+        }
+
     }
 }
+
 
