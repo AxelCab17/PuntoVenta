@@ -34,7 +34,7 @@ namespace PuntoVentaAPI.Controllers
                     {
                         proveedor.Imagen,
                         proveedor.NumeroDocumento,
-                        proveedor.RazonSocial,
+                        proveedor.Nombre,
                         proveedor.Correo,
                         proveedor.Direccion,
                         proveedor.Telefono,
@@ -159,7 +159,7 @@ namespace PuntoVentaAPI.Controllers
                             proveedor.IdProveedor,
                             proveedor.Imagen,
                             proveedor.NumeroDocumento,
-                            proveedor.RazonSocial,
+                            proveedor.Nombre,
                             proveedor.Correo,
                             proveedor.Direccion,
                             proveedor.Telefono,

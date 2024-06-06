@@ -29,9 +29,9 @@ namespace PuntoVentaWeb.Models
             return null;
         }
 
-        public ProveedorRespuesta? ConsultarUnProveedor(long id_proveedor)
+        public ProveedorRespuesta? ConsultarUnProveedor(long IdProveedor)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/ConsultarUnProveedor?id_proveedor=" + id_proveedor;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/ConsultarUnProveedor?IdProveedor=" + IdProveedor;
             var resp = _http.GetAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
@@ -53,9 +53,9 @@ namespace PuntoVentaWeb.Models
         }
 
 
-        public ProveedorRespuesta? EliminarProveedor(long id_proveedor)
+        public ProveedorRespuesta? EliminarProveedor(long IdProveedor)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/BorrarProveedor?id_proveedor=" + id_proveedor;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/EliminarProveedor?IdProveedor=" + IdProveedor;
             var resp = _http.DeleteAsync(url).Result;
             if (resp.IsSuccessStatusCode)
                 return resp.Content.ReadFromJsonAsync<ProveedorRespuesta>().Result;

@@ -1,79 +1,70 @@
 ﻿@model IEnumerable<PuntoVentaWeb.Entities.ProveedorEnt>
 
 @{
-    ViewData["Title"] = "ConsultarProveedores";
+    ViewData["Title"] = "Consultar Proveedores";
 }
 
-<h1>ConsultarProveedores</h1>
+<h1>Lista de Proveedores</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-success" href="@Url.Action("RegistrarProveedor", "Proveedor")">
+        <i class="fa fa-plus"></i> Nuevo Proveedor
+    </a>
 </p>
-<table class="table">
-    <thead>
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdProveedor)
+                @Html.DisplayNameFor(model => model.First().IdProveedor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Imagen)
+                @Html.DisplayNameFor(model => model.First().Imagen)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroDocumento)
+                @Html.DisplayNameFor(model => model.First().NumeroDocumento)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RazonSocial)
+                @Html.DisplayNameFor(model => model.First().Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Correo)
+                @Html.DisplayNameFor(model => model.First().Correo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Direccion)
+                @Html.DisplayNameFor(model => model.First().Direccion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefono)
+                @Html.DisplayNameFor(model => model.First().Telefono)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Impuesto)
+                @Html.DisplayNameFor(model => model.First().Impuesto)
             </th>
-            <th></th>
+
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                <td>@Html.DisplayFor(modelItem => item.IdProveedor)</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdProveedor)
+                    <img src="@Url.Content(item.Imagen)" alt="Imagen" style="width: 50px; height: 50px;" />
                 </td>
+                <td>@Html.DisplayFor(modelItem => item.NumeroDocumento)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
+                <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                <td>@Html.DisplayFor(modelItem => item.Impuesto)</td>
+            
                 <td>
-                    @Html.DisplayFor(modelItem => item.Imagen)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumeroDocumento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RazonSocial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Correo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefono)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Impuesto)
-                </td>
-                <td>
-                    <a class="btn btn-primary" href="@Url.Action("ActualizarProveedor","Proveedor", new { IdProveedor = item.IdProveedor })">
-                        <i class="fa fa-pencil-square-o faa-tada"></i> Actualizar
+                    <a class="btn btn-primary" href="@Url.Action("ActualizarProveedor", "Proveedor", new { IdProveedor = item.IdProveedor })">
+                        <i class="fa fa-pencil-square-o"></i> Actualizar
                     </a>
                     <button type="button" class="btn btn-danger passingID" data-toggle="modal" data-target="#exampleModal"
-                            data-id="@item.IdProveedor" data-name="@item.Correo">
-                        <i class="fa fa-trash-o faa-pulse"></i> Eliminar
+                            data-id="@item.IdProveedor" data-name="@item.Nombre">
+                        <i class="fa fa-trash-o"></i> Eliminar
                     </button>
                 </td>
             </tr>
@@ -108,6 +99,7 @@
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
         $(".passingID").click(function () {
             $("#IdProveedor").val($(this).data('id'));

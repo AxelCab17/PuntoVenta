@@ -19,10 +19,10 @@ namespace PuntoVentaWeb.Controllers
             var RespuestaApi = _proveedorModel.RegistrarProveedor(entidad);
 
             if (RespuestaApi?.Codigo == "1")
-                return RedirectToAction("RegistrarProveedor", "Proveedor");
+                return RedirectToAction("ConsultarProveedores", "Proveedor");
             else
             {
-                return RedirectToAction("ERROR", "Producto");
+                return RedirectToAction("ConsultarProveedores", "Proveedor");
             }
         }
 
