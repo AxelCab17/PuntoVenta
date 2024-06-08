@@ -68,7 +68,6 @@ namespace PuntoVentaAPI.Controllers
 
 
 
-
         [HttpPost]
         [Route("LoginUsuario")]
         public IActionResult LoginUsuario(UsuarioEnt ent)
@@ -76,36 +75,34 @@ namespace PuntoVentaAPI.Controllers
             UsuarioRespuesta usuarioRespuesta = new UsuarioRespuesta();
             try
             {
-
                 using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     var parametros = new
                     {
-
                         ent.Correo,
-                        ent.Contrasenna,
-
+                        ent.Contrasenna
                     };
 
-                    var result = db.Execute("LoginUsuario", parametros, commandType: CommandType.StoredProcedure);
+                    var usuario = db.QuerySingleOrDefault<UsuarioEnt>("LoginUsuario", parametros, commandType: CommandType.StoredProcedure);
 
-                    if (result > 0)
+                    if (usuario != null)
                     {
                         usuarioRespuesta.Codigo = "1";
                         usuarioRespuesta.Mensaje = "OK";
+                        usuarioRespuesta.Dato = usuario;
                         return Ok(usuarioRespuesta);
                     }
                     else
                     {
                         usuarioRespuesta.Codigo = "-1";
-                        usuarioRespuesta.Mensaje = "La información del usuario no se encuentra registrada";
+                        usuarioRespuesta.Mensaje = "La información del usuario no se encuentra registrada.";
                         return Ok(usuarioRespuesta);
                     }
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Ocurrió un error al registrar el usuario.", error = ex.Message });
+                return StatusCode(500, new { message = "Ocurrió un error al intentar iniciar sesión.", error = ex.Message });
             }
         }
     }
