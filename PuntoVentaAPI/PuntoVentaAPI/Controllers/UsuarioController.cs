@@ -78,10 +78,10 @@ namespace PuntoVentaAPI.Controllers
             {
 
                 using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
+                {
                     var parametros = new
                     {
-                      
+
                         ent.Correo,
                         ent.Contrasenna,
 
@@ -90,22 +90,23 @@ namespace PuntoVentaAPI.Controllers
                     var result = db.Execute("LoginUsuario", parametros, commandType: CommandType.StoredProcedure);
 
                     if (result > 0)
-                {
-                    usuarioRespuesta.Codigo = "1";
-                    usuarioRespuesta.Mensaje = "OK";
-                    return Ok(usuarioRespuesta);
-                }
-                else
-                {
-                    usuarioRespuesta.Codigo = "-1";
-                    usuarioRespuesta.Mensaje = "La información del usuario no se encuentra registrada";
-                    return Ok(usuarioRespuesta);
+                    {
+                        usuarioRespuesta.Codigo = "1";
+                        usuarioRespuesta.Mensaje = "OK";
+                        return Ok(usuarioRespuesta);
+                    }
+                    else
+                    {
+                        usuarioRespuesta.Codigo = "-1";
+                        usuarioRespuesta.Mensaje = "La información del usuario no se encuentra registrada";
+                        return Ok(usuarioRespuesta);
+                    }
                 }
             }
-        }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Ocurrió un error al registrar el usuario.", error = ex.Message });
             }
         }
+    }
 }
