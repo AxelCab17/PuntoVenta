@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using static PuntoVentaAPI.Entities.UsuarioEnt;
-using System.Data.Common;
-using System.Text;
 
 namespace PuntoVentaAPI.Controllers
 {
@@ -14,10 +12,7 @@ namespace PuntoVentaAPI.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-
-
         private readonly IConfiguration _configuration;
-
 
         public UsuarioController(IConfiguration configuration)
         {
@@ -27,9 +22,8 @@ namespace PuntoVentaAPI.Controllers
         [AllowAnonymous]
         [Route("RegistrarUsuario")]
         [HttpPost]
-        public IActionResult RegistrarUsario(UsuarioEnt ent)
+        public IActionResult RegistrarUsuario(UsuarioEnt ent)
         {
-
             UsuarioRespuesta usuarioRespuesta = new UsuarioRespuesta();
             try
             {
@@ -41,7 +35,7 @@ namespace PuntoVentaAPI.Controllers
                         ent.Nombre,
                         ent.Correo,
                         ent.Contrasenna,
-
+                        ent.IdRol // Asegúrate de pasar IdRol
                     };
 
                     var result = db.Execute("RegistrarUsuario", parametros, commandType: CommandType.StoredProcedure);
@@ -64,9 +58,6 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error al registrar el usuario.", error = ex.Message });
             }
         }
-
-
-
 
         [HttpPost]
         [Route("LoginUsuario")]

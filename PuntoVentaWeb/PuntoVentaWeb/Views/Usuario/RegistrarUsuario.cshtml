@@ -53,6 +53,16 @@
                                             <input asp-for="Contrasenna" class="form-control form-control-user" placeholder="Contraseña" type="password" />
                                             <span asp-validation-for="Contrasenna" class="text-danger"></span>
                                         </div>
+                                        <div class="form-group">
+                                            <select asp-for="IdRol" class="form-control form-control-user">
+                                                <option value="">Seleccione un rol</option>
+                                                @foreach (var rol in ViewBag.Roles)
+                                                {
+                                                    <option value="@rol.Value">@rol.Text</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="IdRol" class="text-danger"></span>
+                                        </div>
                                         <!-- Mensaje de error -->
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <button type="submit" class="btn btn-tienda btn-user btn-block">
@@ -83,4 +93,3 @@
     }
 </body>
 </html>
-

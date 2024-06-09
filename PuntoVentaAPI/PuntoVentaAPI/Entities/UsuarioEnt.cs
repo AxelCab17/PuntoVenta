@@ -9,6 +9,7 @@ namespace PuntoVentaAPI.Entities
         public string? Nombre { get; set; }
         public string? Correo { get; set; }
         public string? Contrasenna { get; set; }
+        public int IdRol { get; set; }
 
         public class UsuarioRespuesta
         {

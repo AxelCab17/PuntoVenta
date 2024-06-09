@@ -1,30 +1,57 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PuntoVentaWeb.Entities;
-using PuntoVentaWeb.Models;
 using PuntoVentaWeb.Services;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PuntoVentaWeb.Controllers
 {
-    public class UsuarioController(IUsuarioModel _usuarioModel) : Controller
+    public class UsuarioController : Controller
     {
+        private readonly IUsuarioModel _usuarioModel;
+
+        public UsuarioController(IUsuarioModel usuarioModel)
+        {
+            _usuarioModel = usuarioModel;
+        }
+
         [HttpGet]
         public IActionResult RegistrarUsuario()
         {
+            ViewBag.Roles = GetRoles(); // Obtener los roles disponibles
             return View();
         }
-
         [HttpPost]
-        public IActionResult RegistrarUsuario(UsuarioEnt Ent)
+        public IActionResult RegistrarUsuario(UsuarioEnt entidad)
         {
             if (ModelState.IsValid)
             {
-                var respuestaApi = _usuarioModel.RegistrarUsuario(Ent);
+                var respuestaApi = _usuarioModel.RegistrarUsuario(entidad);
                 if (respuestaApi?.Codigo == "1")
-                    return RedirectToAction("Login");
+                {
+                    return RedirectToAction("LoginUsuario");
+                }
                 else
-                    return RedirectToAction("Error", "Home");
+                {
+                    string mensajeError = respuestaApi?.Mensaje ?? "Error desconocido.";
+                    ModelState.AddModelError("", mensajeError);
+                    ViewBag.Roles = GetRoles();
+                    return View(entidad);
+                }
             }
-            return View(Ent);
+            ViewBag.Roles = GetRoles();
+            return View(entidad);
+        }
+
+
+        private List<SelectListItem> GetRoles()
+        {
+            // Aquí deberías obtener los roles desde tu base de datos
+            return new List<SelectListItem>
+            {
+                new SelectListItem { Value = "1", Text = "Admin" },
+                new SelectListItem { Value = "2", Text = "User" }
+            };
         }
 
         [HttpGet]
@@ -34,11 +61,11 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult LoginUsuario(UsuarioEnt Ent)
+        public IActionResult LoginUsuario(UsuarioEnt entidad)
         {
             if (ModelState.IsValid)
             {
-                var respuestaApi = _usuarioModel.LoginUsuario(Ent);
+                var respuestaApi = _usuarioModel.LoginUsuario(entidad);
                 if (respuestaApi?.Codigo == "1")
                     return RedirectToAction("Index", "Home");
                 else
@@ -47,7 +74,7 @@ namespace PuntoVentaWeb.Controllers
                     return View();
                 }
             }
-            return View(Ent);
+            return View(entidad);
         }
     }
 }
