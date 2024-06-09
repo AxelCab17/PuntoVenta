@@ -96,5 +96,125 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error al intentar iniciar sesión.", error = ex.Message });
             }
         }
+
+        [AllowAnonymous]
+        [Route("ConsultarUsuarios")]
+        [HttpGet]
+        public IActionResult ConsultarUsuarios()
+        {
+            UsuarioRespuesta UsuarioRespuesta = new UsuarioRespuesta();
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    var resultadoBD = db.Query<UsuarioEnt>("ConsultarUsuarios", new { }, commandType: CommandType.StoredProcedure).ToList();
+
+                    if (resultadoBD == null || resultadoBD.Count == 0)
+                    {
+                        UsuarioRespuesta.Codigo = "-1";
+                        UsuarioRespuesta.Mensaje = "No hay Usuarios registrados.";
+                    }
+                    else
+                    {
+                        UsuarioRespuesta.Datos = resultadoBD;
+                        UsuarioRespuesta.Codigo = "1";
+                        UsuarioRespuesta.Mensaje = "Usuarios consultados con éxito.";
+                    }
+                    return Ok(UsuarioRespuesta);
+                }
+            }
+            catch (SqlException ex)
+            {
+                return StatusCode(500, new { message = "Error al consultar Usuarios en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al consultar Usuarios.", error = ex.Message });
+            }
+        }
+
+
+        [AllowAnonymous]
+        [Route("ConsultarUnUsuario")]
+        [HttpGet]
+        public IActionResult ConsultarUnUsuario(string Identificacion)
+        {
+            UsuarioRespuesta UsuarioRespuesta = new UsuarioRespuesta();
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    var result = db.Query<UsuarioEnt>("ObtenerUsuarioPorID",
+                        new { Identificacion },
+                        commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+                    if (result == null)
+                    {
+                        UsuarioRespuesta.Codigo = "-1";
+                        UsuarioRespuesta.Mensaje = "No hay Usuarios registrados.";
+                    }
+                    else
+                    {
+                        UsuarioRespuesta.Dato = result;
+                        UsuarioRespuesta.Codigo = "1";
+                        UsuarioRespuesta.Mensaje = "Usuario consultado con éxito.";
+                    }
+
+                    return Ok(UsuarioRespuesta);
+                }
+            }
+            catch (SqlException ex)
+            {
+                return StatusCode(500, new { message = "Error al consultar el Usuario en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al consultar el Usuario.", error = ex.Message });
+            }
+        }
+        [AllowAnonymous]
+        [Route("ActualizarUsuario")]
+        [HttpPut]
+        public IActionResult ActualizarUsuario(UsuarioEnt usuario)
+        {
+            UsuarioRespuesta usuarioRespuesta = new UsuarioRespuesta();
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    var result = db.Execute("ActualizarUsuario",
+                        new
+                        {
+                            usuario.Identificacion,
+                            usuario.Correo,
+                            usuario.Contrasenna,
+                            usuario.IdRol
+
+                        },
+                        commandType: CommandType.StoredProcedure);
+
+                    if (result <= 0)
+                    {
+                        usuarioRespuesta.Codigo = "-1";
+                        usuarioRespuesta.Mensaje = "No se ha podido actualizar en la base de datos, intenta de nuevo";
+                        return BadRequest(usuarioRespuesta);
+                    }
+                    else
+                    {
+                        usuarioRespuesta.Codigo = "1";
+                        usuarioRespuesta.Mensaje = "Usuario actualizado con éxito.";
+                        return Ok(usuarioRespuesta);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                return StatusCode(500, new { message = "Error al actualizar el Usuario en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al actualizar el Usuario.", error = ex.Message });
+            }
+        }
     }
 }

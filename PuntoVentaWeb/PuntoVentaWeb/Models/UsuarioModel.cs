@@ -36,5 +36,37 @@ namespace PuntoVentaWeb.Models
                 return respuestaApi.Content.ReadFromJsonAsync<UsuarioRespuesta>().Result;
             return null;
         }
+        public UsuarioRespuesta? ConsultarUsuarios()
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/ConsultarUsuarios";
+            var resp = _http.GetAsync(url).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<UsuarioRespuesta>().Result;
+
+            return null;
+        }
+
+        public UsuarioRespuesta? ConsultarUnUsuario(string Identificacion)
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/ConsultarUnUsuario?Identificacion=" + Identificacion;
+            var resp = _http.GetAsync(url).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<UsuarioRespuesta>().Result;
+
+            return null;
+        }
+        public UsuarioRespuesta? ActualizarUsuario(UsuarioEnt entidad)
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/ActualizarUsuario";
+            JsonContent body = JsonContent.Create(entidad);
+            var resp = _http.PutAsync(url, body).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<UsuarioRespuesta>().Result;
+
+            return null;
+        }
     }
 }

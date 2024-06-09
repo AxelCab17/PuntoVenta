@@ -7,5 +7,9 @@ namespace PuntoVentaWeb.Services
     {
         UsuarioRespuesta? RegistrarUsuario(UsuarioEnt entidad);
         UsuarioRespuesta? LoginUsuario(UsuarioEnt entidad);
+        UsuarioRespuesta? ConsultarUsuarios();
+        UsuarioRespuesta? ConsultarUnUsuario(string Identificacion);
+        UsuarioRespuesta? ActualizarUsuario(UsuarioEnt entidad);
+
     }
 }

@@ -76,5 +76,40 @@ namespace PuntoVentaWeb.Controllers
             }
             return View(entidad);
         }
+
+        [HttpGet]
+        public IActionResult ConsultarUsuarios()
+        {
+            var respuestaModelo = _usuarioModel.ConsultarUsuarios();
+
+            if (respuestaModelo?.Codigo == "1")
+                return View(respuestaModelo?.Datos);
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View(new List<UsuarioEnt>());
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ActualizarUsuario(string Identificacion)
+        {
+            var respuestaModelo = _usuarioModel.ConsultarUnUsuario(Identificacion);
+            return View(respuestaModelo?.Dato);
+        }
+
+        [HttpPost]
+        public IActionResult ActualizarUsuario(UsuarioEnt entidad)
+        {
+            var respuestaModelo = _usuarioModel.ActualizarUsuario(entidad);
+
+            if (respuestaModelo?.Codigo == "1")
+                return RedirectToAction("ConsultarUsuarios", "Usuario");
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View();
+            }
+        }
     }
 }
