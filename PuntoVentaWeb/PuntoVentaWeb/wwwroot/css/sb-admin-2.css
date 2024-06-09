@@ -11477,4 +11477,8 @@ body.sidebar-toggled footer.sticky-footer {
 .table-row:hover::before {
     width: 100%;
 }
+.table-head {
+    background-color: #02735E;
+    color: white;
 
+}
