@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.css" rel="stylesheet">
+    <link rel="icon" href="~/img/logo tienda hd.jpg" />
 </head>
 <body class="login-bg">
     <div class="container">
@@ -38,23 +39,23 @@
                                     </div>
                                     <form class="user" asp-action="RegistrarUsuario" method="post">
                                         <div class="form-group">
-                                            <input asp-for="Identificacion" class="form-control form-control-user" placeholder="Identificación" />
+                                            <input asp-for="Identificacion" class="form-control form-control-user" placeholder="Identificación" required/>
                                             <span asp-validation-for="Identificacion" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Nombre" class="form-control form-control-user" placeholder="Nombre" />
+                                            <input asp-for="Nombre" class="form-control form-control-user" placeholder="Nombre" required />
                                             <span asp-validation-for="Nombre" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Correo" class="form-control form-control-user" placeholder="Correo" />
+                                            <input asp-for="Correo" class="form-control form-control-user" placeholder="Correo" required />
                                             <span asp-validation-for="Correo" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input asp-for="Contrasenna" class="form-control form-control-user" placeholder="Contraseña" type="password" />
+                                            <input asp-for="Contrasenna" class="form-control form-control-user" placeholder="Contraseña" type="password" required />
                                             <span asp-validation-for="Contrasenna" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <select asp-for="IdRol" class="form-control form-control-user">
+                                            <select asp-for="IdRol" class="form-selection form-control-user">
                                                 <option value="">Seleccione un rol</option>
                                                 @foreach (var rol in ViewBag.Roles)
                                                 {
