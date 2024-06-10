@@ -81,9 +81,10 @@ namespace PuntoVentaWeb.Controllers
         public IActionResult ConsultarUsuarios()
         {
             var respuestaModelo = _usuarioModel.ConsultarUsuarios();
-
             if (respuestaModelo?.Codigo == "1")
-                return View(respuestaModelo?.Datos);
+            {
+                return View(respuestaModelo.Datos);
+            }
             else
             {
                 ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
@@ -92,16 +93,39 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult ActualizarUsuario(string Identificacion)
+        public IActionResult ActualizarUsuario(long IdUsuario)
         {
-            var respuestaModelo = _usuarioModel.ConsultarUnUsuario(Identificacion);
-            return View(respuestaModelo?.Dato);
+            var respuestaModelo = _usuarioModel.ConsultarUnUsuario(IdUsuario);
+            if (respuestaModelo?.Codigo == "1")
+            {
+                return View(respuestaModelo.Dato);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return RedirectToAction("ConsultarUsuarios");
+            }
         }
 
         [HttpPost]
         public IActionResult ActualizarUsuario(UsuarioEnt entidad)
         {
             var respuestaModelo = _usuarioModel.ActualizarUsuario(entidad);
+            if (respuestaModelo?.Codigo == "1")
+            {
+                return RedirectToAction("ConsultarUsuarios");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View(entidad);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult EliminarUsuario(UsuarioEnt entidad)
+        {
+            var respuestaModelo = _usuarioModel.EliminarUsuario(entidad.IdUsuario);
 
             if (respuestaModelo?.Codigo == "1")
                 return RedirectToAction("ConsultarUsuarios", "Usuario");
@@ -111,5 +135,6 @@ namespace PuntoVentaWeb.Controllers
                 return View();
             }
         }
+
     }
 }

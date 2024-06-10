@@ -8,8 +8,11 @@ namespace PuntoVentaWeb.Services
         UsuarioRespuesta? RegistrarUsuario(UsuarioEnt entidad);
         UsuarioRespuesta? LoginUsuario(UsuarioEnt entidad);
         UsuarioRespuesta? ConsultarUsuarios();
-        UsuarioRespuesta? ConsultarUnUsuario(string Identificacion);
+        UsuarioRespuesta? ConsultarUnUsuario(long IdUsuario);
         UsuarioRespuesta? ActualizarUsuario(UsuarioEnt entidad);
+        UsuarioRespuesta? EliminarUsuario(long IdUsuario);
 
     }
 }
+
+

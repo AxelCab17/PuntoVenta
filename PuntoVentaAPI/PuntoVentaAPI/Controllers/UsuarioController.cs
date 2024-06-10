@@ -137,7 +137,7 @@ namespace PuntoVentaAPI.Controllers
         [AllowAnonymous]
         [Route("ConsultarUnUsuario")]
         [HttpGet]
-        public IActionResult ConsultarUnUsuario(string Identificacion)
+        public IActionResult ConsultarUnUsuario(long IdUsuario)
         {
             UsuarioRespuesta UsuarioRespuesta = new UsuarioRespuesta();
             try
@@ -145,7 +145,7 @@ namespace PuntoVentaAPI.Controllers
                 using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     var result = db.Query<UsuarioEnt>("ObtenerUsuarioPorID",
-                        new { Identificacion },
+                        new { IdUsuario },
                         commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                     if (result == null)
@@ -172,6 +172,7 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error inesperado al consultar el Usuario.", error = ex.Message });
             }
         }
+
         [AllowAnonymous]
         [Route("ActualizarUsuario")]
         [HttpPut]
@@ -185,11 +186,13 @@ namespace PuntoVentaAPI.Controllers
                     var result = db.Execute("ActualizarUsuario",
                         new
                         {
+                            usuario.IdUsuario,
                             usuario.Identificacion,
+                            usuario.Nombre,
                             usuario.Correo,
                             usuario.Contrasenna,
+                            usuario.Estado,
                             usuario.IdRol
-
                         },
                         commandType: CommandType.StoredProcedure);
 
@@ -216,5 +219,46 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error inesperado al actualizar el Usuario.", error = ex.Message });
             }
         }
+        [AllowAnonymous]
+        [Route("EliminarUsuario")]
+        [HttpDelete]
+        public IActionResult EliminarUsuario(long IdUsuario)
+        {
+            UsuarioRespuesta UsuarioRespuesta = new UsuarioRespuesta();
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    var result = db.Execute("EliminarUsuario",
+                        new
+                        {
+                            IdUsuario
+                        },
+                        commandType: CommandType.StoredProcedure);
+
+                    if (result <= 0)
+                    {
+                        UsuarioRespuesta.Codigo = "-1";
+                        UsuarioRespuesta.Mensaje = "No se ha podido eliminar el Usuario en la base de datos, intenta de nuevo";
+                        return BadRequest(UsuarioRespuesta);
+                    }
+                    else
+                    {
+                        UsuarioRespuesta.Codigo = "1";
+                        UsuarioRespuesta.Mensaje = "Usuario eliminado con éxito.";
+                        return Ok(UsuarioRespuesta);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                return StatusCode(500, new { message = "Error al eliminar el Usuario en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al eliminar el Usuario.", error = ex.Message });
+            }
+        }
+
     }
 }

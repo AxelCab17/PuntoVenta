@@ -39,17 +39,17 @@ namespace PuntoVentaWeb.Models
         public UsuarioRespuesta? ConsultarUsuarios()
         {
             string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/ConsultarUsuarios";
-            var resp = _http.GetAsync(url).Result;
+            var respuestaApi = _http.GetAsync(url).Result;
 
-            if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<UsuarioRespuesta>().Result;
+            if (respuestaApi.IsSuccessStatusCode)
+                return respuestaApi.Content.ReadFromJsonAsync<UsuarioRespuesta>().Result;
 
             return null;
         }
 
-        public UsuarioRespuesta? ConsultarUnUsuario(string Identificacion)
+        public UsuarioRespuesta? ConsultarUnUsuario(long IdUsuario)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/ConsultarUnUsuario?Identificacion=" + Identificacion;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/ConsultarUnUsuario?IdUsuario=" + IdUsuario;
             var resp = _http.GetAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
@@ -59,14 +59,24 @@ namespace PuntoVentaWeb.Models
         }
         public UsuarioRespuesta? ActualizarUsuario(UsuarioEnt entidad)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/ActualizarUsuario";
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/ActualizarUsuario";
             JsonContent body = JsonContent.Create(entidad);
-            var resp = _http.PutAsync(url, body).Result;
+            var respuestaApi = _http.PutAsync(url, body).Result;
 
+            if (respuestaApi.IsSuccessStatusCode)
+                return respuestaApi.Content.ReadFromJsonAsync<UsuarioRespuesta>().Result;
+
+            return null;
+        }
+        public UsuarioRespuesta? EliminarUsuario(long IdUsuario)
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Usuario/EliminarUsuario?IdUsuario=" + IdUsuario;
+            var resp = _http.DeleteAsync(url).Result;
             if (resp.IsSuccessStatusCode)
                 return resp.Content.ReadFromJsonAsync<UsuarioRespuesta>().Result;
 
             return null;
         }
+
     }
 }
