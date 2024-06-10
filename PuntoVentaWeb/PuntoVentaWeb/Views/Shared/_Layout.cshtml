@@ -2,13 +2,11 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Punto de Venta SuperMas</title>
 
     <!-- Custom fonts for this template-->
@@ -17,7 +15,6 @@
 
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -40,7 +37,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link  " asp-controller="Home" asp-action="Index">
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Inicio</span>
                 </a>
@@ -55,9 +52,10 @@
                 </a>
                 <div id="collapseAdministracion" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("ConsultarProveedores", "Proveedor")">Proveedores</a>
-                        <a class="collapse-item" href="@Url.Action("Usuarios", "Usuarios")">Usuarios</a>
-                        <a class="collapse-item" href="@Url.Action("Login", "Login")">Login</a>
+
+                        <a class="collapse-item" asp-action="ConsultarProveedores" asp-controller="Proveedor">Proveedores</a>
+                        <a class="collapse-item" asp-action="Usuarios" asp-controller="Usuarios">Usuarios</a>
+                        <a class="collapse-item" asp-action="LoginUsuario" asp-controller="Usuario">Login</a>
 
                     </div>
                 </div>
@@ -72,7 +70,11 @@
                 </a>
                 <div id="collapseInventario" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+
                         <a class="collapse-item" href="@Url.Action("Producto", "Productos")">Productos</a>
+
+
+                        <a class="collapse-item" asp-action="Producto" asp-controller="Productos">Productos</a>
 
                     </div>
                 </div>
@@ -87,8 +89,13 @@
                 </a>
                 <div id="collapseVenta" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+
                         <a class="collapse-item" href="@Url.Action("Carrito", "Carrito")">Carrito</a>
                         <a class="collapse-item" href="@Url.Action("HistorialVenta", "HistorialVenta")">Historial Venta</a>
+
+                        <a class="collapse-item" asp-action="Carrito" asp-controller="Carrito">Carrito</a>
+                        <a class="collapse-item" asp-action="HistorialVenta" asp-controller="HistorialVenta">Historial Venta</a>
+
                     </div>
                 </div>
             </li>
@@ -102,8 +109,13 @@
                 </a>
                 <div id="collapseReportes" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+
                         <a class="collapse-item" href="@Url.Action("Reportes", "Reportes")">Reporte Venta</a>
                         <a class="collapse-item" href="@Url.Action("Contabilidad", "Contabilidad")">Contabilidad</a>
+
+                        <a class="collapse-item" asp-action="Reportes" asp-controller="Reportes">Reporte Venta</a>
+                        <a class="collapse-item" asp-action="Contabilidad" asp-controller="Contabilidad">Contabilidad</a>
+
                     </div>
                 </div>
             </li>
@@ -147,7 +159,11 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
+
                                 <a class="dropdown-item" href="@Url.Action("Perfil", "Login")">Perfil</a>
+
+                                <a class="dropdown-item" asp-action="Perfil" asp-controller="Login">Perfil</a>
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -181,24 +197,23 @@
     </div>
     <!-- End of Page Wrapper -->
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.js"></script>
-
+    <script src="~/js/sb-admin-2.js"></script>
 
     <!-- ============================================================
     =SCRIPTS PARA ESTA PAGINA
     ===============================================================-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="~/vendor/chart.js/Chart.min.js"></script>
 
     <!-- SOLO ES DE EJEMPLO - IGNORAR -->
-    <script src="js/vistas/chart-bar-demo.js"></script>
-    <script src="js/vistas/chart-pie-demo.js"></script>
+    <script src="~/js/vistas/chart-bar-demo.js"></script>
+    <script src="~/js/vistas/chart-pie-demo.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

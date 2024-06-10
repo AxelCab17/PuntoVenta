@@ -4,14 +4,13 @@ using PuntoVentaWeb.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IUsuarioModel, UsuarioModel>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
-
-
-
 builder.Services.AddSingleton<IProveedorModel, ProveedorModel>();
+
 
 var app = builder.Build();
 
@@ -30,8 +29,11 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseSession();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Proveedor}/{action=ConsultarProveedores}/{id?}");
+
+    pattern: "{controller=Usuario}/{action=LoginUsuario}/{id?}");
 
 app.Run();

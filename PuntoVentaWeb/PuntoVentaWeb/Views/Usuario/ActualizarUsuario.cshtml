@@ -1,0 +1,78 @@
+﻿@model PuntoVentaWeb.Entities.UsuarioEnt
+
+@{
+    ViewData["Title"] = "Actualizar Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalActualizarUsuarioLabel">Actualizar Usuario</h5>
+        </div>
+        <div class="modal-body">
+            <form asp-action="ActualizarUsuario" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="IdUsuario" class="control-label"></label>
+                    <input asp-for="IdUsuario" class="form-control" readonly />
+                    <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Correo" class="control-label"></label>
+                    <input asp-for="Correo" class="form-control" />
+                    <span asp-validation-for="Correo" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Identificacion" class="control-label"></label>
+                    <input asp-for="Identificacion" class="form-control" />
+                    <span asp-validation-for="Identificacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="IdRol" class="control-label"></label>
+                    <select asp-for="IdRol" class="form-control">
+                        <option value="1">Administrador</option>
+                        <option value="2">Usuario</option>
+                    </select>
+                    <span asp-validation-for="IdRol" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Estado" class="control-label"></label>
+                    <select asp-for="Estado" class="form-control">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Contrasenna" class="control-label"></label>
+                    <input asp-for="Contrasenna" class="form-control" />
+                    <span asp-validation-for="Contrasenna" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-right">
+                    <a asp-action="ConsultarUsuarios" class="btn btn-secondary">Cancelar</a>
+                    <input type="submit" value="Actualizar" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

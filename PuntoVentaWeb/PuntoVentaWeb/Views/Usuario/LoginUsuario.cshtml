@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PuntoVentaWeb.Entities.UsuarioEnt
+
+@{
     Layout = null;
 }
 
@@ -34,12 +36,14 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Bienvenido</h1>
                                     </div>
-                                    <form class="user" asp-action="Login" asp-controller="Account" method="post">
+                                    <form class="user" asp-action="LoginUsuario" asp-controller="Usuario" method="post">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" placeholder="Correo">
+                                            <input asp-for="Correo" class="form-control form-control-user" placeholder="Correo" />
+                                            <span asp-validation-for="Correo" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" placeholder="Contraseña">
+                                            <input asp-for="Contrasenna" class="form-control form-control-user" placeholder="Contraseña" type="password" />
+                                            <span asp-validation-for="Contrasenna" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -56,7 +60,7 @@
                                                 </div>
                                             </div>
                                         }
-                                        <button type="submit" class="btn btn-tienda btn-user btn-block " asp-controller="Home" asp-action="Index">
+                                        <button type="submit" class="btn btn-tienda btn-user btn-block">
                                             Ingresar
                                         </button>
                                     </form>
@@ -66,7 +70,7 @@
                                     </div>
 
                                     <div class="text-center">
-                                        <a class="small" href="@Url.Action("Register", "Login")">¿No estas registrado, registrate aqui?</a>
+                                        <a class="small" href="@Url.Action("RegistrarUsuario", "Usuario")">¿No estás registrado, regístrate aquí?</a>
                                     </div>
                                 </div>
                             </div>
@@ -76,5 +80,14 @@
             </div>
         </div>
     </div>
+    @section Scripts {
+        <script src="~/vendor/jquery/jquery.min.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="~/js/sb-admin-2.min.js"></script>
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 </body>
 </html>

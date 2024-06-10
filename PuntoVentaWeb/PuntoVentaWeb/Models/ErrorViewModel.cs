@@ -1,3 +1,4 @@
+using PuntoVentaWeb.Models;
 namespace PuntoVentaWeb.Models
 {
     public class ErrorViewModel
