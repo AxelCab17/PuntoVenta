@@ -1,3 +1,4 @@
+
 using PuntoVentaWeb.Models;
 using PuntoVentaWeb.Services;
 
@@ -32,6 +33,5 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Usuario}/{action=LoginUsuario}/{id?}");
-
 
 app.Run();
