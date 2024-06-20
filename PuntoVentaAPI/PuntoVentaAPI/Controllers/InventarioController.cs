@@ -32,7 +32,6 @@ namespace PuntoVentaAPI.Controllers
                 {
                     var parametros = new
                     {
-                        Inventario.IdInventario,
                         Inventario.IdProducto,
                         Inventario.Cantidad,
                         Inventario.IdProveedor

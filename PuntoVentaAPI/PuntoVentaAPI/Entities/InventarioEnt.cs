@@ -3,9 +3,9 @@
     public class InventarioEnt
     {
         public long IdInventario { get; set; }
-        public string IdProducto { get; set; }
-        public string Cantidad { get; set; }
-        public string IdProveedor { get; set; }
+        public int IdProducto { get; set; }
+        public int Cantidad { get; set; }
+        public int IdProveedor { get; set; }
 
 
         public class InventarioRespuesta
