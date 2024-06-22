@@ -10,7 +10,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IProveedorModel, ProveedorModel>();
-
+builder.Services.AddSingleton<ICarritoModel, CarritoModel>();
 
 var app = builder.Build();
 
