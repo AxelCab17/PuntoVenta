@@ -1,7 +1,7 @@
-﻿@model IEnumerable<PuntoVentaWeb.Entities.ProveedorEnt>
+﻿@model IEnumerable<PuntoVentaWeb.Entities.InventarioEnt>
 
 @{
-    ViewData["Title"] = "Consultar Proveedores";
+    ViewData["Title"] = "Consultar Inventario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -12,14 +12,14 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 ">
-            <h6 class="m-0 font-weight-bold text-white">Lista de Proveedores</h6>
+            <h6 class="m-0 font-weight-bold text-white">Lista de Inventario</h6>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-3">
                     <p>
-                        <a class="btn btn-all" href="@Url.Action("RegistrarProveedor", "Proveedor")">
-                            <i class="fa fa-plus"></i> Nuevo Proveedor
+                        <a class="btn btn-all" href="@Url.Action("RegistrarInventario", "Inventario")">
+                            <i class="fa fa-plus"></i> Nuevo Inventario
                         </a>
                     </p>
                 </div>
@@ -31,28 +31,25 @@
                         <thead class="thead">
                             <tr class="table-head">
                                 <th>
+                                    @Html.DisplayNameFor(model => model.First().IdInventario)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().IdProducto)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().Cantidad)
+                                </th>
+                                <th>
                                     @Html.DisplayNameFor(model => model.First().IdProveedor)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.First().Imagen)
+                                    @Html.DisplayNameFor(model => model.First().IdCategoria)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.First().NumeroDocumento)
+                                    @Html.DisplayNameFor(model => model.First().Categoria)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.First().Nombre)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.First().Correo)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.First().Direccion)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.First().Telefono)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.First().Impuesto)
+                                    @Html.DisplayNameFor(model => model.First().NombreProducto)
                                 </th>
                                 <th>Acciones</th>
                             </tr>
@@ -61,23 +58,20 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="table-row">
+                                    <td>@Html.DisplayFor(modelItem => item.IdInventario)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.IdProducto)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
                                     <td>@Html.DisplayFor(modelItem => item.IdProveedor)</td>
-                                    <td>
-                                        <img src="@Url.Content(item.Imagen)" alt="Imagen" style="width: 50px; height: 50px;" />
-                                    </td>
-                                    <td>@Html.DisplayFor(modelItem => item.NumeroDocumento)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Impuesto)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.IdCategoria)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Categoria)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
 
                                     <td>
-                                        <a class="btn btn-success btn-sm" href="@Url.Action("ActualizarProveedor", "Proveedor", new { IdProveedor = item.IdProveedor })">
+                                        <a class="btn btn-success btn-sm" href="@Url.Action("ActualizarInventario", "Inventario", new { IdInventario = item.IdInventario })">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <button type="button" class="btn btn-danger btn-sm passingID" data-toggle="modal" data-target="#exampleModal"
-                                                data-id="@item.IdProveedor" data-name="@item.Nombre">
+                                                data-id="@item.IdInventario" data-name="@item.NombreProducto">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
@@ -100,10 +94,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @using (Html.BeginForm("EliminarProveedor", "Proveedor", FormMethod.Post))
+            @using (Html.BeginForm("EliminarInventario", "Inventario", FormMethod.Post))
             {
                 <div class="modal-body">
-                    <input type="hidden" id="IdProveedor" name="IdProveedor" value="">
+                    <input type="hidden" id="IdInventario" name="IdInventario" value="">
                     <p id="Question" style="font-weight: bold;"></p>
                 </div>
                 <div class="modal-footer">
@@ -120,8 +114,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
         $(".passingID").click(function () {
-            $("#IdProveedor").val($(this).data('id'));
-            $("#Question").text("¿Desea eliminar el proveedor: " + $(this).data('name') + "?");
+            $("#IdInventario").val($(this).data('id'));
+            $("#Question").text("¿Desea eliminar el Inventario: " + $(this).data('name') + "?");
         });
     </script>
 }
