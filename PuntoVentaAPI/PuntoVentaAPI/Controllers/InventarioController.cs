@@ -34,7 +34,10 @@ namespace PuntoVentaAPI.Controllers
                     {
                         Inventario.IdProducto,
                         Inventario.Cantidad,
-                        Inventario.IdProveedor
+                        Inventario.IdProveedor,
+                        Inventario.IdCategoria,
+                        Inventario.Categoria,
+                        Inventario.NombreProducto
                     };
 
                     var result = db.Execute("RegistrarInventario", parametros, commandType: CommandType.StoredProcedure);
@@ -113,7 +116,10 @@ namespace PuntoVentaAPI.Controllers
                             Inventario.IdInventario,
                             Inventario.IdProducto,
                             Inventario.Cantidad,
-                            Inventario.IdProveedor
+                            Inventario.IdProveedor,
+                            Inventario.IdCategoria,
+                            Inventario.Categoria,
+                            Inventario.NombreProducto
                         },
                         commandType: CommandType.StoredProcedure);
 

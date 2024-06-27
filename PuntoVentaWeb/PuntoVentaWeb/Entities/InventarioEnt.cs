@@ -1,4 +1,5 @@
-﻿namespace PuntoVentaAPI.Entities
+﻿
+namespace PuntoVentaWeb.Entities
 {
     public class InventarioEnt
     {
