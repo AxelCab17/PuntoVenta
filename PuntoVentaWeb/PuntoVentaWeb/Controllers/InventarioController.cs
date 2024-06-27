@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PuntoVentaWeb.Entities;
+using PuntoVentaWeb.Models;
 using PuntoVentaWeb.Services;
 
 namespace PuntoVentaWeb.Controllers
@@ -38,6 +39,13 @@ namespace PuntoVentaWeb.Controllers
                 ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
                 return View(new List<InventarioEnt>());
             }
+        }
+
+        [HttpGet]
+        public IActionResult ActualizarInventario(long IdInventario)
+        {
+            var respuestaModelo = _InventarioModel.ConsultarUnInventario(IdInventario);
+            return View(respuestaModelo?.Dato);
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using PuntoVentaWeb.Entities;
 using PuntoVentaWeb.Services;
 using static PuntoVentaWeb.Entities.InventarioEnt;
+using static PuntoVentaWeb.Entities.InventarioEnt;
 
 namespace PuntoVentaWeb.Models
 {
@@ -21,6 +22,17 @@ namespace PuntoVentaWeb.Models
         public InventarioRespuesta? ConsultarInventario()
         {
             string url = _configuration.GetSection("settings:UrlApi").Value + "api/Inventario/ConsultarInventario";
+            var resp = _http.GetAsync(url).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<InventarioRespuesta>().Result;
+
+            return null;
+        }
+
+        public InventarioRespuesta? ConsultarUnInventario(long IdInventario)
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Inventario/ConsultarUnInventario?IdInventario=" + IdInventario;
             var resp = _http.GetAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
