@@ -35,6 +35,7 @@ public class EmpleadoController : ControllerBase
                     empleado.HorasTrabajadas,
                     empleado.HorasRebajadas,
                     empleado.ValorPorHora
+            
                 }, commandType: System.Data.CommandType.StoredProcedure);
 
                 return Ok(new { mensaje = "Empleado registrado con éxito", IdEmpleado = id });

@@ -1,0 +1,269 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Botón para abrir el modal de Agregar Proveedor -->
+                    <div class="card shadow-none mb-4">
+                        <div class="card-header py-3 ">
+                            <h6 class="m-0 font-weight-bold text-white">Lista de Proveedores</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <button class="btn btn-all" data-toggle="modal" data-target="#modalAgregarProveedor"><i class="fas fa-plus-circle"></i> Nuevo Proveedor</button>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered " id="tbdata" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Imagen</th>
+                                                <th>Numero de documento</th>
+                                                <th>Razon Social</th>
+                                                <th>Correo</th>
+                                                <th>Direccion</th>
+                                                <th>Telefono</th>
+                                                <th>Impuesto</th>
+                                                <th>Simbolo Moneda</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="table-row">
+                                                <td>1</td>
+                                                <td><img style="height:60px ;" src="https://media.licdn.com/dms/image/D560BAQHQokzHi8FCrg/company-logo_200_200/0/1697581148401/caf_volio_logo?e=2147483647&v=beta&t=dW7WOq9rMPJvD-Osl0xMVGJT6k1bZo99GpSlw373ovU" class="rounded mx-auto d-block" /></td>
+                                                <td>208580782</td>
+                                                <td>Agrandar mas la industria</td>
+                                                <td>cafevolio@gmail.com</td>
+                                                <td>Upala calle 1232</td>
+                                                <td>92148919429</td>
+                                                <td>20%</td>
+                                                <td>₡</td>
+                                                <td>
+                                                    <button class="btn btn-all btn-sm" data-toggle="modal" data-target="#modalEditarProveedor">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </button>
+                                                    <button class="btn btn-exit btn-sm" data-toggle="modal" data-target="#modalEliminarProveedor">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr class="table-row">
+                                                <td>2</td>
+                                                <td><img style="height:60px ;" src="https://mma.prnewswire.com/media/2090269/SP_logo_Slogan_GB__1_Logo.jpg?p=facebook" class="rounded mx-auto d-block" /></td>
+                                                <td>118890098</td>
+                                                <td>Agrandar mas la industria</td>
+                                                <td>bimbo@gmail.com</td>
+                                                <td>Edificio kabat </td>
+                                                <td>85793990</td>
+                                                <td>20%</td>
+                                                <td>₡</td>
+                                                <td>
+                                                    <button class="btn btn-all btn-sm" data-toggle="modal" data-target="#modalEditarProveedor">
+                                                        <i class="fas fa-pencil-alt"></i>
+                                                    </button>
+                                                    <button class="btn btn-exit btn-sm" data-toggle="modal" data-target="#modalEliminarProveedor">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+
+                    <!-- Aquí irían los modales de agregar, editar y eliminar proveedores -->
+                    <div class="modal fade" id="modalAgregarProveedor" tabindex="-1" role="dialog" aria-labelledby="modalAgregarProveedorLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalAgregarProveedorLabel">Agregar Proveedor</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="numeroDocumento">Número Documento</label>
+                                                <input type="text" class="form-control" id="numeroDocumento" >
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="razonSocial">Razón Social</label>
+                                                <input type="text" class="form-control" id="razonSocial" >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="correoProveedor">Correo</label>
+                                                <input type="email" class="form-control" id="correoProveedor" >
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="direccionProveedor">Dirección</label>
+                                                <input type="text" class="form-control" id="direccionProveedor" >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="telefonoProveedor">Teléfono</label>
+                                                <input type="tel" class="form-control" id="telefonoProveedor" >
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="impuestoProveedor">% Impuesto</label>
+                                                <input type="text" class="form-control" id="impuestoProveedor">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="simboloMonedaProveedor">Símbolo Moneda</label>
+                                                <input type="text" class="form-control" id="simboloMonedaProveedor">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="logoProveedor">Logo</label>
+                                                <input type="file" class="form-control-file" id="logoProveedor">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-all" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-all">Guardar Proveedor</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Aquí irían los modales de agregar, editar y eliminar proveedores -->
+                    <!-- Modal para Editar Detalles del Proveedor -->
+                    <div class="modal fade" id="modalEditarProveedor" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6>Editar Proveedor</h6>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <!-- Supongamos que necesitas un campo oculto para el ID del proveedor -->
+                                        <input type="hidden" value="id_proveedor_aqui" id="txtIdEditarProveedor">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <!-- Número Documento y Razón Social -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtNumeroDocumentoEditar">Número Documento</label>
+                                                        <input type="text" class="form-control form-control-sm" id="txtNumeroDocumentoEditar" name="NumeroDocumento">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtRazonSocialEditar">Razón Social</label>
+                                                        <input type="text" class="form-control form-control-sm" id="txtRazonSocialEditar" name="RazonSocial">
+                                                    </div>
+                                                </div>
+                                                <!-- Correo y Dirección -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtCorreoEditar">Correo</label>
+                                                        <input type="email" class="form-control form-control-sm" id="txtCorreoEditar" name="Correo">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtDireccionEditar">Dirección</label>
+                                                        <input type="text" class="form-control form-control-sm" id="txtDireccionEditar" name="Direccion">
+                                                    </div>
+                                                </div>
+                                                <!-- Teléfono y % Impuesto -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtTelefonoEditar">Teléfono</label>
+                                                        <input type="tel" class="form-control form-control-sm" id="txtTelefonoEditar" name="Telefono">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtImpuestoEditar">% Impuesto</label>
+                                                        <input type="text" class="form-control form-control-sm" id="txtImpuestoEditar" name="Impuesto">
+                                                    </div>
+                                                </div>
+                                                <!-- Símbolo Moneda y Logo -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="txtSimboloMonedaEditar">Símbolo Moneda</label>
+                                                        <input type="text" class="form-control form-control-sm" id="txtSimboloMonedaEditar" name="SimboloMoneda">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="fileLogoEditar">Logo</label>
+                                                        <input type="file" class="form-control-file" id="fileLogoEditar">
+                                                        <!-- Aquí podrías agregar una vista previa del logo actual si lo consideras necesario -->
+                                                        <td><img style="height:60px ;" src="https://media.licdn.com/dms/image/D4D03AQEelNq_oa2gKg/profile-displayphoto-shrink_800_800/0/1669796244950?e=1717632000&v=beta&t=RTBub-saivccjYnUx4khkRjDMwf_Y-1SHvGyP6iiQRw" class="rounded mx-auto d-block" /></td>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-all btn-sm" type="button" id="btnGuardarCambiosProveedor">Guardar Cambios</button>
+                                    <button class="btn btn-exit btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal para Confirmar la Eliminación del Proveedor -->
+                    <div class="modal fade" id="modalEliminarProveedor" tabindex="-1" role="dialog" aria-labelledby="modalEliminarProveedorLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalEliminarProveedorLabel">Eliminar Proveedor</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de que deseas eliminar a este proveedor?</p>
+                                    <!-- Aquí puedes añadir más detalles si es necesario -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-all" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-exit">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- /.container-fluid -->
+                
+            <!-- End of Main Content -->
+
+
+        
+    <!-- End of Page Wrapper -->
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.js"></script>
+
+
+
+</html>

@@ -10,6 +10,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IProveedorModel, ProveedorModel>();
+builder.Services.AddSingleton<IEmpleadoModel, EmpleadoModel>();
 
 
 var app = builder.Build();

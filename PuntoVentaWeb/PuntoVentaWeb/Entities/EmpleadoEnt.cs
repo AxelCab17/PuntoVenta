@@ -1,7 +1,4 @@
-﻿using PuntoVentaAPI.Entities;
-
-
-namespace PuntoVentaAPI.Entities
+﻿namespace PuntoVentaWeb.Entities
 {
     public class EmpleadoEnt
     {
@@ -11,7 +8,7 @@ namespace PuntoVentaAPI.Entities
 
         public string Apellido { get; set; }
 
-        public DateTime  FechaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
 
         public int HorasTrabajadas { get; set; }
 
@@ -40,4 +37,3 @@ namespace PuntoVentaAPI.Entities
         }
     }
 }
-
