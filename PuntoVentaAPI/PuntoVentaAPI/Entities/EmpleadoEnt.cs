@@ -13,9 +13,13 @@ namespace PuntoVentaAPI.Entities
 
         public DateTime FechaIngreso { get; set; }
 
-        public string Salario { get; set; }
+        public int HorasTrabajadas { get; set; }
 
-        public string DiasTrabajados { get; set; }
+        public int HorasRebajadas { get; set; }
+
+        public int ValorPorHora { get; set; }
+
+
 
         public class EmpleadoRespuesta
         {
