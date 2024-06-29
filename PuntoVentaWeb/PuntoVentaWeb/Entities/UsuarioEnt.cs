@@ -13,6 +13,8 @@ namespace PuntoVentaWeb.Entities
         public bool? Estado { get; set; }
         public int IdRol { get; set; }
 
+        public string? Token { get; set; }
+
 
         public class UsuarioRespuesta
         {
