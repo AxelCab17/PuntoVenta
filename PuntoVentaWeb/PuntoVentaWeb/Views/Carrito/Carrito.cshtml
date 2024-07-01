@@ -1,216 +1,191 @@
-﻿@{
+﻿@model PuntoVentaWeb.Entities.Carrito
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card shadow mb-4">
-                                        <div class="card-header py-3 ">
-                                            <h6 class="m-0 font-weight-bold text-white">Cajero</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-row">
-                                                <div class="form-group col-sm-6">
-                                                    <input type="text" class="form-control form-control-sm" id="txtDocumentoCliente" placeholder="ID ">
-                                                </div>
-                                                <div class="form-group col-sm-6">
-                                                    <input type="text" class="form-control form-control-sm" id="txtNombreCliente" placeholder="Nombre Cajero">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card shadow mb-4">
-                                        <div class="card-header py-3 ">
-                                            <h6 class="m-0 font-weight-bold text-white">Productos</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-row">
-                                                <div class="form-group col-sm-12">
-                                                    <div class="input-group input-group-sm">
-                                                        <select class="form-control" id="cboBuscarProducto">
-                                                            <option value="1">Café 1820 250g</option>
-                                                            <option value="2">Arroz Tio Pelón 10k</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="container mt-3">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>ID</th>
-                                                                <th>Producto</th>
-                                                                <th>Cantidad</th>
-                                                                <th>Precio</th>
-                                                                <th>Total</th>
-                                                                <th>Acciones</th> 
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="table-row">
-                                                                <td>1</td>
-                                                                <td>Café 1820 250g</td>
-                                                                <td>
-                                                                    <div class="input-group input-group-sm">
-                                                                        <div class="input-group-prepend flex-column">
-                                                                            <button class="btn btn-plus" type="button">
-                                                                                <i class="fas fa-plus"></i>
-                                                                            </button>
-                                                                            <input type="text" class="form-control text-center" value="1" style="max-width: 3em;" readonly>
-                                                                            <button class="btn btn-minus" type="button">
-                                                                                <i class="fas fa-minus"></i>
-                                                                            </button>
-                                                                        </div>  
-                                                                    </div>
-                                                                </td>
-                                                                <td>1800</td>
-                                                                <td>2000</td>
-                                                                <td>
-                                                                    <button type="button" class="btn btn-exit btn-sm">
-                                                                        <i class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="table-row">
-                                                                <td>2</td>
-                                                                <td>Arroz Tio Pelón 10k</td>
-                                                                <td>
-                                                                    <div class="input-group input-group-sm">
-                                                                        <div class="input-group-prepend flex-column">
-                                                                            <button class="btn btn-plus" type="button">
-                                                                                <i class="fas fa-plus"></i>
-                                                                            </button>
-                                                                            <input type="text" class="form-control text-center" value="1" style="max-width: 3em;" readonly>
-                                                                            <button class="btn btn-minus" type="button">
-                                                                                <i class="fas fa-minus"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>2500</td>
-                                                                <td>2630</td>
-                                                                <td>
-                                                                    <button type="button" class="btn btn-exit btn-sm">
-                                                                        <i class="fas fa-trash-alt"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="text-right">
-                                                <!-- Esta clase alinea el contenido a la derecha -->
-                                                <button type="button" class="btn btn-exit btn-sm">
-                                                    Vaciar Carrito
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 ">
+                            <h6 class="m-0 font-weight-bold text-white">Cajero</h6>
                         </div>
-                        <div class="col-sm-4">
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card shadow mb-4">
-                                        <div class="card-header py-3 ">
-                                            <h6 class="m-0 font-weight-bold text-white">Detalle de Factura</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="input-group input-group-sm mb-3">
-                                                <div class="input-group-prepend">
-                                                    <label class="input-group-text" for="cboTipoDocumentoVenta">Numero de factura</label>
-                                                </div>
-                                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupTotal" id="txtTotal" disabled>
-                                            </div>
-                                            <div class="input-group input-group-sm mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroupSubTotal">Sub Total</span>
-                                                </div>
-                                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupSubTotal" id="txtSubTotal" disabled>
-                                            </div>
-
-                                            <div class="input-group input-group-sm mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroupIGV">Descuento(5%)</span>
-                                                </div>
-                                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupIGV" id="txtIGV" disabled>
-                                            </div>
-
-                                            <div class="input-group input-group-sm mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroupIGV">IVA(13%)</span>
-                                                </div>
-                                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupIGV" id="txtIGV" disabled>
-                                            </div>
-                                            <div class="input-group input-group-sm mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="inputGroupTotal">Total</span>
-                                                </div>
-                                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupTotal" id="txtTotal" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control form-control-sm" id="txtDocumentoCliente" placeholder="ID ">
                                 </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card shadow">
-                                        <div class="card-body">
-                                            <div class="form-group mb-0">
-                                                <button class="btn btn-all btn-sm btn-block" id="btnTerminarVentar">Terminar Venta</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreCliente" placeholder="Nombre Cajero">
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
-                <!-- /.container-fluid -->
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 ">
+                            <h6 class="m-0 font-weight-bold text-white">Productos</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" onclick="buscarProducto()">Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="container mt-3">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio</th>
+                                                <th>Total</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Items)
+                                            {
+                                                <tr class="table-row">
+                                                    <td>@item.Producto.IdProducto</td>
+                                                    <td>@item.Producto.Nombre</td>
+                                                    <td>
+                                                        <div class="input-group input-group-sm">
+                                                            <div class="input-group-prepend flex-column">
+                                                                <form asp-action="AgregarProducto" method="get">
+                                                                    <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
+                                                                    <input type="hidden" name="cantidad" value="1" />
+                                                                    <button class="btn btn-plus" type="submit">
+                                                                        <i class="fas fa-plus"></i>
+                                                                    </button>
+                                                                </form>
+                                                                <input type="text" class="form-control text-center" value="@item.Cantidad" style="max-width: 3em;" readonly>
+                                                                <form asp-action="AgregarProducto" method="get">
+                                                                    <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
+                                                                    <input type="hidden" name="cantidad" value="-1" />
+                                                                    <button class="btn btn-minus" type="submit">
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>@item.Producto.Precio</td>
+                                                    <td>@(item.Producto.Precio * item.Cantidad)</td>
+                                                    <td>
+                                                        <form asp-action="EliminarProducto" method="post">
+                                                            <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
+                                                            <button type="submit" class="btn btn-exit btn-sm">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <form asp-action="VaciarCarrito" method="post">
+                                    <button type="submit" class="btn btn-exit btn-sm">
+                                        Vaciar Carrito
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
 
-            
-            
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 ">
+                            <h6 class="m-0 font-weight-bold text-white">Detalle de Factura</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupSubTotal">Sub Total</span>
+                                </div>
+                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupSubTotal" id="txtSubTotal" value="@Model.Subtotal" disabled>
+                            </div>
+
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupIGV">IVA(13%)</span>
+                                </div>
+                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupIGV" id="txtIGV" value="@Model.IVA" disabled>
+                            </div>
+
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupTotal">Total</span>
+                                </div>
+                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupTotal" id="txtTotal" value="@Model.Total" disabled>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="form-group mb-0">
+                                <button class="btn btn-all btn-sm btn-block" id="btnTerminarVenta">Terminar Venta</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</div>
+<!-- /.container-fluid -->
+<!-- Bootstrap core JavaScript-->
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="~/js/sb-admin-2.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="~/js/sb-admin-2.js"></script>
 
+<!-- ============================================================
+=SCRIPTS PARA ESTA PAGINA
+===============================================================-->
+<script src="~/vendor/select2/select2.min.js"></script>
+<script src="~/vendor/select2/es.min.js"></script>
 
-
-    <!-- ============================================================
-    =SCRIPTS PARA ESTA PAGINA
-    ===============================================================-->
-    <script src="~/vendor/select2/select2.min.js"></script>
-    <script src="~/vendor/select2/es.min.js"></script>
-
-
-</html>
+<script>
+    function buscarProducto() {
+        var productId = document.getElementById('productIdInput').value;
+        window.location.href = '@Url.Action("AgregarProducto", "Carrito")?productoId=' + productId + '&cantidad=1';
+    }
+</script>

@@ -13,6 +13,8 @@ builder.Services.AddSingleton<IProveedorModel, ProveedorModel>();
 builder.Services.AddSingleton<IEmpleadoModel, EmpleadoModel>();
 builder.Services.AddSingleton<IComunModel, ComunModel>();
 
+builder.Services.AddSingleton<ICarritoModel, CarritoModel>();
+
 
 var app = builder.Build();
 
