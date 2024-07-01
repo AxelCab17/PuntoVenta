@@ -4,69 +4,75 @@ using PuntoVentaWeb.Services;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PuntoVentaWeb.Models;
-using System.Text.Json;
+using System.Threading.Tasks;
 using static PuntoVentaWeb.Entities.UsuarioEnt;
 
 namespace PuntoVentaWeb.Controllers
 {
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public class UsuarioController(IUsuarioModel usuarioModel, IComunModel comunModel) : Controller
+    public class UsuarioController : Controller
     {
-            [HttpGet]
-            public IActionResult RegistrarUsuario()
-            {
-                ViewBag.Roles = GetRoles(); // Obtener los roles disponibles
-                return View();
-            }
-            [HttpPost]
-            public IActionResult RegistrarUsuario(UsuarioEnt entidad)
-            {
+        private readonly IUsuarioModel _usuarioModel;
+        private readonly IComunModel _comunModel;
 
-            entidad.Contrasenna = comunModel.Encrypt(entidad.Contrasenna!);
-                if (ModelState.IsValid)
+        public UsuarioController(IUsuarioModel usuarioModel, IComunModel comunModel)
+        {
+            _usuarioModel = usuarioModel;
+            _comunModel = comunModel;
+        }
+
+        [HttpGet]
+        public IActionResult RegistrarUsuario()
+        {
+            ViewBag.Roles = GetRoles();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegistrarUsuario(UsuarioEnt entidad)
+        {
+            entidad.Contrasenna = _comunModel.Encrypt(entidad.Contrasenna!);
+            if (ModelState.IsValid)
+            {
+                var respuestaApi = await _usuarioModel.RegistrarUsuarioAsync(entidad);
+                if (respuestaApi?.Codigo == "1")
                 {
-                    var respuestaApi = usuarioModel.RegistrarUsuario(entidad);
-                    if (respuestaApi?.Codigo == "1")
-                    {
-                        return RedirectToAction("LoginUsuario");
-                    }
-                    else
-                    {
-                        string mensajeError = respuestaApi?.Mensaje ?? "Error desconocido.";
-                        ModelState.AddModelError("", mensajeError);
-                        ViewBag.Roles = GetRoles();
-                        return View(entidad);
-                    }
+                    return RedirectToAction("LoginUsuario");
                 }
-                ViewBag.Roles = GetRoles();
-                return View(entidad);
+                else
+                {
+                    string mensajeError = respuestaApi?.Mensaje ?? "Error desconocido.";
+                    ModelState.AddModelError("", mensajeError);
+                    ViewBag.Roles = GetRoles();
+                    return View(entidad);
+                }
             }
+            ViewBag.Roles = GetRoles();
+            return View(entidad);
+        }
 
-
-            private List<SelectListItem> GetRoles()
-            {
-                // Aquí deberías obtener los roles desde tu base de datos
-                return new List<SelectListItem>
+        private List<SelectListItem> GetRoles()
+        {
+            return new List<SelectListItem>
             {
                 new SelectListItem { Value = "1", Text = "Admin" },
                 new SelectListItem { Value = "2", Text = "User" }
             };
-            }
+        }
 
-            [HttpGet]
-            public IActionResult LoginUsuario()
-            {
-                return View();
-            }
+        [HttpGet]
+        public IActionResult LoginUsuario()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public IActionResult LoginUsuario(UsuarioEnt entidad)
+        public async Task<IActionResult> LoginUsuario(UsuarioEnt entidad)
         {
             if (ModelState.IsValid)
             {
-                entidad.Contrasenna = comunModel.Encrypt(entidad.Contrasenna!);
-                var respuestaApi = usuarioModel.LoginUsuario(entidad);
+                entidad.Contrasenna = _comunModel.Encrypt(entidad.Contrasenna!);
+                var respuestaApi = await _usuarioModel.LoginUsuarioAsync(entidad);
 
                 if (respuestaApi?.Codigo == "1" && respuestaApi.Dato != null)
                 {
@@ -85,70 +91,60 @@ namespace PuntoVentaWeb.Controllers
             return View(entidad);
         }
 
-
-
         [HttpGet]
-            public IActionResult ConsultarUsuarios()
+        public async Task<IActionResult> ConsultarUsuarios()
+        {
+            var respuestaApi = await _usuarioModel.ConsultarUsuariosAsync();
+            if (respuestaApi?.Codigo == "1" && respuestaApi.Datos != null)
             {
-                var respuestaModelo = usuarioModel.ConsultarUsuarios();
-                if (respuestaModelo?.Codigo == "1")
-                {
-                    return View(respuestaModelo.Datos);
-                }
-                else
-                {
-                    ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
-                    return View(new List<UsuarioEnt>());
-                }
+                var datos = respuestaApi.Datos;
+                return View(datos);
             }
 
-            [HttpGet]
-            public IActionResult ActualizarUsuario(long IdUsuario)
-            {
-                var respuestaModelo = usuarioModel.ConsultarUnUsuario(IdUsuario);
-                if (respuestaModelo?.Codigo == "1")
-                {
-                    return View(respuestaModelo.Dato);
-                }
-                else
-                {
-                    ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
-                    return RedirectToAction("ConsultarUsuarios");
-                }
-            }
-
-            [HttpPost]
-            public IActionResult ActualizarUsuario(UsuarioEnt entidad)
-            {
-                var respuestaModelo = usuarioModel.ActualizarUsuario(entidad);
-                if (respuestaModelo?.Codigo == "1")
-                {
-                    return RedirectToAction("ConsultarUsuarios");
-                }
-                else
-                {
-                    ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
-                    return View(entidad);
-                }
-            }
-
-            [HttpPost]
-            public IActionResult EliminarUsuario(UsuarioEnt entidad)
-            {
-                var respuestaModelo = usuarioModel.EliminarUsuario(entidad.IdUsuario);
-
-                if (respuestaModelo?.Codigo == "1")
-                    return RedirectToAction("ConsultarUsuarios", "Usuario");
-                else
-                {
-                    ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
-                    return View();
-                }
-            }
-
-
+            return View(new List<UsuarioEnt>());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ActualizarUsuario(int IdUsuario)
+        {
+            var respuestaModelo = await _usuarioModel.ConsultarUnUsuarioAsync(IdUsuario);
+            if (respuestaModelo?.Codigo == "1")
+            {
+                return View(respuestaModelo.Dato);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return RedirectToAction("ConsultarUsuarios");
+            }
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> ActualizarUsuario(UsuarioEnt entidad)
+        {
+            var respuestaModelo = await _usuarioModel.ActualizarUsuarioAsync(entidad);
+            if (respuestaModelo?.Codigo == "1")
+            {
+                return RedirectToAction("ConsultarUsuarios");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View(entidad);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EliminarUsuario(UsuarioEnt entidad)
+        {
+            var respuestaModelo = await _usuarioModel.EliminarUsuarioAsync(entidad.IdUsuario);
+            if (respuestaModelo?.Codigo == "1")
+                return RedirectToAction("ConsultarUsuarios");
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View();
+            }
+        }
     }
-
+}

@@ -153,10 +153,13 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">ADMIN</span>
-                                <img class="img-profile rounded-circle"
-                                     src="https://media.licdn.com/dms/image/D4E03AQGB7uyxtc_y9A/profile-displayphoto-shrink_800_800/0/1712626625641?e=1718236800&v=beta&t=UZR4ysjhZXM8lVnkIOb9Rk99pjtAhAYLw7XmXMJTRBQ">
-                            </a>
+                                <ul class="nav-nav ml-auto">
+                                    <div class="form-inline ml-3">
+                                        @Context.Session.GetString("NOMBRE")!.ToString()
+                                    </div>
+                                </ul>
+                                </a>
+
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">

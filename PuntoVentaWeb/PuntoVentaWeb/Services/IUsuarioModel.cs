@@ -5,14 +5,11 @@ namespace PuntoVentaWeb.Services
 {
     public interface IUsuarioModel
     {
-        UsuarioRespuesta? RegistrarUsuario(UsuarioEnt entidad);
-        UsuarioRespuesta? LoginUsuario(UsuarioEnt entidad);
-        UsuarioRespuesta? ConsultarUsuarios();
-        UsuarioRespuesta? ConsultarUnUsuario(long IdUsuario);
-        UsuarioRespuesta? ActualizarUsuario(UsuarioEnt entidad);
-        UsuarioRespuesta? EliminarUsuario(long IdUsuario);
-
+        Task<UsuarioRespuesta?> RegistrarUsuarioAsync(UsuarioEnt entidad);
+        Task<UsuarioRespuesta?> LoginUsuarioAsync(UsuarioEnt entidad);
+        Task<UsuarioRespuesta?> ConsultarUsuariosAsync();
+        Task<UsuarioRespuesta?> ConsultarUnUsuarioAsync(int IdUsuario);
+        Task<UsuarioRespuesta?> ActualizarUsuarioAsync(UsuarioEnt entidad);
+        Task<UsuarioRespuesta?> EliminarUsuarioAsync(int IdUsuario);
     }
 }
-
-
