@@ -5,19 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using static PuntoVentaAPI.Entities.UsuarioEnt;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace PuntoVentaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class UsuarioController(IConfiguration iConfiguration) : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-
-        public UsuarioController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
 
         [AllowAnonymous]
         [Route("RegistrarUsuario")]
@@ -27,7 +25,7 @@ namespace PuntoVentaAPI.Controllers
             UsuarioRespuesta usuarioRespuesta = new UsuarioRespuesta();
             try
             {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                using (var db = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection")))
                 {
                     var parametros = new
                     {
@@ -59,6 +57,7 @@ namespace PuntoVentaAPI.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("LoginUsuario")]
         public IActionResult LoginUsuario(UsuarioEnt ent)
@@ -66,7 +65,7 @@ namespace PuntoVentaAPI.Controllers
             UsuarioRespuesta usuarioRespuesta = new UsuarioRespuesta();
             try
             {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                using (var db = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection")))
                 {
                     var parametros = new
                     {
@@ -78,6 +77,9 @@ namespace PuntoVentaAPI.Controllers
 
                     if (usuario != null)
                     {
+
+                     usuario.Token = GenerarToken(usuario.IdUsuario);
+
                         usuarioRespuesta.Codigo = "1";
                         usuarioRespuesta.Mensaje = "OK";
                         usuarioRespuesta.Dato = usuario;
@@ -97,7 +99,7 @@ namespace PuntoVentaAPI.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [Route("ConsultarUsuarios")]
         [HttpGet]
         public IActionResult ConsultarUsuarios()
@@ -105,7 +107,7 @@ namespace PuntoVentaAPI.Controllers
             UsuarioRespuesta UsuarioRespuesta = new UsuarioRespuesta();
             try
             {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                using (var db = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection")))
                 {
                     var resultadoBD = db.Query<UsuarioEnt>("ConsultarUsuarios", new { }, commandType: CommandType.StoredProcedure).ToList();
 
@@ -134,15 +136,15 @@ namespace PuntoVentaAPI.Controllers
         }
 
 
-        [AllowAnonymous]
+        [Authorize]
         [Route("ConsultarUnUsuario")]
         [HttpGet]
-        public IActionResult ConsultarUnUsuario(long IdUsuario)
+        public IActionResult ConsultarUnUsuario(int IdUsuario)
         {
             UsuarioRespuesta UsuarioRespuesta = new UsuarioRespuesta();
             try
             {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                using (var db = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection")))
                 {
                     var result = db.Query<UsuarioEnt>("ObtenerUsuarioPorID",
                         new { IdUsuario },
@@ -173,7 +175,7 @@ namespace PuntoVentaAPI.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [Route("ActualizarUsuario")]
         [HttpPut]
         public IActionResult ActualizarUsuario(UsuarioEnt usuario)
@@ -181,7 +183,7 @@ namespace PuntoVentaAPI.Controllers
             UsuarioRespuesta usuarioRespuesta = new UsuarioRespuesta();
             try
             {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                using (var db = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection")))
                 {
                     var result = db.Execute("ActualizarUsuario",
                         new
@@ -219,15 +221,15 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error inesperado al actualizar el Usuario.", error = ex.Message });
             }
         }
-        [AllowAnonymous]
+        [Authorize]
         [Route("EliminarUsuario")]
         [HttpDelete]
-        public IActionResult EliminarUsuario(long IdUsuario)
+        public IActionResult EliminarUsuario(int IdUsuario)
         {
             UsuarioRespuesta UsuarioRespuesta = new UsuarioRespuesta();
             try
             {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                using (var db = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection")))
                 {
                     var result = db.Execute("EliminarUsuario",
                         new
@@ -258,6 +260,22 @@ namespace PuntoVentaAPI.Controllers
             {
                 return StatusCode(500, new { message = "Ocurrió un error inesperado al eliminar el Usuario.", error = ex.Message });
             }
+        }
+        private string GenerarToken(int IdUsuario)
+        {
+            string SecretKey = iConfiguration.GetSection("settings:SecretKey").Value!;
+            List<Claim> claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, IdUsuario.ToString()));
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(10),
+                signingCredentials: cred);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
     }

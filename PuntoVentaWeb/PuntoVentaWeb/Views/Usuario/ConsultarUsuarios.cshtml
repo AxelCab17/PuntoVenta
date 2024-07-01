@@ -28,9 +28,7 @@
                 <table class="table table-bordered">
                     <thead class="thead">
                         <tr class="table-head">
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().IdUsuario)
-                            </th>
+                            
                             <th>
                                 @Html.DisplayNameFor(model => model.First().Identificacion)
                             </th>
@@ -40,9 +38,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.First().Correo)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().Contrasenna)
-                            </th>
+                            
                             <th>
                                 @Html.DisplayNameFor(model => model.First().Estado)
                             </th>
@@ -56,13 +52,11 @@
                         @foreach (var item in Model)
                         {
                             <tr class="table-row">
-                                <td>@Html.DisplayFor(modelItem => item.IdUsuario)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Identificacion)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Contrasenna)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Estado)</td>
-                                <td>@Html.DisplayFor(modelItem => item.IdRol)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
                                 <td>
                                     <a class="btn btn-success btn-sm" href="@Url.Action("ActualizarUsuario", "Usuario", new { IdUsuario = item.IdUsuario })">
                                         <i class="fas fa-pencil-alt"></i>
