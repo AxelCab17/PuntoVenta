@@ -3,30 +3,38 @@ using PuntoVentaWeb.Entities;
 using PuntoVentaWeb.Services;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PuntoVentaWeb.Models;
+using System.Threading.Tasks;
+using static PuntoVentaWeb.Entities.UsuarioEnt;
 
 namespace PuntoVentaWeb.Controllers
 {
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class UsuarioController : Controller
     {
         private readonly IUsuarioModel _usuarioModel;
+        private readonly IComunModel _comunModel;
 
-        public UsuarioController(IUsuarioModel usuarioModel)
+        public UsuarioController(IUsuarioModel usuarioModel, IComunModel comunModel)
         {
             _usuarioModel = usuarioModel;
+            _comunModel = comunModel;
         }
 
         [HttpGet]
         public IActionResult RegistrarUsuario()
         {
-            ViewBag.Roles = GetRoles(); // Obtener los roles disponibles
+            ViewBag.Roles = GetRoles();
             return View();
         }
+
         [HttpPost]
-        public IActionResult RegistrarUsuario(UsuarioEnt entidad)
+        public async Task<IActionResult> RegistrarUsuario(UsuarioEnt entidad)
         {
+            entidad.Contrasenna = _comunModel.Encrypt(entidad.Contrasenna!);
             if (ModelState.IsValid)
             {
-                var respuestaApi = _usuarioModel.RegistrarUsuario(entidad);
+                var respuestaApi = await _usuarioModel.RegistrarUsuarioAsync(entidad);
                 if (respuestaApi?.Codigo == "1")
                 {
                     return RedirectToAction("LoginUsuario");
@@ -43,10 +51,8 @@ namespace PuntoVentaWeb.Controllers
             return View(entidad);
         }
 
-
         private List<SelectListItem> GetRoles()
         {
-            // Aquí deberías obtener los roles desde tu base de datos
             return new List<SelectListItem>
             {
                 new SelectListItem { Value = "1", Text = "Admin" },
@@ -61,41 +67,47 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult LoginUsuario(UsuarioEnt entidad)
+        public async Task<IActionResult> LoginUsuario(UsuarioEnt entidad)
         {
             if (ModelState.IsValid)
             {
-                var respuestaApi = _usuarioModel.LoginUsuario(entidad);
-                if (respuestaApi?.Codigo == "1")
-                    return RedirectToAction("Index", "Home");
-                else
+                entidad.Contrasenna = _comunModel.Encrypt(entidad.Contrasenna!);
+                var respuestaApi = await _usuarioModel.LoginUsuarioAsync(entidad);
+
+                if (respuestaApi?.Codigo == "1" && respuestaApi.Dato != null)
                 {
-                    ViewBag.MsjPantalla = "Credenciales incorrectas.";
-                    return View();
+                    var datos = respuestaApi.Dato;
+                    if (datos != null)
+                    {
+                        HttpContext.Session.SetString("TOKEN", datos.Token!);
+                        HttpContext.Session.SetString("NOMBRE", datos.Nombre!);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+
+                ViewBag.MsjPantalla = "Credenciales incorrectas.";
+                return View(entidad);
             }
             return View(entidad);
         }
 
         [HttpGet]
-        public IActionResult ConsultarUsuarios()
+        public async Task<IActionResult> ConsultarUsuarios()
         {
-            var respuestaModelo = _usuarioModel.ConsultarUsuarios();
-            if (respuestaModelo?.Codigo == "1")
+            var respuestaApi = await _usuarioModel.ConsultarUsuariosAsync();
+            if (respuestaApi?.Codigo == "1" && respuestaApi.Datos != null)
             {
-                return View(respuestaModelo.Datos);
+                var datos = respuestaApi.Datos;
+                return View(datos);
             }
-            else
-            {
-                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
-                return View(new List<UsuarioEnt>());
-            }
+
+            return View(new List<UsuarioEnt>());
         }
 
         [HttpGet]
-        public IActionResult ActualizarUsuario(long IdUsuario)
+        public async Task<IActionResult> ActualizarUsuario(int IdUsuario)
         {
-            var respuestaModelo = _usuarioModel.ConsultarUnUsuario(IdUsuario);
+            var respuestaModelo = await _usuarioModel.ConsultarUnUsuarioAsync(IdUsuario);
             if (respuestaModelo?.Codigo == "1")
             {
                 return View(respuestaModelo.Dato);
@@ -108,9 +120,9 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult ActualizarUsuario(UsuarioEnt entidad)
+        public async Task<IActionResult> ActualizarUsuario(UsuarioEnt entidad)
         {
-            var respuestaModelo = _usuarioModel.ActualizarUsuario(entidad);
+            var respuestaModelo = await _usuarioModel.ActualizarUsuarioAsync(entidad);
             if (respuestaModelo?.Codigo == "1")
             {
                 return RedirectToAction("ConsultarUsuarios");
@@ -123,18 +135,16 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult EliminarUsuario(UsuarioEnt entidad)
+        public async Task<IActionResult> EliminarUsuario(UsuarioEnt entidad)
         {
-            var respuestaModelo = _usuarioModel.EliminarUsuario(entidad.IdUsuario);
-
+            var respuestaModelo = await _usuarioModel.EliminarUsuarioAsync(entidad.IdUsuario);
             if (respuestaModelo?.Codigo == "1")
-                return RedirectToAction("ConsultarUsuarios", "Usuario");
+                return RedirectToAction("ConsultarUsuarios");
             else
             {
                 ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
                 return View();
             }
         }
-
     }
 }
