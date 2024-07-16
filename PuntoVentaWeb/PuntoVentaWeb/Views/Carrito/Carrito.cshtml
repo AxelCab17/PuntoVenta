@@ -38,7 +38,7 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-12">
                                     <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto">
+                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto" onkeydown="if (event.key === 'Enter') buscarProducto()">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button" onclick="buscarProducto()">Buscar</button>
                                         </div>
@@ -186,6 +186,8 @@
 <script>
     function buscarProducto() {
         var productId = document.getElementById('productIdInput').value;
-        window.location.href = '@Url.Action("AgregarProducto", "Carrito")?productoId=' + productId + '&cantidad=1';
+        if (productId.trim() !== "") {
+            window.location.href = '@Url.Action("AgregarProducto", "Carrito")?productoId=' + productId + '&cantidad=1';
+        }
     }
 </script>

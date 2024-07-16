@@ -33,7 +33,7 @@ namespace PuntoVentaAPI.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("AgregarProducto/{productoId}")]
-        public IActionResult AgregarProducto(int productoId, [FromBody] int cantidad)
+        public IActionResult AgregarProducto(string productoId, [FromBody] int cantidad)
         {
             using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
@@ -57,10 +57,11 @@ namespace PuntoVentaAPI.Controllers
             }
         }
 
+
         [AllowAnonymous]
         [HttpDelete]
         [Route("EliminarProducto/{productoId}")]
-        public IActionResult EliminarProducto(int productoId)
+        public IActionResult EliminarProducto(string productoId)
         {
             var carritoItem = carrito.Items.FirstOrDefault(i => i.ProductoId == productoId);
             if (carritoItem == null)

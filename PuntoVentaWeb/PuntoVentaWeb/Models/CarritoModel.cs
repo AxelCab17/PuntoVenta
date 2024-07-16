@@ -24,7 +24,7 @@ namespace PuntoVentaWeb.Models
             return carrito ?? new Carrito();
         }
 
-        public void AgregarProducto(int productoId, int cantidad)
+        public void AgregarProducto(string productoId, int cantidad)
         {
             string url = _configuration.GetSection("settings:UrlApi").Value + $"api/Carrito/AgregarProducto/{productoId}";
             var content = JsonContent.Create(cantidad);
@@ -34,8 +34,19 @@ namespace PuntoVentaWeb.Models
                 throw new System.Exception("No se pudo agregar el producto al carrito");
             }
         }
+        public void AgregarProductoPorId(string productoId)
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + $"api/Carrito/AgregarProducto/{productoId}";
+            var content = JsonContent.Create(1); // Asume que la cantidad es 1 al escanear el IdProducto
+            var response = _http.PostAsync(url, content).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new System.Exception("No se pudo agregar el producto al carrito");
+            }
+        }
 
-        public void EliminarProducto(int productoId)
+
+        public void EliminarProducto(string productoId)
         {
             string url = _configuration.GetSection("settings:UrlApi").Value + $"api/Carrito/EliminarProducto/{productoId}";
             var response = _http.DeleteAsync(url).Result;

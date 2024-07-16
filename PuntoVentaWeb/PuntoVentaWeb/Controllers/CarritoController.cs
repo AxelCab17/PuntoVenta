@@ -21,7 +21,7 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult AgregarProducto(int productoId, int cantidad)
+        public IActionResult AgregarProducto(string productoId, int cantidad)
         {
             try
             {
@@ -34,8 +34,22 @@ namespace PuntoVentaWeb.Controllers
             return RedirectToAction("Carrito");
         }
 
+        [HttpGet]
+        public IActionResult AgregarProductoPorId(string productoId)
+        {
+            try
+            {
+                _carritoModel.AgregarProductoPorId(productoId);
+            }
+            catch (System.Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+            }
+            return RedirectToAction("Carrito");
+        }
+
         [HttpPost]
-        public IActionResult EliminarProducto(int productoId)
+        public IActionResult EliminarProducto(string productoId)
         {
             try
             {
