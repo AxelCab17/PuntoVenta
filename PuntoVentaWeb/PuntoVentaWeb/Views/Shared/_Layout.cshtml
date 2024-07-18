@@ -87,10 +87,6 @@
                 </a>
                 <div id="collapseVenta" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="@Url.Action("Carrito", "Carrito")">Carrito</a>
-                        <a class="collapse-item" href="@Url.Action("HistorialVenta", "HistorialVenta")">Historial Venta</a>
-
                         <a class="collapse-item" asp-action="Carrito" asp-controller="Carrito">Carrito</a>
                         <a class="collapse-item" asp-action="HistorialVenta" asp-controller="HistorialVenta">Historial Venta</a>
 
@@ -107,9 +103,6 @@
                 </a>
                 <div id="collapseReportes" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="@Url.Action("Reportes", "Reportes")">Reporte Venta</a>
-                        <a class="collapse-item" href="@Url.Action("Contabilidad", "Contabilidad")">Contabilidad</a>
 
                         <a class="collapse-item" asp-action="Reportes" asp-controller="Reportes">Reporte Venta</a>
                         <a class="collapse-item" asp-action="Contabilidad" asp-controller="Contabilidad">Contabilidad</a>
@@ -160,8 +153,6 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-
-                                <a class="dropdown-item" href="@Url.Action("Perfil", "Login")">Perfil</a>
 
                                 <a class="dropdown-item" asp-action="Perfil" asp-controller="Login">Perfil</a>
 
