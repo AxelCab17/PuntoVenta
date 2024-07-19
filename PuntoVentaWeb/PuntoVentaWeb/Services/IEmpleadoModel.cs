@@ -8,11 +8,11 @@ namespace PuntoVentaWeb.Services
     {
         EmpleadoRespuesta? ConsultarEmpleados();
 
-        EmpleadoRespuesta? ObtenerEmpleadoPorId(long IdEmpleado);
+        EmpleadoRespuesta? ObtenerEmpleadoPorId(int Cedula);
 
         EmpleadoRespuesta? RegistrarEmpleado(EmpleadoEnt entidad);
         EmpleadoRespuesta? ActualizarEmpleado(EmpleadoEnt entidad);
 
-        EmpleadoRespuesta? EliminarEmpleado(long IdEmpleado);
+        EmpleadoRespuesta? EliminarEmpleado(int Cedula);
     }
 }

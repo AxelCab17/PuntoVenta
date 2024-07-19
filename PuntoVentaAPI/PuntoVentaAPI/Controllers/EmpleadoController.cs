@@ -27,18 +27,18 @@ public class EmpleadoController : ControllerBase
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                var id = connection.QuerySingle<int>("RegistrarEmpleado", new
-                {
-                    empleado.Nombre,
-                    empleado.Apellido,
-                    empleado.FechaIngreso,
-                    empleado.HorasTrabajadas,
-                    empleado.HorasRebajadas,
-                    empleado.ValorPorHora
-            
-                }, commandType: System.Data.CommandType.StoredProcedure);
+                var parameters = new DynamicParameters();
+                parameters.Add("Cedula", empleado.Cedula, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("Nombre", empleado.Nombre, DbType.String, ParameterDirection.Input);
+                parameters.Add("Apellido", empleado.Apellido, DbType.String, ParameterDirection.Input);
+                parameters.Add("FechaIngreso", empleado.FechaIngreso, DbType.Date, ParameterDirection.Input);
+                parameters.Add("HorasTrabajadas", empleado.HorasTrabajadas, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("HorasRebajadas", empleado.HorasRebajadas, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("ValorPorHora", empleado.ValorPorHora, DbType.Decimal, ParameterDirection.Input);
 
-                return Ok(new { mensaje = "Empleado registrado con éxito", IdEmpleado = id });
+                connection.Execute("RegistrarEmpleado", parameters, commandType: CommandType.StoredProcedure);
+
+                return Ok(new { mensaje = "Empleado registrado con éxito" });
             }
         }
         catch (Exception ex)
@@ -46,6 +46,7 @@ public class EmpleadoController : ControllerBase
             return StatusCode(500, new { mensaje = "Error al registrar el empleado", error = ex.Message });
         }
     }
+
 
 
 
@@ -62,7 +63,7 @@ public class EmpleadoController : ControllerBase
                 var result = db.Execute("ActualizarEmpleado",
                     new
                     {
-                        empleado.IdEmpleado,
+                        empleado.Cedula,
                         empleado.Nombre,
                         empleado.Apellido,
                         empleado.FechaIngreso,
@@ -101,7 +102,7 @@ public class EmpleadoController : ControllerBase
     [AllowAnonymous]
     [Route("EliminarEmpleado")]
     [HttpDelete]
-    public IActionResult EliminarEmpleado(long IdEmpleado)
+    public IActionResult EliminarEmpleado(int Cedula)
     {
         EmpleadoRespuesta empleadoRespuesta = new EmpleadoRespuesta();
         try
@@ -111,7 +112,7 @@ public class EmpleadoController : ControllerBase
                 var result = db.Execute("EliminarEmpleado",
                     new
                     {
-                        IdEmpleado
+                        Cedula
                     },
                     commandType: CommandType.StoredProcedure);
 
@@ -181,17 +182,17 @@ public class EmpleadoController : ControllerBase
     }
 
     [AllowAnonymous]
-    [Route("ObtenerEmpleadoPorId")]
+    [Route("ObtenerEmpleadoPorCedula")]
     [HttpGet]
-    public IActionResult ObtenerEmpleadoPorId(long IdEmpleado)
+    public IActionResult ObtenerEmpleadoPorCedula(int Cedula)
     {
         EmpleadoRespuesta empleadoRespuesta = new EmpleadoRespuesta();
         try
         {
             using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
-                var result = db.Query<EmpleadoEnt>("ObtenerEmpleadoPorId",
-                    new { IdEmpleado },
+                var result = db.Query<EmpleadoEnt>("ObtenerEmpleadoPorCedula",
+                    new { Cedula },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                 if (result == null)
