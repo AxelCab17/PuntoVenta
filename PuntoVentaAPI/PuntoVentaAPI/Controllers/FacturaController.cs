@@ -34,11 +34,10 @@ namespace PuntoVentaAPI.Controllers
                         Factura.Cantidad,
                         Factura.IdCajero,
                         Factura.NuevaFactura,
-                        Factura.Ultimo,
                         Factura.Descuento
                     };
 
-                    var result = db.Execute("AgregarFactura", parametros, commandType: CommandType.StoredProcedure);
+                    var result = db.Execute("RegistrarDetalleFactura", parametros, commandType: CommandType.StoredProcedure);
                     if (result > 0)
                     {
                         FacturaRespuesta.Codigo = "1";
@@ -59,7 +58,7 @@ namespace PuntoVentaAPI.Controllers
             }
         }
 
-        [AllowAnonymous]
+       /** [AllowAnonymous]
         [Route("ActualizarFactura")]
         [HttpPut]
         public IActionResult ActualizarFactura(FacturaEnt Factura)
@@ -76,7 +75,6 @@ namespace PuntoVentaAPI.Controllers
                             Factura.Cantidad,
                             Factura.IdCajero,
                             Factura.NuevaFactura,
-                            Factura.Ultimo,
                             Factura.Descuento
                         },
                         commandType: CommandType.StoredProcedure);
@@ -104,7 +102,7 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error inesperado al actualizar el Factura.", error = ex.Message });
             }
         }
-
+       **/
         
     }
 }

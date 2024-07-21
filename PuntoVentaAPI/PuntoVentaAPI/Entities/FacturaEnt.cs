@@ -8,11 +8,11 @@ namespace PuntoVentaAPI.Entities
         public int IdDetalle { get; }
         public int IdFactura { get; }
         public int IdProducto { get; set; }
-        public string NombreProducto { get;}
+        public string? NombreProducto { get;}
         public int Cantidad { get; set; }
         public decimal PrecioUnitatio { get;}
         public decimal Total { get; }
-        public int Ultimo { get; set; }
+
         public int NuevaFactura { get; set; }
         public int IdCajero { get; set; }
         public int Descuento { get; set; }
