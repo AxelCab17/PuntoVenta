@@ -78,7 +78,7 @@ namespace PuntoVentaAPI.Controllers
                     if (usuario != null)
                     {
 
-                     usuario.Token = GenerarToken(usuario.IdUsuario);
+                     usuario.Token = GenerarToken(usuario.IdUsuario, usuario.IdRol);
 
                         usuarioRespuesta.Codigo = "1";
                         usuarioRespuesta.Mensaje = "OK";
@@ -103,7 +103,14 @@ namespace PuntoVentaAPI.Controllers
         [Route("ConsultarUsuarios")]
         [HttpGet]
         public IActionResult ConsultarUsuarios()
+
         {
+            if (!EsAdministrador())
+                return StatusCode(403);
+
+
+
+
             UsuarioRespuesta UsuarioRespuesta = new UsuarioRespuesta();
             try
             {
@@ -261,11 +268,13 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error inesperado al eliminar el Usuario.", error = ex.Message });
             }
         }
-        private string GenerarToken(int IdUsuario)
+        private string GenerarToken(int IdUsuario, int IdRol)
         {
             string SecretKey = iConfiguration.GetSection("settings:SecretKey").Value!;
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, IdUsuario.ToString()));
+            claims.Add(new Claim("IdRol", IdRol.ToString()));
+
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
@@ -276,6 +285,18 @@ namespace PuntoVentaAPI.Controllers
                 signingCredentials: cred);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
+
+        private bool EsAdministrador()
+        {
+            var userrol = User.Claims.Select(Claim => new {Claim.Type, Claim.Value}).
+                FirstOrDefault( x => x.Type == "IdRol")!.Value;
+
+
+            return (userrol == "1" ? true : false);
+
         }
 
     }

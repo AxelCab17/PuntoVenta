@@ -81,7 +81,10 @@ namespace PuntoVentaWeb.Controllers
                     {
                         HttpContext.Session.SetString("TOKEN", datos.Token!);
                         HttpContext.Session.SetString("NOMBRE", datos.Nombre!);
-                        HttpContext.Session.SetString("IDENTIFICACION", datos.Identificacion!);
+
+                        HttpContext.Session.SetString("ROL", datos.IdRol.ToString());
+
+
                         return RedirectToAction("Index", "Home");
                     }
                 }

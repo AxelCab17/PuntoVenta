@@ -45,6 +45,10 @@
                 </a>
             </li>
 
+            @if (Context.Session.GetString("ROL")!.ToString() == "1")
+            {
+
+
             <!-- Nav Item - Admnistración Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdministracion"
@@ -54,13 +58,16 @@
                 </a>
                 <div id="collapseAdministracion" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                         <a class="collapse-item" asp-action="ConsultarEmpleados" asp-controller="Empleado">Empleados</a>
+                        <a class="collapse-item" asp-action="ConsultarEmpleados" asp-controller="Empleado">Empleados</a>
                         <a class="collapse-item" asp-action="ConsultarProveedores" asp-controller="Proveedor">Proveedores</a>
                         <a class="collapse-item" asp-action="ConsultarUsuarios" asp-controller="Usuario">Usuarios</a>
 
                     </div>
                 </div>
             </li>
+
+            }
+
 
             <!-- Nav Item - Inventario Collapse Menu -->
             <li class="nav-item">
@@ -103,6 +110,7 @@
                 </a>
                 <div id="collapseReportes" class="collapse" aria-labelledby="headingInventario" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+
 
                         <a class="collapse-item" asp-action="Reportes" asp-controller="Reportes">Reporte Venta</a>
                         <a class="collapse-item" asp-action="Contabilidad" asp-controller="Contabilidad">Contabilidad</a>
@@ -148,7 +156,7 @@
                                         @Context.Session.GetString("NOMBRE")!.ToString()
                                     </div>
                                 </ul>
-                                </a>
+                            </a>
 
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
