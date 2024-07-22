@@ -18,14 +18,11 @@
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    <label for="ID">Identificación:</label>
-                                    <input type="text" class="form-control" id="ID" value="@Context.Session.GetString("IDENTIFICACION")" readonly>
+                                    <input type="text" class="form-control form-control-sm" id="txtDocumentoCliente" placeholder="ID ">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label for="nombre">Nombre:</label>
-                                    <input type="text" class="form-control" id="nombre" value="@Context.Session.GetString("NOMBRE")" readonly>
+                                    <input type="text" class="form-control form-control-sm" id="txtNombreCliente" placeholder="Nombre Cajero">
                                 </div>
-                             
                             </div>
                         </div>
                     </div>
@@ -41,7 +38,7 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-12">
                                     <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto" onkeydown="if (event.key === 'Enter') buscarProducto()" autofocus>
+                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto" onkeydown="if (event.key === 'Enter') buscarProducto()">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button" onclick="buscarProducto()">Buscar</button>
                                         </div>
@@ -69,31 +66,31 @@
                                                     <td>@item.Producto.IdProducto</td>
                                                     <td>@item.Producto.Nombre</td>
                                                     <td>
-
-                                                        <div class="input-group input-group-sm cantidad-group">
-                                                            <form asp-action="AgregarProducto" method="get" class="cantidad-btn" onsubmit="return validarCantidad(@item.Cantidad)">
-                                                                <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
-                                                                <input type="hidden" name="cantidad" value="-1" />
-                                                                <button class="btn btn-minus btn-sm" type="submit">
-                                                                    <i class="fas fa-minus"></i>
-                                                                </button>
-                                                            </form>
-                                                            <input type="text" class="form-control text-center" value="@item.Cantidad" style="max-width: 3em;" readonly>
-                                                            <form asp-action="AgregarProducto" method="get" class="cantidad-btn">
-                                                                <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
-                                                                <input type="hidden" name="cantidad" value="1" />
-                                                                <button class="btn btn-plus btn-sm" type="submit">
-                                                                    <i class="fas fa-plus"></i>
-                                                                </button>
-                                                            </form>
-
+                                                        <div class="input-group input-group-sm">
+                                                            <div class="input-group-prepend flex-column">
+                                                                <form asp-action="AgregarProducto" method="get">
+                                                                    <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
+                                                                    <input type="hidden" name="cantidad" value="1" />
+                                                                    <button class="btn btn-plus" type="submit">
+                                                                        <i class="fas fa-plus"></i>
+                                                                    </button>
+                                                                </form>
+                                                                <input id="valorCantidad" type="text" class="form-control text-center" value="@item.Cantidad" style="max-width: 3em;" readonly>
+                                                                <form asp-action="AgregarProducto" method="get">
+                                                                    <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
+                                                                    <input type="hidden" name="cantidad" value="-1" />
+                                                                    <button class="btn btn-minus" type="submit">
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                     <td>@item.Producto.Precio</td>
                                                     <td>
                                                         <input type="number" class="form-control form-control-sm" id="descuento_@item.Producto.IdProducto" value="0" min="0" max="100" onchange="actualizarDescuento(@item.Producto.IdProducto)">
                                                     </td>
-                                                    <td id="total_@item.Producto.IdProducto" data-cantidad="@item.Cantidad" data-precio="@item.Producto.Precio" >
+                                                    <td id="total_@item.Producto.IdProducto" data-cantidad="@item.Cantidad" data-precio="@item.Producto.Precio">
                                                         @((item.Producto.Precio * item.Cantidad) - (item.Producto.Precio * (item.Cantidad * 0 / 100)))
                                                     </td>
                                                     <td>
@@ -246,7 +243,7 @@
             window.location.href = '@Url.Action("AgregarProducto", "Carrito")?productoId=' + productId + '&cantidad=1';
         }
 
-        
+
     }
     function actualizarDescuento(productoId) {
         var descuento = document.getElementById('descuento_' + productoId).value;
@@ -273,8 +270,6 @@
         document.getElementById('txtIGV').value = iva.toFixed(2);
         document.getElementById('txtTotal').value = total.toFixed(2);
     }
-
-
     function validarCantidad(cantidad) {
         if (cantidad <= 1) {
             return false; // No permitir que la cantidad sea menor que 1
@@ -323,12 +318,12 @@
         items.forEach(function (item) {
             var row = document.createElement('tr');
             row.innerHTML = `
-                <td>${item.ProductoId}</td>
-                <td>${item.NombreProducto}</td>
-                <td>${item.Cantidad}</td>
-                <td>${item.Precio.toFixed(2)}</td>
-                <td>${item.Total.toFixed(2)}</td>
-            `;
+                    <td>${item.ProductoId}</td>
+                    <td>${item.NombreProducto}</td>
+                    <td>${item.Cantidad}</td>
+                    <td>${item.Precio.toFixed(2)}</td>
+                    <td>${item.Total.toFixed(2)}</td>
+                `;
             modalItemsBody.appendChild(row);
         });
 
@@ -353,24 +348,4 @@
 
 
 
-
 </script>
-
-<style>
-    .cantidad-group {
-        display: flex;
-        align-items: center;
-    }
-
-    .cantidad-btn {
-        margin: 0;
-    }
-
-    .btn-plus, .btn-minus {
-        padding: 0.25rem 0.5rem;
-    }
-
-        .btn-plus i, .btn-minus i {
-            font-size: 0.75rem;
-        }
-</style>
