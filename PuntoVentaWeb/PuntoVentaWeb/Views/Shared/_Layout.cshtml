@@ -45,6 +45,10 @@
                 </a>
             </li>
 
+            @if (Context.Session.GetString("ROL")!.ToString() == "1")
+            {
+
+
             <!-- Nav Item - Admnistración Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdministracion"
@@ -61,6 +65,9 @@
                     </div>
                 </div>
             </li>
+
+            }
+
 
             <!-- Nav Item - Inventario Collapse Menu -->
             <li class="nav-item">

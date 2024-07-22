@@ -43,8 +43,10 @@ namespace PuntoVentaWeb.Models
         {
             string url = _iConfiguration.GetSection("settings:UrlApi").Value + "api/Usuario/ConsultarUsuarios";
             string token = _iContextAccesor.HttpContext!.Session.GetString("TOKEN")!;
+
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var respuestaApi = await _httpClient.GetAsync(url);
+
             if (respuestaApi.IsSuccessStatusCode)
                 return await respuestaApi.Content.ReadFromJsonAsync<UsuarioRespuesta>();
             return null;
