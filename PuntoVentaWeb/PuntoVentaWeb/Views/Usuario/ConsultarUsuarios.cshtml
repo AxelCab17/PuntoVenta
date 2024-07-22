@@ -7,11 +7,13 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
 
-
+@if (Context.Session.GetString("ROL")!.ToString() == "1")
+            {
 <div class="card shadow mb-4">
     <div class="card-header py-3 ">
         <h6 class="m-0 font-weight-bold text-white">Lista de Usuarios</h6>
     </div>
+
     <div class="card-body">
         <div class="row">
             <div class="col-sm-3">
@@ -109,4 +111,6 @@
             $("#Question").text("¿Desea eliminar el usuario: " + $(this).data('name') + "?");
         });
     </script>
+}
+
 }

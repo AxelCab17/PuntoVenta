@@ -54,6 +54,7 @@
                                                 <th>Producto</th>
                                                 <th>Cantidad</th>
                                                 <th>Precio</th>
+                                                <th>Descuento (%)</th>
                                                 <th>Total</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -74,7 +75,7 @@
                                                                         <i class="fas fa-plus"></i>
                                                                     </button>
                                                                 </form>
-                                                                <input type="text" class="form-control text-center" value="@item.Cantidad" style="max-width: 3em;" readonly>
+                                                                <input id= "valorCantidad"type="text" class="form-control text-center" value="@item.Cantidad" style="max-width: 3em;" readonly>
                                                                 <form asp-action="AgregarProducto" method="get">
                                                                     <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
                                                                     <input type="hidden" name="cantidad" value="-1" />
@@ -86,7 +87,12 @@
                                                         </div>
                                                     </td>
                                                     <td>@item.Producto.Precio</td>
-                                                    <td>@(item.Producto.Precio * item.Cantidad)</td>
+                                                    <td>
+                                                        <input type="number" class="form-control form-control-sm" id="descuento_@item.Producto.IdProducto" value="0" min="0" max="100" onchange="actualizarDescuento(@item.Producto.IdProducto)">
+                                                    </td>
+                                                    <td id="total_@item.Producto.IdProducto" data-cantidad="@item.Cantidad" data-precio="@item.Producto.Precio" >
+                                                        @((item.Producto.Precio * item.Cantidad) - (item.Producto.Precio * (item.Cantidad * 0 / 100)))
+                                                    </td>
                                                     <td>
                                                         <form asp-action="EliminarProducto" method="post">
                                                             <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
@@ -165,8 +171,55 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalFactura" tabindex="-1" aria-labelledby="modalFacturaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFacturaLabel">Detalles de la Factura</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Datos del Cliente</h6>
+                    <p id="modalDocumentoCliente"></p>
+
+                    <h6>Productos</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalItemsBody">
+                            <!-- Los datos de los productos se insertarán aquí dinámicamente -->
+                        </tbody>
+                    </table>
+
+                    <h6>Totales</h6>
+                    <p>Sub Total: <span id="modalSubTotal"></span></p>
+                    <p>IVA: <span id="modalIVA"></span></p>
+                    <p>Total: <span id="modalTotal"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="confirmarVenta">Confirmar Venta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 <!-- /.container-fluid -->
+<form id="ventaForm" method="post" action="@Url.Action("TerminarVenta", "Factura")" style="display: none;">
+    <input type="hidden" name="itemsJson" id="hiddenItemsJson" />
+    <input type="hidden" name="documentoCliente" id="hiddenDocumentoCliente" />
+</form>
+
 <!-- Bootstrap core JavaScript-->
 <script src="~/vendor/jquery/jquery.min.js"></script>
 <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -189,5 +242,103 @@
         if (productId.trim() !== "") {
             window.location.href = '@Url.Action("AgregarProducto", "Carrito")?productoId=' + productId + '&cantidad=1';
         }
+
+        
     }
+    function actualizarDescuento(productoId) {
+        var descuento = document.getElementById('descuento_' + productoId).value;
+        var cantidad = parseInt(document.querySelector('#total_' + productoId).dataset.cantidad);
+        var precio = parseFloat(document.querySelector('#total_' + productoId).dataset.precio);
+
+        var total = (precio * cantidad) - (((precio * cantidad) * descuento) / 100);
+        document.getElementById('total_' + productoId).innerText = total.toFixed(2);
+        actualizarTotales();
+    }
+
+    function actualizarTotales() {
+        var subtotales = document.querySelectorAll('[id^="total_"]');
+        var subtotal = 0;
+
+        subtotales.forEach(function (subtotalElement) {
+            subtotal += parseFloat(subtotalElement.innerText);
+        });
+
+        var iva = subtotal * 0.13;
+        var total = subtotal + iva;
+
+        document.getElementById('txtSubTotal').value = subtotal.toFixed(2);
+        document.getElementById('txtIGV').value = iva.toFixed(2);
+        document.getElementById('txtTotal').value = total.toFixed(2);
+    }
+    document.getElementById('btnTerminarVenta').addEventListener('click', function () {
+        var items = [];
+        var subTotal = 0;
+        var iva = 0;
+        var total = 0;
+
+        document.querySelectorAll('tbody tr').forEach(function (row) {
+            var id = row.querySelector('td:nth-child(1)').innerText.trim();
+            var nombre = row.querySelector('td:nth-child(2)').innerText.trim();
+            var cantidad = row.querySelector('td:nth-child(3) input[type="text"]').value.trim();
+            var precio = row.querySelector('td:nth-child(4)').innerText.trim();
+            var descuento = row.querySelector('td:nth-child(5) input').value.trim();
+            var totalItem = (parseFloat(precio) * parseInt(cantidad, 10)) - parseFloat(descuento);
+
+            items.push({
+                ProductoId: id,
+                NombreProducto: nombre,
+                Cantidad: parseInt(cantidad, 10),
+                Precio: parseFloat(precio),
+                Descuento: parseFloat(descuento),
+                Total: totalItem
+            });
+
+            subTotal += totalItem;
+        });
+
+        iva = subTotal * 0.13;
+        total = subTotal + iva;
+
+        // Llenar el modal con los datos
+        var documentoCliente = document.getElementById('txtDocumentoCliente').value.trim();
+        document.getElementById('hiddenDocumentoCliente').value = documentoCliente;
+        document.getElementById('hiddenItemsJson').value = JSON.stringify(items);
+        document.getElementById('modalDocumentoCliente').innerText = document.getElementById('txtDocumentoCliente').value.trim();
+
+        var modalItemsBody = document.getElementById('modalItemsBody');
+        modalItemsBody.innerHTML = ''; // Limpiar el contenido actual
+
+        items.forEach(function (item) {
+            var row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.ProductoId}</td>
+                <td>${item.NombreProducto}</td>
+                <td>${item.Cantidad}</td>
+                <td>${item.Precio.toFixed(2)}</td>
+                <td>${item.Total.toFixed(2)}</td>
+            `;
+            modalItemsBody.appendChild(row);
+        });
+
+        document.getElementById('modalSubTotal').innerText = subTotal.toFixed(2);
+        document.getElementById('modalIVA').innerText = iva.toFixed(2);
+        document.getElementById('modalTotal').innerText = total.toFixed(2);
+
+        // Mostrar el modal
+        var myModal = new bootstrap.Modal(document.getElementById('modalFactura'));
+        myModal.show();
+        document.getElementById('confirmarVenta').addEventListener('click', function () {
+            // Aquí puedes enviar la información al servidor o realizar otra acción
+            document.getElementById('ventaForm').submit();
+        });
+    });
+
+
+
+
+
+
+
+
+
 </script>

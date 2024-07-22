@@ -11,6 +11,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IProveedorModel, ProveedorModel>();
 builder.Services.AddSingleton<IInventarioModel, InventarioModel>();
+builder.Services.AddSingleton<IFacturaModel, FacturaModel>();
 builder.Services.AddSingleton<IEmpleadoModel, EmpleadoModel>();
 builder.Services.AddSingleton<IComunModel, ComunModel>();
 builder.Services.AddSingleton<ICarritoModel, CarritoModel>();
