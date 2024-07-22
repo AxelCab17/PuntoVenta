@@ -30,7 +30,7 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult TerminarVenta(string itemsJson)
+        public IActionResult TerminarVenta(string documentoCliente, string itemsJson)
         {
 
             var items = JsonConvert.DeserializeObject<List<ItemModel>>(itemsJson);
