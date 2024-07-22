@@ -58,7 +58,7 @@
                 </a>
                 <div id="collapseAdministracion" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                         <a class="collapse-item" asp-action="ConsultarEmpleados" asp-controller="Empleado">Empleados</a>
+                        <a class="collapse-item" asp-action="ConsultarEmpleados" asp-controller="Empleado">Empleados</a>
                         <a class="collapse-item" asp-action="ConsultarProveedores" asp-controller="Proveedor">Proveedores</a>
                         <a class="collapse-item" asp-action="ConsultarUsuarios" asp-controller="Usuario">Usuarios</a>
 
@@ -118,8 +118,7 @@
                         <a class="collapse-item" href="@Url.Action("Reportes", "Reportes")">Reporte Venta</a>
                         <a class="collapse-item" href="@Url.Action("Contabilidad", "Contabilidad")">Contabilidad</a>
 
-                        <a class="collapse-item" asp-action="Reportes" asp-controller="Reportes">Reporte Venta</a>
-                        <a class="collapse-item" asp-action="Contabilidad" asp-controller="Contabilidad">Contabilidad</a>
+
 
                     </div>
                 </div>
@@ -162,7 +161,7 @@
                                         @Context.Session.GetString("NOMBRE")!.ToString()
                                     </div>
                                 </ul>
-                                </a>
+                            </a>
 
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

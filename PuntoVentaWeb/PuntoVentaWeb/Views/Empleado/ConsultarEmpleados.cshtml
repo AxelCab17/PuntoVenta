@@ -29,7 +29,7 @@
                         <thead class="thead">
                             <tr class="table-head">
                                 <th>
-                                    @Html.DisplayNameFor(model => model.First().IdEmpleado)
+                                    @Html.DisplayNameFor(model => model.First().Cedula)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.First().Nombre)
@@ -59,7 +59,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="table-row">
-                                    <td>@Html.DisplayFor(modelItem => item.IdEmpleado)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Cedula)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
                                     <td>@item.FechaIngreso.ToString("dd/MM/yyyy")</td>
@@ -68,13 +68,21 @@
                                     <td>@Html.DisplayFor(modelItem => item.ValorPorHora)</td>
                                     <td>@Html.DisplayFor(modelItem => item.SalarioAjustado)</td>
                                     <td>
-                                        <a class="btn btn-success btn-sm" href="@Url.Action("ActualizarEmpleado", "Empleado", new { IdEmpleado = item.IdEmpleado })">
+                                        <a class="btn btn-success btn-sm" href="@Url.Action("ActualizarEmpleado", "Empleado", new { Cedula = item.Cedula })" title="Editar">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <button type="button" class="btn btn-danger btn-sm passingID" data-toggle="modal" data-target="#exampleModal"
-                                                data-id="@item.IdEmpleado" data-name="@item.Nombre">
+                                                data-id="@item.Cedula" data-name="@item.Nombre" title="Eliminar">
                                             <i class="fa fa-trash"></i>
                                         </button>
+                                        <a class="btn btn-primary btn-sm" href="@Url.Action("CrearNomina", "Nomina", new { Cedula = item.Cedula })" title="Generar Nómina">
+                                            <i class="fas fa-file-alt"></i>
+                                        </a>
+
+                                        <a class="btn btn-success btn-sm" href="@Url.Action("ExportarNominas", "Nomina")" title="Exportar a Excel">
+                                            <i class="fas fa-file-excel"></i>
+                                        </a>
+
                                     </td>
                                 </tr>
                             }

@@ -41,9 +41,9 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult ActualizarEmpleado(long IdEmpleado)
+        public IActionResult ActualizarEmpleado(int Cedula)
         {
-            var respuestaModelo = _EmpleadoModel.ObtenerEmpleadoPorId(IdEmpleado);
+            var respuestaModelo = _EmpleadoModel.ObtenerEmpleadoPorId(Cedula);
             return View(respuestaModelo?.Dato);
         }
 
@@ -64,7 +64,7 @@ namespace PuntoVentaWeb.Controllers
         [HttpPost]
         public IActionResult EliminarEmpleado(EmpleadoEnt entidad)
         {
-            var respuestaModelo = _EmpleadoModel.EliminarEmpleado(entidad.IdEmpleado);
+            var respuestaModelo = _EmpleadoModel.EliminarEmpleado(entidad.Cedula);
 
             if (respuestaModelo?.Codigo == "1")
                 return RedirectToAction("ConsultarEmpleados", "Empleado");

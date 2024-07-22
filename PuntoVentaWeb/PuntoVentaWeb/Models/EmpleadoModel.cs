@@ -29,9 +29,9 @@ namespace PuntoVentaWeb.Models
             return null;
         }
 
-        public EmpleadoRespuesta? ObtenerEmpleadoPorId(long IdEmpleado)
+        public EmpleadoRespuesta? ObtenerEmpleadoPorId(int Cedula)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Empleado/ObtenerEmpleadoPorId?IdEmpleado=" + IdEmpleado;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Empleado/ObtenerEmpleadoPorCedula?Cedula=" + Cedula;
             var resp = _http.GetAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
@@ -53,9 +53,9 @@ namespace PuntoVentaWeb.Models
         }
 
 
-        public EmpleadoRespuesta? EliminarEmpleado(long IdEmpleado)
+        public EmpleadoRespuesta? EliminarEmpleado(int Cedula)
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Empleado/EliminarEmpleado?IdEmpleado=" + IdEmpleado;
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Empleado/EliminarEmpleado?Cedula=" + Cedula;
             var resp = _http.DeleteAsync(url).Result;
             if (resp.IsSuccessStatusCode)
                 return resp.Content.ReadFromJsonAsync<EmpleadoRespuesta>().Result;
