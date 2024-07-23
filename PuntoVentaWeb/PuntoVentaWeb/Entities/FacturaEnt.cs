@@ -6,7 +6,7 @@
 
             public int IdDetalle { get; }
             public int IdFactura { get; }
-            public int IdProducto { get; set; }
+            public string IdProducto { get; set; }
             public string? NombreProducto { get; }
             public int Cantidad { get; set; }
             public decimal PrecioUnitatio { get; }

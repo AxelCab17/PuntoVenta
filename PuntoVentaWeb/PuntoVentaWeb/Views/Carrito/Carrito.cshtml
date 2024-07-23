@@ -6,7 +6,6 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <div class="row">
         <div class="col-sm-8">
             <div class="row">
@@ -38,7 +37,7 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-12">
                                     <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto" onkeydown="if (event.key === 'Enter') buscarProducto()">
+                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto" autofocus onkeydown="if (event.key === 'Enter') buscarProducto()">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button" onclick="buscarProducto()">Buscar</button>
                                         </div>
@@ -67,20 +66,22 @@
                                                     <td>@item.Producto.Nombre</td>
                                                     <td>
                                                         <div class="input-group input-group-sm">
-                                                            <div class="input-group-prepend flex-column">
+                                                            <div class="input-group-prepend">
+                                                                <form asp-action="AgregarProducto" method="get">
+                                                                    <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
+                                                                    <input type="hidden" name="cantidad" value="-1" />
+                                                                    <button class="btn btn-minus" type="submit" onclick="return validarCantidad(@item.Cantidad)">
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                            <input id="valorCantidad" type="text" class="form-control text-center" value="@item.Cantidad" style="max-width: 3em;" readonly>
+                                                            <div class="input-group-append">
                                                                 <form asp-action="AgregarProducto" method="get">
                                                                     <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
                                                                     <input type="hidden" name="cantidad" value="1" />
                                                                     <button class="btn btn-plus" type="submit">
                                                                         <i class="fas fa-plus"></i>
-                                                                    </button>
-                                                                </form>
-                                                                <input id="valorCantidad" type="text" class="form-control text-center" value="@item.Cantidad" style="max-width: 3em;" readonly>
-                                                                <form asp-action="AgregarProducto" method="get">
-                                                                    <input type="hidden" name="productoId" value="@item.Producto.IdProducto" />
-                                                                    <input type="hidden" name="cantidad" value="-1" />
-                                                                    <button class="btn btn-minus" type="submit">
-                                                                        <i class="fas fa-minus"></i>
                                                                     </button>
                                                                 </form>
                                                             </div>
@@ -211,8 +212,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 <!-- /.container-fluid -->
 <form id="ventaForm" method="post" action="@Url.Action("TerminarVenta", "Factura")" style="display: none;">
@@ -242,9 +241,8 @@
         if (productId.trim() !== "") {
             window.location.href = '@Url.Action("AgregarProducto", "Carrito")?productoId=' + productId + '&cantidad=1';
         }
-
-
     }
+
     function actualizarDescuento(productoId) {
         var descuento = document.getElementById('descuento_' + productoId).value;
         var cantidad = parseInt(document.querySelector('#total_' + productoId).dataset.cantidad);
@@ -270,6 +268,7 @@
         document.getElementById('txtIGV').value = iva.toFixed(2);
         document.getElementById('txtTotal').value = total.toFixed(2);
     }
+
     function validarCantidad(cantidad) {
         if (cantidad <= 1) {
             return false; // No permitir que la cantidad sea menor que 1
@@ -318,12 +317,12 @@
         items.forEach(function (item) {
             var row = document.createElement('tr');
             row.innerHTML = `
-                    <td>${item.ProductoId}</td>
-                    <td>${item.NombreProducto}</td>
-                    <td>${item.Cantidad}</td>
-                    <td>${item.Precio.toFixed(2)}</td>
-                    <td>${item.Total.toFixed(2)}</td>
-                `;
+                        <td>${item.ProductoId}</td>
+                        <td>${item.NombreProducto}</td>
+                        <td>${item.Cantidad}</td>
+                        <td>${item.Precio.toFixed(2)}</td>
+                        <td>${item.Total.toFixed(2)}</td>
+                    `;
             modalItemsBody.appendChild(row);
         });
 
@@ -339,13 +338,4 @@
             document.getElementById('ventaForm').submit();
         });
     });
-
-
-
-
-
-
-
-
-
 </script>
