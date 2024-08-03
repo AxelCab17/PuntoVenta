@@ -55,5 +55,16 @@ namespace PuntoVentaWeb.Models
                 throw new System.Exception("No se pudo eliminar el producto del carrito");
             }
         }
+
+        public void VaciarCarrito()
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Carrito/VaciarCarrito";
+            var response = _http.PostAsync(url, null).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new System.Exception("No se pudo vaciar el carrito");
+            }
+        }
+
     }
 }
