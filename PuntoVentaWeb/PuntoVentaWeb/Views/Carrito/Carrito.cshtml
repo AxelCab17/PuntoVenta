@@ -19,6 +19,9 @@
                                 <div class="form-inline ml-3">
                                     @Context.Session.GetString("NOMBRE")!.ToString()
                                 </div>
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control" id="txtDocumentoCliente" value="@Context.Session.GetString("IDENTIFICACION")" readonly>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -307,7 +310,7 @@
         var documentoCliente = document.getElementById('txtDocumentoCliente').value.trim();
         document.getElementById('hiddenDocumentoCliente').value = documentoCliente;
         document.getElementById('hiddenItemsJson').value = JSON.stringify(items);
-        document.getElementById('modalDocumentoCliente').innerText = document.getElementById('txtDocumentoCliente').value.trim();
+        document.getElementById('modalDocumentoCliente').innerText = documentoCliente;
 
         var modalItemsBody = document.getElementById('modalItemsBody');
         modalItemsBody.innerHTML = ''; // Limpiar el contenido actual
@@ -315,12 +318,12 @@
         items.forEach(function (item) {
             var row = document.createElement('tr');
             row.innerHTML = `
-                        <td>${item.ProductoId}</td>
-                        <td>${item.NombreProducto}</td>
-                        <td>${item.Cantidad}</td>
-                        <td>${item.Precio.toFixed(2)}</td>
-                        <td>${item.Total.toFixed(2)}</td>
-                    `;
+                <td>${item.ProductoId}</td>
+                <td>${item.NombreProducto}</td>
+                <td>${item.Cantidad}</td>
+                <td>${item.Precio.toFixed(2)}</td>
+                <td>${item.Total.toFixed(2)}</td>
+            `;
             modalItemsBody.appendChild(row);
         });
 
@@ -331,9 +334,11 @@
         // Mostrar el modal
         var myModal = new bootstrap.Modal(document.getElementById('modalFactura'));
         myModal.show();
+
         document.getElementById('confirmarVenta').addEventListener('click', function () {
-            // Aquí puedes enviar la información al servidor o realizar otra acción
             document.getElementById('ventaForm').submit();
+
         });
     });
+
 </script>

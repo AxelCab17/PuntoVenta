@@ -41,14 +41,14 @@ namespace PuntoVentaWeb.Controllers
             foreach (var item in items)
             {
                 FacturaEnt entidad = new FacturaEnt();
-                
+
                 cont++;
                 var productoId = item.ProductoId;
                 var cantidad = item.Cantidad;
                 var precio = item.Precio;
                 var descuento = item.Descuento;
-                
-                if(cont == 1)
+
+                if (cont == 1)
                 {
                     nuevaFact = 1;
                 }
@@ -59,24 +59,84 @@ namespace PuntoVentaWeb.Controllers
                 entidad.Descuento = Decimal.ToInt32(descuento);
                 nuevaFact = 0;
                 RegistrarFactura(entidad);
-                
+
 
             }
-            
 
-            return RedirectToAction("Carrito", "Carrito");
+
+            return RedirectToAction("ConsultarUltimaFactura", "Factura");
         }
+
+        [HttpGet]
+        public IActionResult ConsultarFactura()
+        {
+            var respuestaModelo = _FacturaModel.ConsultarFactura();
+
+            if (respuestaModelo?.Codigo == "1")
+                return View(respuestaModelo?.Datos);
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View(new List<FacturaEnt>());
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ConsultarUltimaFactura()
+        {
+            var respuestaModelo = _FacturaModel.ConsultarUltimaFactura();
+
+            if (respuestaModelo?.Codigo == "1")
+            {
+                var factura = respuestaModelo?.Dato;
+
+                return RedirectToAction("ConsultarUnaFactura", "Factura", new
+                {
+                    factura.IdFactura
+
+                });
+
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View(new List<FacturaEnt>());
+            }
+
+
+
+        }
+
+        [HttpGet]
+        public IActionResult ConsultarUnaFactura(int IdFactura)
+        {
+            var respuestaModelo = _FacturaModel.ConsultarUnaFactura(IdFactura);
+
+            if (respuestaModelo?.Codigo == "1")
+            {
+                TempData["DatosFactura"] = JsonConvert.SerializeObject(respuestaModelo.Datos);
+                return RedirectToAction("Imprimir", "Impresion");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View(new List<FacturaEnt>());
+            }
+
+        }
+
+
+
+        public class ItemModel
+        {
+            public string ProductoId { get; set; }
+            public string NombreProducto { get; set; }
+            public int Cantidad { get; set; }
+            public decimal Precio { get; set; }
+            public decimal Descuento { get; set; }
+        }
+
+
     }
-
-    public class ItemModel
-    {
-        public string ProductoId { get; set; }
-        public string NombreProducto { get; set; }
-        public int Cantidad { get; set; }
-        public decimal Precio { get; set; }
-        public decimal Descuento { get; set; }
-    }
-
-
 }
 
