@@ -37,7 +37,7 @@ namespace PuntoVentaAPI.Controllers
                         producto.IdCategoria
                     };
 
-                    var result = db.Execute("AgregarProducto", parametros, commandType: CommandType.StoredProcedure);
+                    var result = db.Execute("RegistrarProducto", parametros, commandType: CommandType.StoredProcedure);
                     if (result > 0)
                     {
                         productoRespuesta.Codigo = "1";
@@ -97,7 +97,7 @@ namespace PuntoVentaAPI.Controllers
         [AllowAnonymous]
         [Route("ConsultarUnProducto")]
         [HttpGet]
-        public IActionResult ConsultarUnProducto(long idProducto)
+        public IActionResult ConsultarUnProducto(string idProducto)
         {
             var productoRespuesta = new ProductoRespuesta();
             try
@@ -181,7 +181,7 @@ namespace PuntoVentaAPI.Controllers
         [AllowAnonymous]
         [Route("EliminarProducto")]
         [HttpDelete]
-        public IActionResult EliminarProducto(long idProducto)
+        public IActionResult EliminarProducto(string idProducto)
         {
             var productoRespuesta = new ProductoRespuesta();
             try
