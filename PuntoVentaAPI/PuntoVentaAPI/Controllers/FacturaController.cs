@@ -35,7 +35,9 @@ namespace PuntoVentaAPI.Controllers
                         Factura.Cantidad,
                         Factura.IdCajero,
                         Factura.NuevaFactura,
-                        Factura.Descuento
+                        Factura.Descuento,
+                        Factura.Pago,
+                        Factura.TipoPago
                     };
 
                     var result = db.Execute("RegistrarDetalleFactura", parametros, commandType: CommandType.StoredProcedure);

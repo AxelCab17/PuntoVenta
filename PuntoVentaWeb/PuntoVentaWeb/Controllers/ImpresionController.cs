@@ -21,7 +21,7 @@ namespace PuntoVentaWeb.Controllers
 
         public IActionResult Imprimir()
         {
-            var datosFacturaJson = TempData["DatosFactura"] as string;
+           var datosFacturaJson = TempData["DatosFactura"] as string;
             if (!string.IsNullOrEmpty(datosFacturaJson))
             {
                 var datosFactura = JsonConvert.DeserializeObject<List<FacturaEnt>>(datosFacturaJson);

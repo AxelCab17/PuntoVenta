@@ -48,6 +48,15 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.First().TotalFactura)
                                 </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().Pago)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().Cambio)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().TipoPago)
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,6 +73,9 @@
                                     <td>@Html.DisplayFor(modelItem => item.SubTotal)</td>
                                     <td>@Html.DisplayFor(modelItem => item.IVA)</td>
                                     <td>@Html.DisplayFor(modelItem => item.TotalFactura)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Pago)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Cambio)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.TipoPago)</td>
 
                                     
                                 </tr>

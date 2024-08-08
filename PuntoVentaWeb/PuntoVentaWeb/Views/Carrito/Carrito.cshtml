@@ -152,6 +152,30 @@
                                 </div>
                                 <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupTotal" id="txtTotal" value="@Model.Total" disabled>
                             </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupTipoPago">TipoPago</span>
+                                </div>
+                                
+                                <select class="form-select" aria-label="Default select example" aria-describedby="inputGroupTipoPago" id="txtTipoPago">
+                                    <option selected>Tipo de pago</option>
+                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Tarjeta">Tarjeta</option>
+                                    <option value="SIMPE">SIMPE</option>
+                                </select>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupCambio">Cambio</span>
+                                </div>
+                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupCambio" id="txtCambio" value="" disabled>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPago">Pago</span>
+                                </div>
+                                <input type="text" class="form-control text-right" aria-label="Small" aria-describedby="inputGroupPago" id="txtPago">
+                            </div>
 
                         </div>
                     </div>
@@ -277,11 +301,22 @@
         return true;
     }
 
+    function calcularCambio() {
+        var total = parseFloat(document.getElementById('txtTotal').value);
+        var pago = parseFloat(document.getElementById('txtPago').value);
+        var cambio = pago - total;
+        document.getElementById('txtCambio').value = cambio.toFixed(2);
+    }
+
+    document.getElementById('txtPago').addEventListener('input', calcularCambio);
+
     document.getElementById('btnTerminarVenta').addEventListener('click', function () {
         var items = [];
         var subTotal = 0;
         var iva = 0;
         var total = 0;
+
+
 
         document.querySelectorAll('tbody tr').forEach(function (row) {
             var id = row.querySelector('td:nth-child(1)').innerText.trim();
@@ -290,6 +325,8 @@
             var precio = row.querySelector('td:nth-child(4)').innerText.trim();
             var descuento = row.querySelector('td:nth-child(5) input').value.trim();
             var totalItem = (parseFloat(precio) * parseInt(cantidad, 10)) - parseFloat(descuento);
+            var tipoPago = document.getElementById('txtTipoPago').value;
+            var pago = parseFloat(document.getElementById('txtPago').value);
 
             items.push({
                 ProductoId: id,
@@ -297,7 +334,10 @@
                 Cantidad: parseInt(cantidad, 10),
                 Precio: parseFloat(precio),
                 Descuento: parseFloat(descuento),
-                Total: totalItem
+                Total: totalItem,
+                TipoPago: tipoPago,
+                Pago: pago
+
             });
 
             subTotal += totalItem;
@@ -305,6 +345,9 @@
 
         iva = subTotal * 0.13;
         total = subTotal + iva;
+
+
+
 
         // Llenar el modal con los datos
         var documentoCliente = document.getElementById('txtDocumentoCliente').value.trim();
@@ -318,12 +361,12 @@
         items.forEach(function (item) {
             var row = document.createElement('tr');
             row.innerHTML = `
-                <td>${item.ProductoId}</td>
-                <td>${item.NombreProducto}</td>
-                <td>${item.Cantidad}</td>
-                <td>${item.Precio.toFixed(2)}</td>
-                <td>${item.Total.toFixed(2)}</td>
-            `;
+                        <td>${item.ProductoId}</td>
+                        <td>${item.NombreProducto}</td>
+                        <td>${item.Cantidad}</td>
+                        <td>${item.Precio.toFixed(2)}</td>
+                        <td>${item.Total.toFixed(2)}</td>
+                    `;
             modalItemsBody.appendChild(row);
         });
 
@@ -337,8 +380,7 @@
 
         document.getElementById('confirmarVenta').addEventListener('click', function () {
             document.getElementById('ventaForm').submit();
-
         });
     });
-
 </script>
+

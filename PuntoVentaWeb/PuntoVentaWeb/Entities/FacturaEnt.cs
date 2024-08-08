@@ -18,6 +18,9 @@ namespace PuntoVentaWeb.Entities
             public decimal SubTotal { get; set; }
             public decimal IVA { get; set; }
             public decimal TotalFactura { get; set; }
+            public decimal Pago { get; set; }
+        public string? TipoPago { get; set; }
+        public decimal Cambio { get; set; }
 
 
         public int NuevaFactura { get; set; }

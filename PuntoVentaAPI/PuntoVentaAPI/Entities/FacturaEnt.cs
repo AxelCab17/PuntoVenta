@@ -17,7 +17,9 @@ namespace PuntoVentaAPI.Entities
         public decimal SubTotal { get; }
         public int IVA { get; }
         public decimal TotalFactura { get; }
-
+        public decimal Pago { get; set; }
+        public string? TipoPago { get; set; }
+        public decimal Cambio { get;  }
 
         public int NuevaFactura { get; set; }
         public int IdCajero { get; set; }
