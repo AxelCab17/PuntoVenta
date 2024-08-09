@@ -16,11 +16,9 @@
                         </div>
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="form-group col-sm-6">
-                                    <input type="text" class="form-control form-control-sm" id="txtDocumentoCliente" placeholder="ID ">
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <input type="text" class="form-control form-control-sm" id="txtNombreCliente" placeholder="Nombre Cajero">
+                               
+                                <div class="form-inline ml-3">
+                                    @Context.Session.GetString("NOMBRE")!.ToString()
                                 </div>
                             </div>
                         </div>
