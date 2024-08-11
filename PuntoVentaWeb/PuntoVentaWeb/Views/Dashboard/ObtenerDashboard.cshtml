@@ -5,17 +5,41 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <body>
+    <style>
+        /* Asegurar que la imagen esté centrada */
+        .text-center {
+            text-align: center;
+        }
+
+        /* Estilo para la imagen del logo */
+        .logo-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px; /* Espacio encima de la imagen */
+        }
+
+        /* Ajustar los márgenes y rellenos de las tarjetas */
+        .index-card {
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body-index {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
         </div>
 
         <!-- Content Row -->
-        <div class="row">
-
+        <div class="row mb-4">
             <!-- Total de ventas -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100 py-2 index-card">
@@ -40,7 +64,9 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Total de Ingresos</div>
-                                <div class="h5 mb-0 font-weight-bold" id="totalIngresos">@Model.IngresosTotales.ToString("C")</div>
+                                <div class="h5 mb-0 font-weight-bold" id="totalIngresos">
+                                    @Model.IngresosTotales.ToString("C", new System.Globalization.CultureInfo("es-CR"))
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x"></i>
@@ -85,53 +111,15 @@
             </div>
         </div>
 
-        <!-- Content Row -->
-        <div class="row">
-
-            <!-- Area Chart - Ventas de los últimos 7 días -->
-            <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-white">Ventas de los últimos 7 días</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-area" style="height: 350px !important;">
-                            <canvas id="charVentas"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pie Chart - Productos más vendidos -->
-            <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-white">Productos más vendidos</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-pie" style="height: 350px !important;">
-                            <canvas id="charProductos"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Logo centrado -->
+        <div class="text-center">
+            <img src="~/img/logo.png" class="logo-image" alt="Logo" />
         </div>
 
     </div>
     <!-- /.container-fluid -->
     <!-- End of Main Content -->
     <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; SuperMás 2024</span>
-            </div>
-        </div>
-    </footer>
     <!-- End of Footer -->
 </body>
 <!-- End of Page Wrapper -->
