@@ -46,12 +46,7 @@
                                             <input asp-for="Contrasenna" class="form-control form-control-user" placeholder="Contraseña" type="password" required />
                                             <span asp-validation-for="Contrasenna" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="chkMantenerSesion">
-                                                <label class="custom-control-label" for="chkMantenerSesion">Mantener Sesión</label>
-                                            </div>
-                                        </div>
+                                        
                                         <!-- Mensaje de error -->
                                         @if (ViewData["Mensaje"] != null)
                                         {
