@@ -1,0 +1,98 @@
+﻿@model IEnumerable<PuntoVentaWeb.Entities.MovimientoEnt>
+
+@{
+    ViewData["Title"] = "Consultar Un Movimiento";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Usa el layout compartido si es necesario
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-white">Detalles del Movimiento</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered">
+                        <thead class="thead">
+                            <tr class="table-head">
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().IdMovimiento)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().IdCaja)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().TipoMovimiento)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().Monto)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().Descripcion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().Fecha)
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="table-row">
+                                    <td>@Html.DisplayFor(modelItem => item.IdMovimiento)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.IdCaja)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.TipoMovimiento)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Monto)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm" href="@Url.Action("EditarMovimiento", "Arqueo", new { id = item.IdMovimiento })">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm passingID" data-toggle="modal" data-target="#deleteModal"
+                                                data-id="@item.IdMovimiento" data-name="@item.IdMovimiento">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirmación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("EliminarMovimiento", "Arqueo", FormMethod.Post))
+                {
+                    <div class="modal-body">
+                        <input type="hidden" id="IdMovimiento" name="IdMovimiento" value="">
+                        <p id="Question" style="font-weight: bold;"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group text-right">
+        <a asp-action="ObtenerTodosArqueos" class="btn btn-secondary">Cancelar</a>
+        <input type="submit" value="Registrar" class="btn btn-primary" />
+    </div>

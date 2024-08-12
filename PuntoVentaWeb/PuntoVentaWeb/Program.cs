@@ -18,6 +18,8 @@ builder.Services.AddSingleton<INominaModel, NominaModel>();
 builder.Services.AddSingleton<IDashboardModel, DashboardModel>();
 builder.Services.AddSingleton<IProductoModel, ProductoModel>();
 builder.Services.AddSingleton<IInventarioModel, InventarioModel>();
+builder.Services.AddSingleton<IArqueoModel, ArqueoModel>();
+
 
 
 
