@@ -9,6 +9,9 @@ namespace PuntoVentaWeb.Services
     {
 
         FacturaRespuesta? RegistrarFactura(FacturaEnt entidad);
+        FacturaRespuesta? ConsultarFactura();
 
+        FacturaRespuesta? ConsultarUnaFactura(int IdFactura);
+        FacturaRespuesta? ConsultarUltimaFactura();
     }
 }

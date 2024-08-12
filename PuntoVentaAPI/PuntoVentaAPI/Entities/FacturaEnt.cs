@@ -4,14 +4,22 @@ namespace PuntoVentaAPI.Entities
 {
     public class FacturaEnt
     {
-        
+
         public int IdDetalle { get; }
         public int IdFactura { get; }
-        public string IdProducto { get; set; }
-        public string? NombreProducto { get;}
+        public string? IdProducto { get; set; }
+        public string? NombreProducto { get; }
         public int Cantidad { get; set; }
-        public decimal PrecioUnitatio { get;}
-        public decimal Total { get; }
+        public decimal PrecioUnitario { get; }
+        public decimal TotalDetalle { get; }
+        public string? Fecha { get; }
+
+        public decimal SubTotal { get; }
+        public int IVA { get; }
+        public decimal TotalFactura { get; }
+        public decimal Pago { get; set; }
+        public string? TipoPago { get; set; }
+        public decimal Cambio { get;  }
 
         public int NuevaFactura { get; set; }
         public int IdCajero { get; set; }
