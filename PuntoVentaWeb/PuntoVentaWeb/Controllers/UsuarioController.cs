@@ -82,13 +82,15 @@ namespace PuntoVentaWeb.Controllers
                     {
                         HttpContext.Session.SetString("TOKEN", datos.Token!);
                         HttpContext.Session.SetString("NOMBRE", datos.Nombre!);
+
                         HttpContext.Session.SetString("CORREO", datos.Correo!);
                         HttpContext.Session.SetString("ESTADO", datos.Estado!);
                         HttpContext.Session.SetInt32("IdUsuario", datos.IdUsuario!);
+
                         HttpContext.Session.SetString("ROL", datos.IdRol.ToString());
 
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Obtenerdashboard", "Dashboard");
                     }
                 }
 
@@ -190,6 +192,14 @@ namespace PuntoVentaWeb.Controllers
                 ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
                 return View();
             }
+        }
+
+
+        [HttpGet]
+        public IActionResult Salir()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("LoginUsuario", "Usuario");
         }
 
     }

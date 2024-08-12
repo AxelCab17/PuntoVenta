@@ -19,6 +19,41 @@ namespace PuntoVentaWeb.Models
                 return RespuestaApi.Content.ReadFromJsonAsync<FacturaRespuesta>().Result;
             return null;
         }
+
+        public FacturaRespuesta? ConsultarFactura()
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Factura/ConsultarFactura";
+            var resp = _http.GetAsync(url).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<FacturaRespuesta>().Result;
+
+            return null;
+        }
+
+        public FacturaRespuesta? ConsultarUltimaFactura()
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Factura/ConsultarUltimaFactura";
+            var resp = _http.GetAsync(url).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<FacturaRespuesta>().Result;
+
+            return null;
+        }
+
+
+        public FacturaRespuesta? ConsultarUnaFactura(int IdFactura)
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Factura/ConsultarUnaFactura?IdFactura=" + IdFactura;
+            var resp = _http.GetAsync(url).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<FacturaRespuesta>().Result;
+
+            return null;
+
+        }
     }
 
        
