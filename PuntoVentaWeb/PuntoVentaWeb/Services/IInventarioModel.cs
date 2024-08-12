@@ -8,10 +8,5 @@ namespace PuntoVentaWeb.Services
     {
         InventarioRespuesta? ConsultarInventario();
 
-        InventarioRespuesta? ConsultarUnInventario(long IdInventario);
-        InventarioRespuesta? RegistrarInventario(InventarioEnt entidad);
-        InventarioRespuesta? ActualizarInventario(InventarioEnt entidad);
-
-        InventarioRespuesta? EliminarInventario(long IdInventario);
     }
 }

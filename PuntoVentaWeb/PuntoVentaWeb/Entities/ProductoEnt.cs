@@ -10,5 +10,20 @@
 
         public int IdCategoria { get; set;}
         }
+    public class ProductoRespuesta
+    {
+        public ProductoRespuesta()
+        {
+            Codigo = "1";
+            Mensaje = string.Empty;
+            Dato = null;
+            Datos = null;
+        }
+
+        public string Codigo { get; set; }
+        public string Mensaje { get; set; }
+        public ProductoEnt? Dato { get; set; }
+        public List<ProductoEnt>? Datos { get; set; }
+    }
 }
 

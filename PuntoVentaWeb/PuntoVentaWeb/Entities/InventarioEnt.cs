@@ -3,15 +3,16 @@ namespace PuntoVentaWeb.Entities
 {
     public class InventarioEnt
     {
-        public long IdInventario { get; set; }
-        public int IdProducto { get; set; }
-        public int Cantidad { get; set; }
-        public int IdProveedor { get; set; }
+        public int IdInventario { get; set; }
+        public string IdProducto { get; set; }
+        public string Nombre { get; set; }
+        public decimal Precio { get; set; }
+        public int Stock { get; set; }
         public int IdCategoria { get; set; }
-        public string Categoria { get; set; }
-        public string NombreProducto { get; set; }
+        public DateTime FechaIngreso { get; set; }
+    }
 
-        public class InventarioRespuesta
+    public class InventarioRespuesta
         {
             public InventarioRespuesta()
             {
@@ -27,4 +28,4 @@ namespace PuntoVentaWeb.Entities
             public List<InventarioEnt>? Datos { get; set; }
         }
     }
-}
+

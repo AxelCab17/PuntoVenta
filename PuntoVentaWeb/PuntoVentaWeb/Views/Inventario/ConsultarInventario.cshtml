@@ -4,22 +4,20 @@
     ViewData["Title"] = "Consultar Inventario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
-
-
 <div class="container-fluid">
-
     <div class="card shadow mb-4">
-        <div class="card-header py-3 ">
-            <h6 class="m-0 font-weight-bold text-white">Lista de Inventario</h6>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-white">Inventario</h6>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-3">
                     <p>
-                        <a class="btn btn-all" href="@Url.Action("RegistrarInventario", "Inventario")">
-                            <i class="fa fa-plus"></i> Nuevo Inventario
+                        <a class="btn btn-all" href="@Url.Action("RegistrarProducto", "Producto")">
+                            <i class="fa fa-plus"></i> Nuevo Producto
                         </a>
                     </p>
                 </div>
@@ -37,43 +35,43 @@
                                     @Html.DisplayNameFor(model => model.First().IdProducto)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.First().Cantidad)
+                                    @Html.DisplayNameFor(model => model.First().Nombre)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.First().IdProveedor)
+                                    @Html.DisplayNameFor(model => model.First().Precio)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().Stock)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.First().IdCategoria)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.First().Categoria)
+                                    @Html.DisplayNameFor(model => model.First().FechaIngreso)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.First().NombreProducto)
-                                </th>
-                                <th>Acciones</th>
+                                <th>Estado de Stock</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr class="table-row">
+                                <tr class="table-row @(item.Stock < 10 ? "table-danger" : "")">
                                     <td>@Html.DisplayFor(modelItem => item.IdInventario)</td>
                                     <td>@Html.DisplayFor(modelItem => item.IdProducto)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Cantidad)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.IdProveedor)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Stock)</td>
                                     <td>@Html.DisplayFor(modelItem => item.IdCategoria)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Categoria)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
-
+                                    <td>@Html.DisplayFor(modelItem => item.FechaIngreso)</td>
                                     <td>
-                                        <a class="btn btn-success btn-sm" href="@Url.Action("ActualizarInventario", "Inventario", new { IdInventario = item.IdInventario })">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm passingID" data-toggle="modal" data-target="#exampleModal"
-                                                data-id="@item.IdInventario" data-name="@item.NombreProducto">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        @if (item.Stock < 10)
+                                        {
+                                            <span class="text-danger">Stock Bajo</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-success">Stock Suficiente</span>
+                                        }
                                     </td>
                                 </tr>
                             }
@@ -83,39 +81,10 @@
             </div>
         </div>
     </div>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @using (Html.BeginForm("EliminarInventario", "Inventario", FormMethod.Post))
-            {
-                <div class="modal-body">
-                    <input type="hidden" id="IdInventario" name="IdInventario" value="">
-                    <p id="Question" style="font-weight: bold;"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger">Procesar</button>
-                </div>
-            }
-        </div>
-    </div>
 </div>
 
-@section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script>
-        $(".passingID").click(function () {
-            $("#IdInventario").val($(this).data('id'));
-            $("#Question").text("¿Desea eliminar el Inventario: " + $(this).data('name') + "?");
-        });
-    </script>
-}
+<style>
+    .table-danger {
+        background-color: #f8d7da;
+    }
+</style>
