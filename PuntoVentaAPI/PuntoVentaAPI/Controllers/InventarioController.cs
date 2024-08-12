@@ -19,47 +19,7 @@ namespace PuntoVentaAPI.Controllers
             _configuration = configuration;
         }
 
-        [AllowAnonymous]
-        [Route("RegistrarInventario")]
-        [HttpPost]
-        public IActionResult RegistrarInventario(InventarioEnt Inventario)
-        {
-
-            InventarioRespuesta InventarioRespuesta = new InventarioRespuesta();
-            try
-            {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-                {
-                    var parametros = new
-                    {
-                        Inventario.IdProducto,
-                        Inventario.Cantidad,
-                        Inventario.IdProveedor,
-                        Inventario.IdCategoria,
-                        Inventario.Categoria,
-                        Inventario.NombreProducto
-                    };
-
-                    var result = db.Execute("RegistrarInventario", parametros, commandType: CommandType.StoredProcedure);
-                    if (result > 0)
-                    {
-                        InventarioRespuesta.Codigo = "1";
-                        InventarioRespuesta.Mensaje = "Producto registrado con éxito.";
-                        return Ok(InventarioRespuesta);
-                    }
-                    else
-                    {
-                        InventarioRespuesta.Codigo = "-1";
-                        InventarioRespuesta.Mensaje = "No se pudo registrar el producto en Inventario.";
-                        return BadRequest(InventarioRespuesta);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Ocurrió un error al registrar el producto en Inventario.", error = ex.Message });
-            }
-        }
+      
         [AllowAnonymous]
         [Route("ConsultarInventario")]
         [HttpGet]
@@ -95,100 +55,6 @@ namespace PuntoVentaAPI.Controllers
             {
                
                 return StatusCode(500, new { message = "Ocurrió un error inesperado al consultar Inventario.", error = ex.Message });
-            }
-        }
-
-
-
-        [AllowAnonymous]
-        [Route("ActualizarInventario")]
-        [HttpPut]
-        public IActionResult ActualizarInventario(InventarioEnt Inventario)
-        {
-            InventarioRespuesta InventarioRespuesta = new InventarioRespuesta();
-            try
-            {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-                {
-                    var result = db.Execute("ActualizarInventario",
-                        new
-                        {
-                            Inventario.IdInventario,
-                            Inventario.IdProducto,
-                            Inventario.Cantidad,
-                            Inventario.IdProveedor,
-                            Inventario.IdCategoria,
-                            Inventario.Categoria,
-                            Inventario.NombreProducto
-                        },
-                        commandType: CommandType.StoredProcedure);
-
-                    if (result <= 0)
-                    {
-                        InventarioRespuesta.Codigo = "-1";
-                        InventarioRespuesta.Mensaje = "No se ha podido actualizar en la base de datos, intenta de nuevo";
-                        return BadRequest(InventarioRespuesta);
-                    }
-                    else
-                    {
-                        InventarioRespuesta.Codigo = "1";
-                        InventarioRespuesta.Mensaje = "Inventario actualizado con éxito.";
-                        return Ok(InventarioRespuesta);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                
-                return StatusCode(500, new { message = "Error al actualizar el Inventario en la base de datos.", error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                
-                return StatusCode(500, new { message = "Ocurrió un error inesperado al actualizar el Inventario.", error = ex.Message });
-            }
-        }
-
-        [AllowAnonymous]
-        [Route("EliminarInventario")]
-        [HttpDelete]
-        public IActionResult EliminarInventario(long IdInventario)
-        {
-            InventarioRespuesta InventarioRespuesta = new InventarioRespuesta();
-            try
-            {
-                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
-                {
-                    var result = db.Execute("EliminarInventario",
-                        new
-                        {
-                            IdInventario
-                        },
-                        commandType: CommandType.StoredProcedure);
-
-                    if (result <= 0)
-                    {
-                        InventarioRespuesta.Codigo = "-1";
-                        InventarioRespuesta.Mensaje = "No se ha podido eliminar el producto del Inventario en la base de datos, intenta de nuevo";
-                        return BadRequest(InventarioRespuesta);
-                    }
-                    else
-                    {
-                        InventarioRespuesta.Codigo = "1";
-                        InventarioRespuesta.Mensaje = "Producto eliminado con éxito.";
-                        return Ok(InventarioRespuesta);
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-         
-                return StatusCode(500, new { message = "Error al eliminar el producto del Inventario en la base de datos.", error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-              
-                return StatusCode(500, new { message = "Ocurrió un error inesperado al eliminar el Inventario.", error = ex.Message });
             }
         }
 

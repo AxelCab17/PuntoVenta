@@ -61,5 +61,20 @@ namespace PuntoVentaWeb.Controllers
             }
             return RedirectToAction("Carrito");
         }
+
+        [HttpPost]
+        public IActionResult VaciarCarrito()
+        {
+            try
+            {
+                _carritoModel.VaciarCarrito();
+            }
+            catch (System.Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+            }
+            return RedirectToAction("Carrito");
+        }
     }
 }
+

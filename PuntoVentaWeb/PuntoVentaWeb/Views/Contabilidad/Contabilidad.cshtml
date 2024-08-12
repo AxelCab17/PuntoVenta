@@ -1,0 +1,163 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 ">
+                            <h6 class="m-0 font-weight-bold text-white">Contabilidad de Usuarios</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                               
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered" id="tbdata" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Foto</th>
+                                                <th>Nombre</th>
+                                                <th>Correo</th>
+                                                <th>Vacaciones</th>
+                                                <th>Horas</th>
+                                                <th>Salario</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="table-row">
+                                                <td>1</td>
+                                                <td><img style="height:60px ;" src="https://media.licdn.com/dms/image/D4E03AQGB7uyxtc_y9A/profile-displayphoto-shrink_800_800/0/1712626625641?e=1718236800&v=beta&t=UZR4ysjhZXM8lVnkIOb9Rk99pjtAhAYLw7XmXMJTRBQ" class="rounded mx-auto d-block" /></td>
+                                                <td>Axel Cabezas</td>
+                                                <td>axelcabezas@gmail.com</td>
+                                                <td>15 dias</td>
+                                                <td>6</td>
+                                                <td>₡400.000</td>
+                                                
+                                                <td>
+                                                    <div class="custom-button-container">
+                                                        <button class="btn btn-all btn-sm custom-button" data-toggle="modal" data-target="#modalGenerarNomina">
+                                                            Generar Nómina
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="table-row">
+                                                <td>2</td>
+                                                <td><img style="height:60px ;" src="https://media.licdn.com/dms/image/C4E03AQESjRLPnFy-vw/profile-displayphoto-shrink_800_800/0/1623293875349?e=2147483647&v=beta&t=x51zMM3pbXwCTUA6fu3c8SpCm-GGH6MxlwDT1h8PblY" class="rounded mx-auto d-block" /></td>
+                                                <td>David Solano</td>
+                                                <td>davidsolano@gmail.com</td>
+                                                <td>20 dias</td>
+                                                <td>8</td>
+                                                <td>₡500.000</td>
+                                                <td>
+                                                    <div class="custom-button-container">
+                                                        <button class="btn btn-all btn-sm custom-button" data-toggle="modal" data-target="#modalGenerarNomina">
+                                                            Generar Nómina
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <!--  Modal Editar Usuarios-->
+                    <div class="modal fade" id="modalGenerarNomina" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6>Generar Nomina</h6>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                
+
+                                <div class="modal-body">
+                                    <form>
+                                        <!-- Id oculto -->
+                                        <input type="hidden" id="txtIdEditarUsuario">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <!-- Vacaciones -->
+                                                <div class="form-group">
+                                                    <label for="txtVacacionesEditar">Vacaciones</label>
+                                                    <input type="text" class="form-control form-control-sm" id="txtVacacionesEditar">
+                                                </div>
+                                                <!-- Salario -->
+                                                <div class="form-group">
+                                                    <label for="txtSalarioEditar">Salario</label>
+                                                    <input type="text" class="form-control form-control-sm" id="txtSalarioEditar">
+                                                </div>
+                                                <!-- Horas -->
+                                                <div class="form-group">
+                                                    <label for="txtHorasEditar">Horas</label>
+                                                    <input type="number" class="form-control form-control-sm" id="txtHorasEditar">
+                                                </div>
+                                            </div>
+                                         
+                                        </div>
+                                    </form>
+                                </div>
+               
+
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-all btn-sm" type="button" id="btnGuardarCambiosUsuario">Guardar Cambios</button>
+                                    <button class="btn btn-exit btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+
+
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                
+        <!-- End of Page Wrapper -->
+        <!-- Bootstrap core JavaScript-->
+        <script src="~/vendor/jquery/jquery.min.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="~/js/sb-admin-2.js"></script>
+
+
+        <!-- ============================================================
+        =SCRIPTS PARA ESTA PAGINA
+        ===============================================================-->
+        <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <script src="~/vendor/datatables/extensiones/js/dataTables.responsive.min.js"></script>
+
+        <script src="~/vendor/datatables/extensiones/js/dataTables.buttons.min.js"></script>
+        <script src="~/vendor/datatables/extensiones/js/jszip.min.js"></script>
+        <script src="~/vendor/datatables/extensiones/js/buttons.html5.min.js"></script>
+        <script src="~/vendor/datatables/extensiones/js/buttons.print.min.js"></script>
+
+
+
+        <!-- SOLO ES DE EJEMPLO - IGNORAR -->
+        <script src="~/js/vistas/datatables-demo.js"></script>
+
+
+</html>

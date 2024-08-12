@@ -72,5 +72,14 @@ namespace PuntoVentaAPI.Controllers
             carrito.Items.Remove(carritoItem);
             return Ok(carrito);
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("VaciarCarrito")]
+        public IActionResult VaciarCarrito()
+        {
+            carrito.Items.Clear();
+            return Ok(carrito);
+        }
     }
 }

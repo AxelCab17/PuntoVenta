@@ -9,5 +9,6 @@ namespace PuntoVentaWeb.Services
         void AgregarProducto(string productoId, int cantidad);
         void EliminarProducto(string productoId);
         void AgregarProductoPorId(string productoId);
+        void VaciarCarrito();
     }
 }

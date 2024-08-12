@@ -16,7 +16,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-row">
-                               
+
                                 <div class="form-inline ml-3">
                                     @Context.Session.GetString("NOMBRE")!.ToString()
                                 </div>
@@ -35,7 +35,7 @@
                             <div class="form-row">
                                 <div class="form-group col-sm-12">
                                     <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto" autofocus onkeydown="if (event.key === 'Enter') buscarProducto()">
+                                        <input type="text" class="form-control" id="productIdInput" placeholder="Ingrese el ID del producto" autofocus oninput="autoSubmit()" />
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button" onclick="buscarProducto()">Buscar</button>
                                         </div>
@@ -107,11 +107,12 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <form asp-action="VaciarCarrito" method="post">
+                                <form asp-controller="Carrito" asp-action="VaciarCarrito" method="post">
                                     <button type="submit" class="btn btn-exit btn-sm">
                                         Vaciar Carrito
                                     </button>
                                 </form>
+
                             </div>
                         </div>
 
@@ -233,13 +234,31 @@
 <script src="~/vendor/select2/select2.min.js"></script>
 <script src="~/vendor/select2/es.min.js"></script>
 
+
+
 <script>
+    function autoSubmit() {
+        var input = document.getElementById('productIdInput');
+
+        // Usamos un temporizador para detectar cuándo se detiene la entrada de texto
+        clearTimeout(input.dataset.timer);
+
+        // Configura un temporizador para esperar unos milisegundos después de que se deja de escribir
+        input.dataset.timer = setTimeout(function () {
+            if (input.value.trim() !== "") {
+                buscarProducto();
+            }
+        }, 200); // Espera 200 ms después de la última entrada
+    }
+
     function buscarProducto() {
         var productId = document.getElementById('productIdInput').value;
         if (productId.trim() !== "") {
             window.location.href = '@Url.Action("AgregarProducto", "Carrito")?productoId=' + productId + '&cantidad=1';
         }
     }
+
+
 
     function actualizarDescuento(productoId) {
         var descuento = document.getElementById('descuento_' + productoId).value;
