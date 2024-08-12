@@ -1,0 +1,54 @@
+﻿@model PuntoVentaWeb.Entities.UsuarioEnt
+
+
+<pre>
+    @Html.Raw(Json.Serialize(Model))
+</pre>
+
+
+@{
+    ViewData["Title"] = "Principal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow" style="width: 30rem;">
+        <div class="card-header bg-success text-white text-center">
+            <h5 class="card-title m-0">Datos del Usuario</h5>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.msj != null)
+            {
+                <div class="alert alert-secondary text-center" role="alert">
+                    @ViewBag.msj
+                </div>
+            }
+
+            @using (Html.BeginForm("ActualizarPerfilUsuario", "Perfil"))
+            {
+                @Html.HiddenFor(m => m.IdUsuario)
+                @Html.HiddenFor(m => m.IdRol)
+
+
+                <div class="form-group">
+                    @Html.Label("Identificación")
+                    @Html.TextBoxFor(m => m.Identificacion, new { @type = "text", @class = "form-control", @placeholder = "Identificación" })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Nombre")
+                    @Html.TextBoxFor(m => m.Nombre, new { @type = "text", @class = "form-control", @placeholder = "Nombre" })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Correo Electrónico")
+                    @Html.TextBoxFor(m => m.Correo, new { @type = "email", @class = "form-control", @placeholder = "Correo Electrónico" })
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Procesar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
