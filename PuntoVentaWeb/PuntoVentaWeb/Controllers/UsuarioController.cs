@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PuntoVentaWeb.Models;
 using System.Threading.Tasks;
 using static PuntoVentaWeb.Entities.UsuarioEnt;
+using System.Text.Json;
 
 namespace PuntoVentaWeb.Controllers
 {
@@ -81,7 +82,9 @@ namespace PuntoVentaWeb.Controllers
                     {
                         HttpContext.Session.SetString("TOKEN", datos.Token!);
                         HttpContext.Session.SetString("NOMBRE", datos.Nombre!);
-
+                        HttpContext.Session.SetString("CORREO", datos.Correo!);
+                        HttpContext.Session.SetString("ESTADO", datos.Estado!);
+                        HttpContext.Session.SetInt32("IdUsuario", datos.IdUsuario!);
                         HttpContext.Session.SetString("ROL", datos.IdRol.ToString());
 
 
@@ -107,36 +110,74 @@ namespace PuntoVentaWeb.Controllers
 
             return View(new List<UsuarioEnt>());
         }
-
         [HttpGet]
         public async Task<IActionResult> ActualizarUsuario(int IdUsuario)
         {
-            var respuestaModelo = await _usuarioModel.ConsultarUnUsuarioAsync(IdUsuario);
-            if (respuestaModelo?.Codigo == "1")
+            try
             {
-                return View(respuestaModelo.Dato);
+                // Verificación del IdUsuario
+                if (IdUsuario <= 0)
+                {
+                    ViewBag.MsjPantalla = "El IdUsuario proporcionado no es válido.";
+                    return RedirectToAction("ConsultarUsuarios");
+                }
+
+                // Llamada a la API
+                var respuestaModelo = await _usuarioModel.ConsultarUnUsuarioAsync(IdUsuario);
+
+                // Verificación de que la respuesta no sea nula
+                if (respuestaModelo == null)
+                {
+                    ViewBag.MsjPantalla = "La API no devolvió una respuesta válida.";
+                    return RedirectToAction("ConsultarUsuarios");
+                }
+
+                if (respuestaModelo.Codigo == "1" && respuestaModelo.Dato != null)
+                {
+                    return View(respuestaModelo.Dato);
+                }
+                else
+                {
+                    ViewBag.MsjPantalla = respuestaModelo.Mensaje ?? "Error al consultar los datos del usuario.";
+                    return RedirectToAction("ConsultarUsuarios");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                ViewBag.MsjPantalla = $"Ocurrió un error: {ex.Message}";
                 return RedirectToAction("ConsultarUsuarios");
             }
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> ActualizarUsuario(UsuarioEnt entidad)
         {
-            var respuestaModelo = await _usuarioModel.ActualizarUsuarioAsync(entidad);
-            if (respuestaModelo?.Codigo == "1")
+            try
             {
-                return RedirectToAction("ConsultarUsuarios");
+                var respuestaModelo = await _usuarioModel.ActualizarUsuarioAsync(entidad);
+                if (respuestaModelo?.Codigo == "1")
+                {
+                    return RedirectToAction("ConsultarUsuarios");
+                }
+                else
+                {
+                    ViewBag.MsjPantalla = respuestaModelo?.Mensaje ?? "Error al actualizar los datos del usuario.";
+                    return View(entidad);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                ViewBag.MsjPantalla = $"Ocurrió un error: {ex.Message}";
                 return View(entidad);
             }
         }
+
+
+
+
+
 
         [HttpPost]
         public async Task<IActionResult> EliminarUsuario(UsuarioEnt entidad)
@@ -150,5 +191,6 @@ namespace PuntoVentaWeb.Controllers
                 return View();
             }
         }
+
     }
 }
