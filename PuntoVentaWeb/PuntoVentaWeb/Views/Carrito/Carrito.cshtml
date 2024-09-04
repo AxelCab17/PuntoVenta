@@ -285,7 +285,18 @@
         }
     }
 
+    document.getElementById('txtTipoPago').addEventListener('change', function () {
+        var tipoPago = this.value;
+        var txtTotal = parseFloat(document.getElementById('txtTotal').value);
 
+        if (tipoPago === 'SINPE' || tipoPago === 'Tarjeta') {
+            document.getElementById('txtPago').value = txtTotal;
+            document.getElementById('txtPago').disabled = true;
+        } else if (tipoPago === 'Efectivo') {
+            document.getElementById('txtPago').value = "0";
+            document.getElementById('txtPago').disabled = false;
+        }
+    });
 
     function actualizarDescuento(productoId) {
         var descuento = document.getElementById('descuento_' + productoId).value;
@@ -400,6 +411,10 @@
         document.getElementById('confirmarVenta').addEventListener('click', function () {
             document.getElementById('ventaForm').submit();
         });
+
+
+
+
     });
 </script>
 

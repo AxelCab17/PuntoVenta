@@ -60,7 +60,7 @@ namespace PuntoVentaWeb.Controllers
                 entidad.IdCajero = 1;
                 entidad.Descuento = Decimal.ToInt32(descuento);
                 entidad.TipoPago = tipoPago;
-                entidad.Pago = Decimal.ToInt32(pago);
+                entidad.Pago = pago;
                 nuevaFact = 0;
                 RegistrarFactura(entidad);
 
