@@ -17,6 +17,7 @@ builder.Services.AddSingleton<ICarritoModel, CarritoModel>();
 builder.Services.AddSingleton<INominaModel, NominaModel>();
 builder.Services.AddSingleton<IProductoModel, ProductoModel>();
 builder.Services.AddSingleton<IInventarioModel, InventarioModel>();
+builder.Services.AddSingleton<ICategoriaModel, CategoriaModel>();
 
 
 var app = builder.Build();
