@@ -11,6 +11,7 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-white">Cierre de Caja</h6>
+			
 		</div>
 		<div class="card-body">
 			<div class="row">
@@ -20,6 +21,9 @@
 							<i class="fa fa-plus"></i> Abrir Caja
 						</a>
 					</p>
+					<a class="btn btn-primary" href="@Url.Action("CalcularCierreSemanal", "Arqueo")">
+						<i class="fas fa-calendar-week"></i> Cálculo del Cierre de Caja Semanal
+					</a>
 				</div>
 			</div>
 			<hr />
@@ -60,21 +64,21 @@
 									<td>
 										@if (item.Estado != "Cerrada")
 										{
-											<a class="btn btn-success btn-sm" href="@Url.Action("RegistrarMovimiento", "Arqueo", new { IdCaja = item.IdCaja })">
+											<a class="btn btn-success btn-sm" href="@Url.Action("RegistrarMovimiento", "Arqueo", new { IdCaja = item.IdCaja }) " title= "Registrar Movimiento">
 
 												<i class="fa-solid fa-plus-minus"></i>
 											</a>
-											<a class="btn btn-success btn-sm" href="@Url.Action("RegistrarArqueo", "Arqueo", new { IdCaja = item.IdCaja })">
+											<a class="btn btn-success btn-sm" href="@Url.Action("RegistrarArqueo", "Arqueo", new { IdCaja = item.IdCaja }) " title= "Registrar Arqueo">
 
 												<i class="fa-solid fa-money-bill-transfer"></i>
 											</a>
 
-											<a class="btn btn-success btn-sm" href="@Url.Action("ConsultarUnMovimiento", "Arqueo", new { IdCaja = item.IdCaja })">
+											<a class="btn btn-success btn-sm" href="@Url.Action("ConsultarUnMovimiento", "Arqueo", new { IdCaja = item.IdCaja })" title="Consultar Movimientos">
 												<i class="fas fa-eye"></i>
 											</a>
 										}
 										<button type="button" class="btn btn-danger btn-sm passingID" data-toggle="modal" data-target="#exampleModal"
-												data-id="@item.IdCaja" data-name="@item.IdCaja">
+												data-id="@item.IdCaja" data-name="@item.IdCaja" title="Eliminar">
 											<i class="fa fa-trash"></i>
 										</button>
 									</td>
