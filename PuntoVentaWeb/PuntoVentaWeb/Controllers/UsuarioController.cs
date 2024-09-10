@@ -66,39 +66,78 @@ namespace PuntoVentaWeb.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> LoginUsuario(UsuarioEnt entidad)
         {
             if (ModelState.IsValid)
             {
+                // Encriptar la contraseña introducida por el usuario
                 entidad.Contrasenna = _comunModel.Encrypt(entidad.Contrasenna!);
+
+                // Llamar a la API para realizar el login
                 var respuestaApi = await _usuarioModel.LoginUsuarioAsync(entidad);
 
+                // Comenzar depuración de la respuesta de la API
+                Console.WriteLine("Respuesta de la API recibida");
+
+                // Verificar si la respuesta fue exitosa (código "1") y si el dato del usuario no es nulo
                 if (respuestaApi?.Codigo == "1" && respuestaApi.Dato != null)
                 {
+                    Console.WriteLine("Código de respuesta de la API: " + respuestaApi.Codigo);
+
                     var datos = respuestaApi.Dato;
-                    if (datos != null)
+
+                    // Verificar si los datos del usuario no son nulos
+                    Console.WriteLine("Datos recibidos del usuario: " + JsonSerializer.Serialize(datos));
+
+                    // Validar si la contraseña del usuario es temporal
+                    if (datos.EsTemporal)
                     {
-                        HttpContext.Session.SetString("TOKEN", datos.Token!);
-                        HttpContext.Session.SetString("NOMBRE", datos.Nombre!);
+                        Console.WriteLine("Contraseña temporal detectada");
 
-                        HttpContext.Session.SetString("CORREO", datos.Correo!);
-                        HttpContext.Session.SetString("ESTADO", datos.Estado!);
-                        HttpContext.Session.SetInt32("IdUsuario", datos.IdUsuario!);
-
-                        HttpContext.Session.SetString("ROL", datos.IdRol.ToString());
-
-
-                        return RedirectToAction("Obtenerdashboard", "Dashboard");
+                        // Si la contraseña temporal ha caducado, mostrar un mensaje
+                        if (datos.VigenciaTemporal < DateTime.Now)
+                        {
+                            Console.WriteLine("La contraseña temporal ha caducado.");
+                            ViewBag.MsjPantalla = "Su contraseña temporal ha caducado.";
+                            return View(entidad);
+                        }
+                        else
+                        {
+                            Console.WriteLine("La contraseña temporal sigue siendo válida.");
+                        }
                     }
-                }
 
-                ViewBag.MsjPantalla = "Credenciales incorrectas.";
-                return View(entidad);
+                    // Establecer las variables de sesión con los datos del usuario
+                    Console.WriteLine("Estableciendo variables de sesión...");
+
+                    HttpContext.Session.SetString("TOKEN", datos.Token!);
+                    HttpContext.Session.SetString("NOMBRE", datos.Nombre!);
+                    HttpContext.Session.SetString("CORREO", datos.Correo!);
+                    HttpContext.Session.SetString("ESTADO", datos.Estado!);
+                    HttpContext.Session.SetInt32("IdUsuario", datos.IdUsuario!);
+                    HttpContext.Session.SetString("ROL", datos.IdRol.ToString());
+
+                    Console.WriteLine("Variables de sesión establecidas con éxito.");
+
+                    // Redirigir al dashboard si el login fue exitoso
+                    return RedirectToAction("Obtenerdashboard", "Dashboard");
+                }
+                else
+                {
+                    // Si las credenciales son incorrectas o la respuesta no fue exitosa
+                    Console.WriteLine("Código de respuesta erróneo o datos nulos. Código: " + (respuestaApi?.Codigo ?? "null"));
+
+                    ViewBag.MsjPantalla = "Credenciales incorrectas.";
+                    return View(entidad);
+                }
             }
+
+            // Si el modelo no es válido, devolver la vista con el modelo de entidad
+            Console.WriteLine("El modelo no es válido.");
             return View(entidad);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> ConsultarUsuarios()
@@ -177,11 +216,32 @@ namespace PuntoVentaWeb.Controllers
         }
 
 
+		[HttpGet]
+		public IActionResult RecuperarAcceso()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> RecuperarAcceso(UsuarioEnt ent)
+		{
+			var respuesta = await _usuarioModel.RecuperarAccesoAsync(ent.Identificacion!);
+
+			if (respuesta?.Codigo == "1")
+			{
+				return RedirectToAction("LoginUsuario", "Usuario");
+			}
+			else
+			{
+				ViewBag.ms = respuesta?.Mensaje;
+				return View();
+			}
+		}
 
 
 
 
-        [HttpPost]
+		[HttpPost]
         public async Task<IActionResult> EliminarUsuario(UsuarioEnt entidad)
         {
             var respuestaModelo = await _usuarioModel.EliminarUsuarioAsync(entidad.IdUsuario);

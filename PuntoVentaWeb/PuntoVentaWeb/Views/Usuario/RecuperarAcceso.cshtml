@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Mi Tienda - Login</title>
+    <title>Mi Tienda - Recuperar Acceso</title>
     <!-- Custom fonts for this template-->
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -35,38 +35,35 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Bienvenido</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Recuperar Acceso</h1>
+                                        <p>Ingrese su identificación o correo para recuperar su acceso.</p>
                                     </div>
-                                    <form class="user" asp-action="LoginUsuario" asp-controller="Usuario" method="post">
+                                    <form class="user" asp-action="RecuperarAcceso" asp-controller="Usuario" method="post">
                                         <div class="form-group">
-                                            <input asp-for="Correo" class="form-control form-control-user" placeholder="Correo" required />
-                                            <span asp-validation-for="Correo" class="text-danger"></span>
+                                            <input asp-for="Identificacion" class="form-control form-control-user" placeholder="Identificación o Correo" required />
+                                            <span asp-validation-for="Identificacion" class="text-danger"></span>
                                         </div>
-                                        <div class="form-group">
-                                            <input asp-for="Contrasenna" class="form-control form-control-user" placeholder="Contraseña" type="password" required />
-                                            <span asp-validation-for="Contrasenna" class="text-danger"></span>
-                                        </div>
-                                        
-                                        <!-- Mensaje de error -->
-                                        @if (ViewData["Mensaje"] != null)
+
+                                        <!-- Mensaje de error o éxito -->
+                                        @if (ViewBag.ms != null)
                                         {
                                             <div class="form-group">
-                                                <div class="alert alert-danger" role="alert">
-                                                    @ViewData["Mensaje"]
+                                                <div class="alert alert-info" role="alert">
+                                                    @ViewBag.ms
                                                 </div>
                                             </div>
                                         }
+
                                         <button type="submit" class="btn btn-tienda btn-user btn-block">
-                                            Ingresar
+                                            Recuperar Acceso
                                         </button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="@Url.Action("RecuperarAcceso", "Usuario")">¿Olvidó su contraseña?</a>
+                                        <a class="small" href="@Url.Action("LoginUsuario", "Usuario")">Volver al login</a>
                                     </div>
-
                                     <div class="text-center">
-                                        <a class="small" href="@Url.Action("RegistrarUsuario", "Usuario")">¿No estás registrado, regístrate aquí?</a>
+                                        <a class="small" href="@Url.Action("RegistrarUsuario", "Usuario")">¿No estás registrado? Regístrate aquí</a>
                                     </div>
                                 </div>
                             </div>

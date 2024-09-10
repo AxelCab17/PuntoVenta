@@ -4,7 +4,6 @@
     {
      
             public long IdProveedor { get; set; }
-            public string Imagen { get; set; }
             public string NumeroDocumento { get; set; }
             public string Nombre { get; set; }
             public string Correo { get; set; }

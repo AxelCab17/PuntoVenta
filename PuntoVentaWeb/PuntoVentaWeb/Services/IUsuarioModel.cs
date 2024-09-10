@@ -11,5 +11,7 @@ namespace PuntoVentaWeb.Services
         Task<UsuarioRespuesta?> ConsultarUnUsuarioAsync(int IdUsuario);
         Task<UsuarioRespuesta?> ActualizarUsuarioAsync(UsuarioEnt entidad);
         Task<UsuarioRespuesta?> EliminarUsuarioAsync(int IdUsuario);
-    }
+		Task<UsuarioRespuesta?> RecuperarAccesoAsync(string Identificacion);
+
+	}
 }

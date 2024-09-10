@@ -14,10 +14,11 @@ namespace PuntoVentaAPI.Entities
         public int IdRol { get; set; }
 
         public string? Token { get; set; }
+		public bool EsTemporal { get; set; }
+		public DateTime VigenciaTemporal { get; set; }
 
 
-
-        public class UsuarioRespuesta
+		public class UsuarioRespuesta
         {
             public UsuarioRespuesta()
             {
