@@ -1,0 +1,37 @@
+﻿@model PuntoVentaWeb.Entities.CategoriaEnt
+
+@{
+    ViewData["Title"] = "Registrar Categoría";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Modal para Registrar Categoría -->
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalRegistrarCategoriaLabel">Registrar Categoría</h5>
+        </div>
+        <div class="modal-body">
+            <form asp-action="RegistrarCategoria" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-right">
+                    <a asp-action="ConsultarCategorias" class="btn btn-secondary">Cancelar</a>
+                    <input type="submit" value="Registrar" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
