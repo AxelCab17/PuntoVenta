@@ -1,10 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using PuntoVentaWeb.Entities;
+﻿using PuntoVentaWeb.Entities;
 using PuntoVentaWeb.Services;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using static PuntoVentaWeb.Entities.UsuarioEnt;
-using static System.Net.WebRequestMethods;
 
 namespace PuntoVentaWeb.Models
 {
@@ -80,19 +78,6 @@ namespace PuntoVentaWeb.Models
             if (resp.IsSuccessStatusCode)
                 return await resp.Content.ReadFromJsonAsync<UsuarioRespuesta>();
             return null;
-		}
-
-		public async Task<UsuarioRespuesta?> RecuperarAccesoAsync(string Identificacion)
-		{
-			string url = _iConfiguration.GetSection("settings:UrlApi").Value + "api/Usuario/RecuperarAcceso?Identificacion=" + Identificacion;
-			var result = await _httpClient.GetAsync(url);
-
-			if (result.IsSuccessStatusCode)
-				return await result.Content.ReadFromJsonAsync<UsuarioRespuesta>();
-			else
-				return new UsuarioRespuesta(); // O ajusta este valor según lo que quieras devolver en caso de error.
-		}
-
-
-	}
+        }
+    }
 }

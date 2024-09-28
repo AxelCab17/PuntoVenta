@@ -16,12 +16,11 @@ namespace PuntoVentaWeb.Entities
         public string? Estado { get; set; }
         public string? Descripcion { get; set; }
         public int IdRol { get; set; }
+
         public string? Token { get; set; }
-		public bool EsTemporal { get; set; }
-		public DateTime VigenciaTemporal { get; set; }
 
 
-		public class UsuarioRespuesta
+        public class UsuarioRespuesta
         {
             public UsuarioRespuesta()
             {
@@ -31,10 +30,12 @@ namespace PuntoVentaWeb.Entities
                 Datos = null;
             }
 
+
             public string Codigo { get; set; }
             public string Mensaje { get; set; }
             public UsuarioEnt? Dato { get; set; }
             public List<UsuarioEnt>? Datos { get; set; }
+
         }
     }
 

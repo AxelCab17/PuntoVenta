@@ -46,7 +46,12 @@
                                             <input asp-for="Contrasenna" class="form-control form-control-user" placeholder="Contraseña" type="password" required />
                                             <span asp-validation-for="Contrasenna" class="text-danger"></span>
                                         </div>
-                                        
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="chkMantenerSesion">
+                                                <label class="custom-control-label" for="chkMantenerSesion">Mantener Sesión</label>
+                                            </div>
+                                        </div>
                                         <!-- Mensaje de error -->
                                         @if (ViewData["Mensaje"] != null)
                                         {
@@ -62,7 +67,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="@Url.Action("RecuperarAcceso", "Usuario")">¿Olvidó su contraseña?</a>
+                                        <a class="small" href="@Url.Action("Password", "Login")">¿Olvidó su contraseña?</a>
                                     </div>
                                 </div>
                             </div>
@@ -81,14 +86,5 @@
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
-    <script>
-        $(document).ready(function () {
-            var mensaje = '@ViewData["Mensaje"]';
-            if (mensaje) {
-                // Mostrar el popup con el mensaje de error
-                alert(mensaje);
-            }
-        });
-    </script>
 </body>
 </html>
