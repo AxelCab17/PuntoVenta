@@ -46,8 +46,6 @@ namespace PuntoVentaWeb.Controllers
         }
 
 
-        //------------------------------------------------------------------------------------------Arqueos---------------------------------------------------------------------------------------- //
-
         [HttpGet]
         public IActionResult ObtenerTodosArqueos()
         {
@@ -59,6 +57,23 @@ namespace PuntoVentaWeb.Controllers
             {
                 ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
                 return View(new List<CajaEnt>());
+            }
+        }
+
+
+        //------------------------------------------------------------------------------------------Arqueos---------------------------------------------------------------------------------------- //
+
+        [HttpGet]
+        public IActionResult CalcularCierreSemanal()
+        {
+            var respuestaModelo = _ArqueoModel.CalcularCierreSemanal();
+
+            if (respuestaModelo?.Codigo == "1")
+                return View(respuestaModelo?.Datos);
+            else
+            {
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                return View(new List<CierreSemanalEnt>());
             }
         }
 

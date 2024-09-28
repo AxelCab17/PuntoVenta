@@ -1,10 +1,15 @@
-﻿namespace PuntoVentaWeb.Entities
+﻿using System.ComponentModel;
+
+namespace PuntoVentaWeb.Entities
 {
     public class ArqueoTotalesEnt
     {
-        public decimal TotalBilletes { get; set; }
-        public decimal TotalMonedas { get; set; }
-        public decimal TotalEfectivo { get; set; }
+		[DisplayName("Total de Billetes")]
+		public decimal TotalBilletes { get; set; }
+		[DisplayName("Total de Monedas")]
+		public decimal TotalMonedas { get; set; }
+		[DisplayName("Total de Efectivo")]
+		public decimal TotalEfectivo { get; set; }
     }
 
     public class ArqueoTotalesRespuesta

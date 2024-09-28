@@ -81,5 +81,14 @@
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
+    <script>
+        $(document).ready(function () {
+            var mensaje = '@ViewData["Mensaje"]';
+            if (mensaje) {
+                // Mostrar el popup con el mensaje de error
+                alert(mensaje);
+            }
+        });
+    </script>
 </body>
 </html>

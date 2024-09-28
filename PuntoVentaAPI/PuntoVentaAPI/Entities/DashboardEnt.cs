@@ -1,4 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.Collections.Generic;
 
 namespace PuntoVentaAPI.Entities
 {
@@ -9,6 +9,9 @@ namespace PuntoVentaAPI.Entities
         public int TotalVentas { get; set; }
         public decimal IngresosTotales { get; set; }
         public int TotalCategorias { get; set; }
+
+        // Nueva propiedad para los productos más vendidos
+        public List<string> ProductosMasVendidos { get; set; } = new List<string>();
 
         public class DashboardRespuesta
         {

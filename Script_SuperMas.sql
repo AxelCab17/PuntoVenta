@@ -1291,6 +1291,41 @@ BEGIN
     VALUES (@Imagen, @NumeroDocumento, @Nombre, @Correo, @Direccion, @Telefono, @Impuesto);
 END;
 
+Create PROCEDURE [dbo].[CalcularCierreSemanal]
+AS
+BEGIN
+    -- Variables para almacenar los totales
+    DECLARE @TotalBilletesSemana DECIMAL(18, 2) = 0;
+    DECLARE @TotalMonedasSemana DECIMAL(18, 2) = 0;
+    DECLARE @TotalEfectivoSemana DECIMAL(18, 2) = 0;
+
+    -- Calcular el total de billetes y monedas de los últimos 7 días
+    SELECT 
+        @TotalBilletesSemana = ISNULL(SUM(
+            ISNULL(Billetes1000, 0) * 1000 +
+            ISNULL(Billetes2000, 0) * 2000 +
+            ISNULL(Billetes5000, 0) * 5000 +
+            ISNULL(Billetes10000, 0) * 10000 +
+            ISNULL(Billetes20000, 0) * 20000
+        ), 0),
+        @TotalMonedasSemana = ISNULL(SUM(
+            ISNULL(Monedas5, 0) * 5 +
+            ISNULL(Monedas10, 0) * 10 +
+            ISNULL(Monedas25, 0) * 25 +
+            ISNULL(Monedas50, 0) * 50 +
+            ISNULL(Monedas100, 0) * 100 +
+            ISNULL(Monedas500, 0) * 500
+        ), 0),
+        @TotalEfectivoSemana = @TotalBilletesSemana + @TotalMonedasSemana
+    FROM Arqueo
+    WHERE Fecha >= DATEADD(DAY, -7, GETDATE());
+
+    -- Retornar los resultados
+    SELECT @TotalBilletesSemana AS TotalBilletesSemana, 
+           @TotalMonedasSemana AS TotalMonedasSemana, 
+           @TotalEfectivoSemana AS TotalEfectivoSemana;
+END
+
 
 
 

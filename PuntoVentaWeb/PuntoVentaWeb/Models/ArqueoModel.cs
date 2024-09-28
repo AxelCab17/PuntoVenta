@@ -42,6 +42,18 @@ namespace PuntoVentaWeb.Models
 
             return null;
         }
+
+        public CierreSemanalRespuesta? CalcularCierreSemanal()
+        {
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Arqueo/CalcularCierreSemanal";
+            var resp = _http.GetAsync(url).Result;
+
+            if (resp.IsSuccessStatusCode)
+                return resp.Content.ReadFromJsonAsync<CierreSemanalRespuesta>().Result;
+
+            return null;
+        }
+
         //------------------------------------------------------------------------------------------Arqueos---------------------------------------------------------------------------------------- //
 
         public CajaRespuesta? ObtenerTodosArqueos()

@@ -104,6 +104,41 @@ namespace PuntoVentaAPI.Controllers
         }
 
 
+        [AllowAnonymous]
+        [Route("CalcularCierreSemanal")]
+        [HttpGet]
+        public IActionResult CalcularCierreSemanal()
+        {
+            var respuesta = new CierreSemanalRespuesta();
+            try
+            {
+                using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    var resultadoBD = db.Query<CierreSemanalEnt>("CalcularCierreSemanal", commandType: CommandType.StoredProcedure).ToList();
+
+                    if (resultadoBD == null || resultadoBD.Count == 0)
+                    {
+                        respuesta.Codigo = "-1";
+                        respuesta.Mensaje = "No hay cierres de cajas registrados.";
+                    }
+                    else
+                    {
+                        respuesta.Datos = resultadoBD;
+                        respuesta.Codigo = "1";
+                        respuesta.Mensaje = "Cierre de caja semanal consultado con éxito.";
+                    }
+                    return Ok(respuesta);
+                }
+            }
+            catch (SqlException ex)
+            {
+                return StatusCode(500, new { message = "Error al consultar el arqueo en la base de datos.", error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Ocurrió un error inesperado al consultar el arqueo.", error = ex.Message });
+            }
+        }
 
 
         //------------------------------------------------------------------------------------------Arqueos---------------------------------------------------------------------------------------- //
@@ -143,6 +178,10 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error inesperado al consultar el arqueo.", error = ex.Message });
             }
         }
+
+       
+
+
 
         [AllowAnonymous]
         [Route("RegistrarArqueo")]

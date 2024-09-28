@@ -42,7 +42,7 @@ namespace PuntoVentaWeb.Controllers
                 }
                 else
                 {
-                    string mensajeError = respuestaApi?.Mensaje ?? "Error desconocido.";
+                    string mensajeError = respuestaApi?.Mensaje ?? "Error al registrar el usuario.";
                     ModelState.AddModelError("", mensajeError);
                     ViewBag.Roles = GetRoles();
                     return View(entidad);
@@ -94,7 +94,7 @@ namespace PuntoVentaWeb.Controllers
                     }
                 }
 
-                ViewBag.MsjPantalla = "Credenciales incorrectas.";
+                ViewData["Mensaje"] = "Error, las credenciales ingresadas son inválidas";
                 return View(entidad);
             }
             return View(entidad);
