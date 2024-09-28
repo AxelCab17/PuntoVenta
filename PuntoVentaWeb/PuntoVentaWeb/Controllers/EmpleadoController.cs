@@ -22,7 +22,8 @@ namespace PuntoVentaWeb.Controllers
                 return RedirectToAction("ConsultarEmpleados", "Empleado");
             else
             {
-                return RedirectToAction("ConsultarEmpleados", "Empleado");
+                ViewData["Mensaje"] = RespuestaApi?.Mensaje ?? "Error al registrar el empleado";
+                return View(entidad);
             }
         }
 
