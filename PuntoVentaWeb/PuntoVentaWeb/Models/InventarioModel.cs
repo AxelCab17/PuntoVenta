@@ -1,66 +1,23 @@
 ﻿using PuntoVentaWeb.Entities;
 using PuntoVentaWeb.Services;
-using static PuntoVentaWeb.Entities.ProveedorEnt;
+using static PuntoVentaWeb.Entities.InventarioEnt;
 
 namespace PuntoVentaWeb.Models
 {
-    public class ProveedorModel(HttpClient _http, IConfiguration _configuration) : IProveedorModel
+    public class InventarioModel(HttpClient _http, IConfiguration _configuration) : IInventarioModel
     {
 
-        public ProveedorRespuesta? RegistrarProveedor(ProveedorEnt entidad)
-        {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/RegistrarProveedor";
 
-            JsonContent body = JsonContent.Create(entidad);
-            var RespuestaApi = _http.PostAsync(url, body).Result;
-            if (RespuestaApi.IsSuccessStatusCode)
-                return RespuestaApi.Content.ReadFromJsonAsync<ProveedorRespuesta>().Result;
-            return null;
-        }
-
-        public ProveedorRespuesta? ConsultarProveedores()
+        public InventarioRespuesta? ConsultarInventario()
         {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/ConsultarProveedores";
+            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Inventario/ConsultarInventario";
             var resp = _http.GetAsync(url).Result;
 
             if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<ProveedorRespuesta>().Result;
+                return resp.Content.ReadFromJsonAsync<InventarioRespuesta>().Result;
 
             return null;
         }
 
-        public ProveedorRespuesta? ConsultarUnProveedor(long IdProveedor)
-        {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/ConsultarUnProveedor?IdProveedor=" + IdProveedor;
-            var resp = _http.GetAsync(url).Result;
-
-            if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<ProveedorRespuesta>().Result;
-
-            return null;
-        }
-
-        public ProveedorRespuesta? ActualizarProveedor(ProveedorEnt entidad)
-        {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/ActualizarProveedor";
-            JsonContent body = JsonContent.Create(entidad);
-            var resp = _http.PutAsync(url, body).Result;
-
-            if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<ProveedorRespuesta>().Result;
-
-            return null;
-        }
-
-
-        public ProveedorRespuesta? EliminarProveedor(long IdProveedor)
-        {
-            string url = _configuration.GetSection("settings:UrlApi").Value + "api/Proveedor/EliminarProveedor?IdProveedor=" + IdProveedor;
-            var resp = _http.DeleteAsync(url).Result;
-            if (resp.IsSuccessStatusCode)
-                return resp.Content.ReadFromJsonAsync<ProveedorRespuesta>().Result;
-
-            return null;
-        }
     }
 }

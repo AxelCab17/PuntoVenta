@@ -30,12 +30,10 @@ namespace PuntoVentaWeb.Entities
                 Datos = null;
             }
 
-
             public string Codigo { get; set; }
             public string Mensaje { get; set; }
             public UsuarioEnt? Dato { get; set; }
             public List<UsuarioEnt>? Datos { get; set; }
-
         }
     }
 
