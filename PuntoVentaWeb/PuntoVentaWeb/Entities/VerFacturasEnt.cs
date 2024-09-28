@@ -4,7 +4,7 @@
     {
         public int IdFactura { get; set; }
 
-        public DateTime Fecha { get; set; }
+        public string? Fecha { get; set; }
 
         public int Subtotal { get; set; }
 

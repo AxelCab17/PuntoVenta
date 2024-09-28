@@ -1,16 +1,29 @@
-﻿namespace PuntoVentaWeb.Entities
+﻿using System.ComponentModel;
+
+namespace PuntoVentaWeb.Entities
 {
    
    
 
     public class MovimientoEnt
     {
-        public int IdMovimiento { get; set; }
-        public int IdCaja { get; set; }
-        public string TipoMovimiento { get; set; }  // Ejemplo: "Ingreso" o "Egreso"
-        public decimal Monto { get; set; }
-        public string Descripcion { get; set; }
-        public DateTime Fecha { get; set; }
+		[DisplayName("ID del Movimiento")]
+		public int IdMovimiento { get; set; }
+
+		[DisplayName("ID de la Caja")]
+		public int IdCaja { get; set; }
+
+		[DisplayName("Tipo de Movimiento")]
+		public string TipoMovimiento { get; set; }  // Ejemplo: "Ingreso" o "Egreso"
+
+		[DisplayName("Monto del movimiento")]
+		public decimal Monto { get; set; }
+
+		[DisplayName("Descripción")]
+		public string Descripcion { get; set; }
+
+		[DisplayName("Fecha")]
+		public DateTime Fecha { get; set; }
 
 
     }

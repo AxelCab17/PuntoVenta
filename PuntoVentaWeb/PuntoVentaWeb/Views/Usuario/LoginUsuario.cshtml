@@ -64,10 +64,6 @@
                                     <div class="text-center">
                                         <a class="small" href="@Url.Action("RecuperarAcceso", "Usuario")">¿Olvidó su contraseña?</a>
                                     </div>
-
-                                    <div class="text-center">
-                                        <a class="small" href="@Url.Action("RegistrarUsuario", "Usuario")">¿No estás registrado, regístrate aquí?</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -85,5 +81,14 @@
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
+    <script>
+        $(document).ready(function () {
+            var mensaje = '@ViewData["Mensaje"]';
+            if (mensaje) {
+                // Mostrar el popup con el mensaje de error
+                alert(mensaje);
+            }
+        });
+    </script>
 </body>
 </html>

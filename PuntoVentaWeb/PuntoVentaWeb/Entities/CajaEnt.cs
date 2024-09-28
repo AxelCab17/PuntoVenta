@@ -4,8 +4,9 @@ namespace PuntoVentaWeb.Entities
 {
     public class CajaEnt
     {
-        [DisplayName("Caja ID")]
-        public int IdCaja { get; set; }
+		[DisplayName("ID de la Caja")]
+
+		public int IdCaja { get; set; }
 
         [DisplayName("Monto Inicial")]
         public decimal MontoInicial { get; set; }

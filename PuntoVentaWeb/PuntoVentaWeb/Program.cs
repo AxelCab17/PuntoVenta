@@ -21,6 +21,9 @@ builder.Services.AddSingleton<IVerFacturasModel, VerFacturasModel>();
 builder.Services.AddSingleton<IDashboardModel, DashboardModel>();
 builder.Services.AddSingleton<IProductoModel, ProductoModel>();
 builder.Services.AddSingleton<IInventarioModel, InventarioModel>();
+
+builder.Services.AddSingleton<ICategoriaModel, CategoriaModel>();
+
 builder.Services.AddSingleton<IArqueoModel, ArqueoModel>();
 
 

@@ -21,12 +21,12 @@ namespace PuntoVentaWeb.Controllers
 
         public IActionResult Imprimir()
         {
-            var datosFacturaJson = TempData["DatosFactura"] as string;
-            if (!string.IsNullOrEmpty(datosFacturaJson))
-            {
-                var datosFactura = JsonConvert.DeserializeObject<List<FacturaEnt>>(datosFacturaJson);
-                PrintContent(datosFactura);
-            }
+            //var datosFacturaJson = TempData["DatosFactura"] as string;
+            //if (!string.IsNullOrEmpty(datosFacturaJson))
+            //{
+            //    var datosFactura = JsonConvert.DeserializeObject<List<FacturaEnt>>(datosFacturaJson);
+            //    PrintContent(datosFactura);
+            //}
 
             return RedirectToAction("Carrito", "Carrito");
         }

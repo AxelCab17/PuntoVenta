@@ -10,10 +10,11 @@ namespace PuntoVentaWeb.Services
         //Caja//
         CajaRespuesta? CrearCaja(CajaEnt entidad);
         CajaRespuesta? EliminarCaja(int IdCaja);
+        CierreSemanalRespuesta? CalcularCierreSemanal();
 
 
-		//Arqueos//
-		ArqueoRespuesta? ObtenerCajaPorArqueoId(int IdCaja);
+        //Arqueos//
+        ArqueoRespuesta? ObtenerCajaPorArqueoId(int IdCaja);
 		CajaRespuesta? ObtenerTodosArqueos();
         ArqueoRespuesta? RegistrarArqueo(ArqueoEnt entidad);
 
