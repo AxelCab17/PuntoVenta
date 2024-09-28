@@ -28,6 +28,15 @@ namespace PuntoVentaAPI.Controllers
             {
                 using (var db = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
+                    // Verifica si la categoría existe
+                    var categoria = db.Query<CategoriaEnt>("SELECT * FROM Categoria WHERE Id = @Id", new { Id = producto.IdCategoria }).FirstOrDefault();
+                    if (categoria == null)
+                    {
+                        productoRespuesta.Codigo = "-1";
+                        productoRespuesta.Mensaje = "La categoría especificada no existe.";
+                        return BadRequest(productoRespuesta);
+                    }
+
                     var parametros = new
                     {
                         producto.IdProducto,
@@ -57,6 +66,7 @@ namespace PuntoVentaAPI.Controllers
                 return StatusCode(500, new { message = "Ocurrió un error al registrar el producto.", error = ex.Message });
             }
         }
+
 
         [AllowAnonymous]
         [Route("ConsultarProductos")]
