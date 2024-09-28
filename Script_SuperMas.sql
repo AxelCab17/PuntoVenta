@@ -492,7 +492,7 @@ BEGIN
 		df.IdProducto,
         df.Total AS TotalDetalle,
 		df.IdFactura,
-        f.Fecha,
+        FORMAT(Fecha, 'dd/MM/yyyy') AS Fecha,
         f.Subtotal,
         f.IVA,
         f.Total AS TotalFactura,
@@ -521,7 +521,7 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT [IdFactura]
-          ,[Fecha]
+          ,FORMAT(Fecha, 'dd/MM/yyyy') AS Fecha
           ,[Subtotal]
           ,[IVA]
           ,[Total]

@@ -7,7 +7,7 @@ namespace PuntoVentaAPI.Entities
 
         public int IdFactura { get; set; }
 
-        public DateTime Fecha { get; set; }
+        public string? Fecha { get; set; }
 
         public int Subtotal { get; set; }
 
@@ -17,7 +17,7 @@ namespace PuntoVentaAPI.Entities
 
         public int IdCajero { get; set; }
 
-        public string NombreCajero { get; set; }
+        public string? NombreCajero { get; set; }
 
 
         public class VerFacturasRespuesta
