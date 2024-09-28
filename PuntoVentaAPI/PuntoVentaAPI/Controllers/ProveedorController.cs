@@ -32,7 +32,7 @@ namespace PuntoVentaAPI.Controllers
                 {
                     var parametros = new
                     {
-                        proveedor.Imagen,
+               
                         proveedor.NumeroDocumento,
                         proveedor.Nombre,
                         proveedor.Correo,
@@ -157,7 +157,7 @@ namespace PuntoVentaAPI.Controllers
                         new
                         {
                             proveedor.IdProveedor,
-                            proveedor.Imagen,
+                  
                             proveedor.NumeroDocumento,
                             proveedor.Nombre,
                             proveedor.Correo,

@@ -33,9 +33,7 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.First().IdProveedor)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.First().Imagen)
-                                </th>
+                           
                                 <th>
                                     @Html.DisplayNameFor(model => model.First().NumeroDocumento)
                                 </th>
@@ -62,9 +60,7 @@
                             {
                                 <tr class="table-row">
                                     <td>@Html.DisplayFor(modelItem => item.IdProveedor)</td>
-                                    <td>
-                                        <img src="@Url.Content(item.Imagen)" alt="Imagen" style="width: 50px; height: 50px;" />
-                                    </td>
+                                  
                                     <td>@Html.DisplayFor(modelItem => item.NumeroDocumento)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Correo)</td>

@@ -9,12 +9,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Hosting;
+using PuntoVentaAPI.Interfaces;
 
 namespace PuntoVentaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController(IConfiguration iConfiguration) : ControllerBase
+    public class UsuarioController(IConfiguration iConfiguration, IComunesModel iComunesModel, IHostEnvironment iHost) : ControllerBase
     {
 
         [AllowAnonymous]
@@ -287,9 +289,56 @@ namespace PuntoVentaAPI.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+		[HttpGet]
+		[Route("RecuperarAcceso")]
+		public async Task<IActionResult> RecuperarAcceso(string Identificacion)
+		{
+			UsuarioRespuesta resp = new UsuarioRespuesta();
+
+			using (var context = new SqlConnection(iConfiguration.GetSection("ConnectionStrings:DefaultConnection").Value))
+			{
+				var result = await context.QueryFirstOrDefaultAsync<UsuarioEnt>("ConsultarUsuarioIdentificacion",
+					new { Identificacion },
+					commandType: System.Data.CommandType.StoredProcedure);
+
+				if (result != null)
+				{
+					var codigoAleatorio = iComunesModel.GenerarCodigo();
+					var Contrasenna = iComunesModel.Encrypt(codigoAleatorio);
+					var EsTemporal = true;
+					var VigenciaTemporal = DateTime.Now.AddMinutes(30);
+
+					await context.ExecuteAsync("ActualizarContrasenna",
+					new { result.IdUsuario, Contrasenna, EsTemporal, VigenciaTemporal },
+					commandType: System.Data.CommandType.StoredProcedure);
+
+					string ruta = Path.Combine(iHost.ContentRootPath, "FormatoCorreo.html");
+					var html = System.IO.File.ReadAllText(ruta);
+
+					html = html.Replace("@@Nombre", result.Nombre);
+					html = html.Replace("@@Contrasenna", codigoAleatorio);
+					html = html.Replace("@@Vencimiento", VigenciaTemporal.ToString("dd/MM/yyyy HH:mm"));
+
+					iComunesModel.EnviarCorreo(result.Correo!, "Recuperar Acceso Sistema", html);
+
+					resp.Codigo = "1";
+					resp.Mensaje = "OK";
+					resp.Dato = result;
+					return Ok(resp);
+				}
+				else
+				{
+					resp.Codigo = "0";
+					resp.Mensaje = "No hay usuarios registrados con esa identificación.";
+					resp.Dato = null;
+					return Ok(resp);
+				}
+			}
+		}
 
 
-        private bool EsAdministrador()
+
+		private bool EsAdministrador()
         {
             var userrol = User.Claims.Select(Claim => new {Claim.Type, Claim.Value}).
                 FirstOrDefault( x => x.Type == "IdRol")!.Value;

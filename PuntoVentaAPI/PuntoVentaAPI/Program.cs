@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using PuntoVentaAPI.Interfaces;
+using PuntoVentaAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ string SecretKey = builder.Configuration["settings:SecretKey"]!.ToString();
 builder.Services.AddControllers().AddJsonOptions(x => { x.JsonSerializerOptions.PropertyNamingPolicy = null; });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IComunesModel, ComunesModel>();
 
 builder.Services.AddSwaggerGen(options =>
 {
