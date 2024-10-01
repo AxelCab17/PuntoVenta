@@ -49,6 +49,7 @@ namespace PuntoVentaWeb.Controllers
                 var descuento = item.Descuento;
                 var tipoPago = item.TipoPago;
                 var pago = item.Pago;
+                var idEmpleado = HttpContext.Session.GetInt32("IdUsuario");
 
                 if (cont == 1)
                 {
@@ -57,10 +58,10 @@ namespace PuntoVentaWeb.Controllers
                 entidad.NuevaFactura = nuevaFact;
                 entidad.Cantidad = cantidad;
                 entidad.IdProducto = productoId;
-                entidad.IdCajero = 1;
                 entidad.Descuento = Decimal.ToInt32(descuento);
                 entidad.TipoPago = tipoPago;
                 entidad.Pago = pago;
+                entidad.IdCajero = idEmpleado.Value;
                 nuevaFact = 0;
                 RegistrarFactura(entidad);
 
