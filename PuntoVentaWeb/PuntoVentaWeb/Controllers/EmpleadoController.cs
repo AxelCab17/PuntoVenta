@@ -63,15 +63,15 @@ namespace PuntoVentaWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult EliminarEmpleado(EmpleadoEnt entidad)
+        public IActionResult EliminarEmpleado(int IdEmpleado)
         {
-            var respuestaModelo = _EmpleadoModel.EliminarEmpleado(entidad.Cedula);
+            var respuestaModelo = _EmpleadoModel.EliminarEmpleado(IdEmpleado);
 
             if (respuestaModelo?.Codigo == "1")
                 return RedirectToAction("ConsultarEmpleados", "Empleado");
             else
             {
-                ViewBag.MsjPantalla = respuestaModelo?.Mensaje;
+                ViewBag.MsjPantalla = respuestaModelo?.Mensaje ?? "Error al eliminar el empleado";
                 return View();
             }
         }
